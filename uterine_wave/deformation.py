@@ -13,10 +13,15 @@ def validate_time(time_s, count, hop):
 
 def interval_support(tracks, hop):
     """No invalid step, segment change or correction-epoch change may be crossed."""
-    valid = np.asarray(tracks['target_valid'], bool)
+    valid = np.asarray(tracks['target_valid'], bool).copy()
     if valid.ndim != 2:
         raise ValueError("target_valid must be time x point")
     validate_time(tracks['time_s'], len(valid), hop)
+    if 'pose_valid' in tracks:
+        pose_valid = np.asarray(tracks['pose_valid'], bool)
+        if pose_valid.shape != (len(valid),):
+            raise ValueError('pose_valid must have one entry per frame')
+        valid &= pose_valid[:, None]
     step = np.asarray(tracks['step_valid'], bool).copy()
     segment = np.asarray(tracks['segment_id'])
     if step.shape != valid.shape or segment.shape != valid.shape:
@@ -98,3 +103,28 @@ def compute_maps(tracks, grid, hop=8):
     return dict(A=np.where(good_a, a, np.nan), B=np.where(good_b, b, np.nan),
                 A_valid=good_a, B_valid=good_b, time_s=np.asarray(tracks['time_s'])[hop:],
                 A_arc_positions=grid['arc_positions'], B_arc_positions=arcs)
+
+
+def compute_spacetime(tracks, grid, *, interval_s=.96):
+    """Frozen A0 measurement interface, separate from any wave/event detector.
+
+    Choose a native-frame hop near the requested physical interval; retain its
+    actual per-sample duration. Legacy compute_maps time_s stays right-ended.
+    s remains the full annotated wall's normalized arc, without stretching a
+    retained/valid subregion back to 0..1. No interpolation or smoothing.
+    """
+    if not np.isfinite(interval_s) or interval_s <= 0:
+        raise ValueError('interval_s must be finite and positive')
+    t = validate_time(tracks['time_s'], len(tracks['corrected']), 1)
+    hop = max(1, int(np.floor(interval_s/np.median(np.diff(t))+.5)))
+    maps = compute_maps(tracks, grid, hop)
+    s = np.asarray(grid['u'], float)
+    if s.shape != (maps['A'].shape[2],) or not np.isfinite(s).all() or np.any(np.diff(s) <= 0) or np.any((s < 0) | (s > 1)):
+        raise ValueError('Expected ordered normalized full-wall spatial coordinates')
+    duration = t[hop:]-t[:-hop]
+    return dict(A=maps['A'], epsilon=maps['A']*duration[:, None, None],
+                valid_mask=maps['A_valid'], s=s.copy(),
+                interval_start_s=t[:-hop].copy(), interval_end_s=t[hop:].copy(),
+                interval_center_s=(t[:-hop]+t[hop:])/2, interval_dt_s=duration,
+                hop=hop, nominal_interval_s=float(interval_s),
+                A_arc_positions=maps['A_arc_positions'])
