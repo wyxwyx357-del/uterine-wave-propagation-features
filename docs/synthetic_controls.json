@@ -1,0 +1,411 @@
+{
+  "config": {
+    "window_px": 21,
+    "spacing_px": 10.5,
+    "radial_baseline_px": 21.0,
+    "endpoint_margin_px": 21.0,
+    "band_fractions": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "coordinate_scale": 0.5
+  },
+  "results": [
+    {
+      "point_count": 175,
+      "point_valid_fraction": 1.0,
+      "point_rmse_px": 0.0,
+      "route_A": [
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0,
+          "reference_rms": 0.0,
+          "measured_rms": 0.0,
+          "direction_columns": [
+            0,
+            25
+          ],
+          "measured_ER": null,
+          "reference_ER": null
+        },
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0,
+          "reference_rms": 0.0,
+          "measured_rms": 0.0,
+          "direction_columns": [
+            0,
+            25
+          ],
+          "measured_ER": null,
+          "reference_ER": null
+        }
+      ],
+      "route_B": [
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0,
+          "reference_rms": 0.0,
+          "measured_rms": 0.0,
+          "direction_columns": [
+            0,
+            21
+          ],
+          "measured_ER": null,
+          "reference_ER": null
+        },
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0,
+          "reference_rms": 0.0,
+          "measured_rms": 0.0,
+          "direction_columns": [
+            0,
+            21
+          ],
+          "measured_ER": null,
+          "reference_ER": null
+        },
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0,
+          "reference_rms": 0.0,
+          "measured_rms": 0.0,
+          "direction_columns": [
+            0,
+            21
+          ],
+          "measured_ER": null,
+          "reference_ER": null
+        }
+      ],
+      "condition": "static"
+    },
+    {
+      "point_count": 175,
+      "point_valid_fraction": 0.9998631308810949,
+      "point_rmse_px": 0.06424979609691342,
+      "route_A": [
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0007723563863362381,
+          "reference_rms": 0.0,
+          "measured_rms": 0.0007723563863362381,
+          "direction_columns": [
+            0,
+            25
+          ],
+          "measured_ER": -0.005824560189839095,
+          "reference_ER": null
+        },
+        {
+          "valid_fraction": 0.998052738336714,
+          "rmse": 0.0007910761409883853,
+          "reference_rms": 0.0,
+          "measured_rms": 0.0007910761409883853,
+          "direction_columns": [
+            0,
+            13
+          ],
+          "measured_ER": 0.04888153356595192,
+          "reference_ER": null
+        }
+      ],
+      "route_B": [
+        {
+          "valid_fraction": 0.9942045783830774,
+          "rmse": 0.00014222761467087464,
+          "reference_rms": 0.0,
+          "measured_rms": 0.00014222761467087464,
+          "direction_columns": [
+            0,
+            9
+          ],
+          "measured_ER": -0.016272765551613055,
+          "reference_ER": null
+        },
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.00014625767048527562,
+          "reference_rms": 0.0,
+          "measured_rms": 0.00014625767048527562,
+          "direction_columns": [
+            0,
+            21
+          ],
+          "measured_ER": -0.04460879108715925,
+          "reference_ER": null
+        },
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.00014054390100943937,
+          "reference_rms": 0.0,
+          "measured_rms": 0.00014054390100943937,
+          "direction_columns": [
+            0,
+            21
+          ],
+          "measured_ER": 0.0297022183533552,
+          "reference_ER": null
+        }
+      ],
+      "condition": "rigid"
+    },
+    {
+      "point_count": 175,
+      "point_valid_fraction": 0.9999543769603649,
+      "point_rmse_px": 0.055753207661946635,
+      "route_A": [
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0004804728046695677,
+          "reference_rms": 0.0005243150905329334,
+          "measured_rms": 0.0007104663598607341,
+          "normalized_rmse": 0.9163817966429256,
+          "rms_ratio": 1.3550370238983387,
+          "correlation": 0.7367397582171075,
+          "direction_columns": [
+            0,
+            25
+          ],
+          "measured_ER": -0.006013976372609106,
+          "reference_ER": -3.0872471564541003e-12
+        },
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0005816051303989992,
+          "reference_rms": 0.0005023172751995291,
+          "measured_rms": 0.0007582234487450085,
+          "normalized_rmse": 1.1578441736210956,
+          "rms_ratio": 1.5094512695065663,
+          "correlation": 0.6419064594364995,
+          "direction_columns": [
+            0,
+            25
+          ],
+          "measured_ER": -0.03211564198164034,
+          "reference_ER": 7.227150867571208e-12
+        }
+      ],
+      "route_B": [
+        {
+          "valid_fraction": 1.0,
+          "rmse": 4.667102191592554e-05,
+          "reference_rms": 3.442498712357056e-05,
+          "measured_rms": 5.67863914395586e-05,
+          "normalized_rmse": 1.3557309912244004,
+          "rms_ratio": 1.6495689957913544,
+          "correlation": 0.5707769227444599,
+          "direction_columns": [
+            0,
+            21
+          ],
+          "measured_ER": 0.055677181749156715,
+          "reference_ER": -1.3118518888107238e-15
+        },
+        {
+          "valid_fraction": 0.9942045783830774,
+          "rmse": 4.6990378541527756e-05,
+          "reference_rms": 3.882997044761993e-05,
+          "measured_rms": 5.9614726959570654e-05,
+          "normalized_rmse": 1.210157463419033,
+          "rms_ratio": 1.5352761352210793,
+          "correlation": 0.6163237401374683,
+          "direction_columns": [
+            0,
+            9
+          ],
+          "measured_ER": 0.04875199779045121,
+          "reference_ER": -8.115686504318305e-16
+        },
+        {
+          "valid_fraction": 1.0,
+          "rmse": 5.0561861387845695e-05,
+          "reference_rms": 4.37731440305627e-05,
+          "measured_rms": 6.506432385813103e-05,
+          "normalized_rmse": 1.1550886395672897,
+          "rms_ratio": 1.4863982311323738,
+          "correlation": 0.6307698820279195,
+          "direction_columns": [
+            0,
+            21
+          ],
+          "measured_ER": -0.005066842816901582,
+          "reference_ER": 0.0
+        }
+      ],
+      "condition": "local_once"
+    },
+    {
+      "point_count": 175,
+      "point_valid_fraction": 0.9994525235243799,
+      "point_rmse_px": 0.09335742062059328,
+      "route_A": [
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0011598156820239202,
+          "reference_rms": 0.00444657690270723,
+          "measured_rms": 0.004391941544317026,
+          "normalized_rmse": 0.26083337978879534,
+          "rms_ratio": 0.9877129397319229,
+          "correlation": 0.9656373230885582,
+          "direction_columns": [
+            0,
+            25
+          ],
+          "measured_ER": 0.983546200750654,
+          "reference_ER": 0.9858916362290531
+        },
+        {
+          "valid_fraction": 0.9950507099391481,
+          "rmse": 0.0019368597620061264,
+          "reference_rms": 0.004486891007223284,
+          "measured_rms": 0.0048135782128053625,
+          "normalized_rmse": 0.4316707847121861,
+          "rms_ratio": 1.0728092581380195,
+          "correlation": 0.9156257431474588,
+          "direction_columns": [
+            0,
+            13
+          ],
+          "measured_ER": 0.6707650752464329,
+          "reference_ER": 0.6750791054525614
+        }
+      ],
+      "route_B": [
+        {
+          "valid_fraction": 0.9942045783830774,
+          "rmse": 0.00012526245833508195,
+          "reference_rms": 0.00011140393970478007,
+          "measured_rms": 0.00016690734945203748,
+          "normalized_rmse": 1.1243988198893764,
+          "rms_ratio": 1.4982176563444811,
+          "correlation": 0.6609078761129509,
+          "direction_columns": [
+            0,
+            9
+          ],
+          "measured_ER": 0.23244322799641892,
+          "reference_ER": 0.46119542553373905
+        },
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.00014970203778032668,
+          "reference_rms": 0.00013556800819086823,
+          "measured_rms": 0.00020014126710915975,
+          "normalized_rmse": 1.1042578538851064,
+          "rms_ratio": 1.4763163505904568,
+          "correlation": 0.6638472500742559,
+          "direction_columns": [
+            0,
+            21
+          ],
+          "measured_ER": 0.8545137564886521,
+          "reference_ER": 0.9113016154412604
+        },
+        {
+          "valid_fraction": 0.9748865063266686,
+          "rmse": 0.00016313791446345515,
+          "reference_rms": 0.00016096270240611738,
+          "measured_rms": 0.0002274398989471838,
+          "normalized_rmse": 1.0135137645232222,
+          "rms_ratio": 1.4129975177314118,
+          "correlation": 0.6968358312975339,
+          "direction_columns": [
+            0,
+            9
+          ],
+          "measured_ER": 0.3396944284962091,
+          "reference_ER": 0.4650538666639089
+        }
+      ],
+      "condition": "C2F"
+    },
+    {
+      "point_count": 175,
+      "point_valid_fraction": 1.0,
+      "point_rmse_px": 0.09624051913088597,
+      "route_A": [
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0011821002035199296,
+          "reference_rms": 0.004446576892921235,
+          "measured_rms": 0.004416829416554198,
+          "normalized_rmse": 0.2658449931230884,
+          "rms_ratio": 0.9933100276722092,
+          "correlation": 0.9644706145425351,
+          "direction_columns": [
+            0,
+            25
+          ],
+          "measured_ER": -0.9822119664005295,
+          "reference_ER": -0.9858916379637328
+        },
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0019629533987702815,
+          "reference_rms": 0.004482046051181364,
+          "measured_rms": 0.004854315123426189,
+          "normalized_rmse": 0.4379592213812467,
+          "rms_ratio": 1.0830578418860073,
+          "correlation": 0.9146360683885628,
+          "direction_columns": [
+            0,
+            25
+          ],
+          "measured_ER": -0.9863183963492809,
+          "reference_ER": -0.9972585997931449
+        }
+      ],
+      "route_B": [
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.0001231276130040398,
+          "reference_rms": 0.00011122505179566016,
+          "measured_rms": 0.00016483436939456402,
+          "normalized_rmse": 1.107013312344837,
+          "rms_ratio": 1.4819895943711812,
+          "correlation": 0.6649184715108873,
+          "direction_columns": [
+            0,
+            21
+          ],
+          "measured_ER": -0.787567896967653,
+          "reference_ER": -0.9110726393900481
+        },
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.00014435182062148087,
+          "reference_rms": 0.00013556800816558615,
+          "measured_rms": 0.00019589460881569123,
+          "normalized_rmse": 1.0647926643959094,
+          "rms_ratio": 1.4449914214009891,
+          "correlation": 0.6762067102025838,
+          "direction_columns": [
+            0,
+            21
+          ],
+          "measured_ER": -0.8864295218322247,
+          "reference_ER": -0.9113016208571
+        },
+        {
+          "valid_fraction": 1.0,
+          "rmse": 0.00016219291175188514,
+          "reference_rms": 0.00015986880451622558,
+          "measured_rms": 0.0002265221435368017,
+          "normalized_rmse": 1.0145375906368506,
+          "rms_ratio": 1.416925235803657,
+          "correlation": 0.698131240124766,
+          "direction_columns": [
+            0,
+            21
+          ],
+          "measured_ER": -0.836362977262583,
+          "reference_ER": -0.9115750088951085
+        }
+      ],
+      "condition": "F2C"
+    }
+  ]
+}
