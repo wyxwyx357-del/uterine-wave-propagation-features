@@ -1,6 +1,6 @@
 # 当前波特征定义与计算入口
 
-目标是测量与妊娠研究有关的真实局部伸缩和传播；定义与文献相近，算法不要求逐项复现。当前版本`radial_wave_features_v1`。A0追踪冻结，主输入为`compute_spacetime`的约2 s径向图，实际跨度逐样本保存。
+目标是测量与妊娠研究有关的真实局部伸缩和传播；定义与文献相近，算法不要求逐项复现。当前版本`radial_wave_features_v2`。A0追踪冻结，主输入为`compute_spacetime`的约2 s径向图，实际跨度逐样本保存。
 
 ## 幅度
 
@@ -29,6 +29,12 @@ ER为`(E_C2F-E_F2C)/(E_C2F+E_F2C)`。正值C2F，负值F2C；接近零只表示�
 频率=唯一事件数/有效观察分钟。观察使用显式固定解剖区域，分母为指定复核时段内至少一壁该区域连续有效的时间并集；重复/重叠时段不重复累加。缺失不记无波。只有声明完整复核、无未解决事件且存在有效时长时输出正式次数/频率。未输入复核时为null；完整复核且无事件时才为0。
 
 ## 使用
+
+`--time-range`表示原始采集时段：要求每个保留样本的`interval_start_s >= START`且`interval_end_s <= END`，不是按中心时刻裁剪。若旧缓存仅保存中心和实际dt，可由`center +/- dt/2`精确恢复端点，不插值运动。例：10–50 s的2 s测量对应中心约11–49 s。复核时段也按完整测量区间计算有效支持，不把两端没有完整支持的原始时间计入分母。
+
+输出`analyzed_acquisition_time_range_s`说明实际使用的原始区间，`analyzed_interval_center_range_s`说明保留的中心范围；历史键`analyzed_time_range_s`仍是中心范围。`requested_acquisition_time_range_s`记录请求，不能混用这些时间含义。
+
+主幅度要求预设区域每个section均有至少一个达到现有幅度数值条件的连续段；缺一个section，`radial_stretch_activity_amplitude`即为null。`partial_region_activity_amplitude_QC`与逐点对/逐段结果保留局部诊断，不并入主幅度。该要求不要求所有点全片持续有效，亦不改变ER和局部分析。当前约12 s仅为至少一个带内FFT格点的数值下限；统一主分析最短时长/频率分辨率仍需按研究方案预设，本次未自行新增阈值。
 
 ```bash
 python -m uterine_wave summarize --maps outputs/maps_2s.npz --s-range 0.2 0.8 --time-range 10 50 --output outputs/patient_features.json
@@ -61,3 +67,4 @@ section为NPZ内**从0开始**的列索引，不能把原图P1直接当成索引
 - [Sammali 2019全文收录，第137–138页](https://pure.tue.nl/ws/portalfiles/portal/127273260/20190621_Kuijsters.pdf)：相对点距、频带SD与收缩频率。
 - [Huang 2022，方法II D–F](https://pure.tue.nl/ws/files/217021262/Characterization_of_Uterine_Peristaltic_Waves_by_Ultrasound_Strain_Analysis.pdf)：径向时空图、方向谱、速度、ER及双壁协调性。
 - [Wang 2022，方法2.2–2.3及讨论](https://www.frontiersin.org/journals/physiology/articles/10.3389/fphys.2022.983177/full)：事件计数与双向活动合并的歧义；不要求移植曲率计算。
+

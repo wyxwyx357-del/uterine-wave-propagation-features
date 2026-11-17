@@ -39,7 +39,8 @@ class PatientFeatures(unittest.TestCase):
         review = dict(complete=True, intervals=[[0, 60]], events=[front, back])
         result = summarize_patient(data, s_range=(.2, .8), review=review)
         self.assertEqual(result['event_summary']['event_count'], 1)
-        self.assertEqual(result['event_summary']['event_frequency_cpm'], 1)
+        self.assertAlmostEqual(result['event_summary']['effective_duration_s'], 58.)
+        self.assertAlmostEqual(result['event_summary']['event_frequency_cpm'], 60/58)
         self.assertAlmostEqual(result['events'][0]['velocity_paths_per_s'], .05)
         self.assertEqual(result['events'][0]['direction'], 'C2F')
         self.assertEqual(result['paired_wall_events'][0]['mean_arrival_difference_s'], 1.)
@@ -107,8 +108,61 @@ class PatientFeatures(unittest.TestCase):
         data['epsilon'][:, :, :3] *= 100
         result = summarize_patient(data, s_range=(.3, .7), time_range=(0, 30))
         self.assertEqual(result['walls'], baseline['walls'])
-        self.assertEqual(result['analyzed_time_range_s'], [0., 30.])
+        self.assertEqual(result['analyzed_time_range_s'], [1., 29.])
+        self.assertEqual(result['analyzed_acquisition_time_range_s'], [0., 30.])
+
+    def test_measurement_intervals_cannot_cross_acquisition_time_bounds(self):
+        data = maps()
+        clock = data['interval_center_s']
+        data['interval_start_s'] = clock-1
+        data['interval_end_s'] = clock+1
+        # Large changes at centers just inside 10..50 would leak motion
+        # from outside that acquisition window under center-only selection.
+        border = ((clock >= 10) & (clock < 11)) | ((clock > 49) & (clock <= 50))
+        baseline = summarize_patient(data, s_range=(.2, .8), time_range=(10, 50))
+        data['epsilon'][border] += 50
+        result = summarize_patient(data, s_range=(.2, .8), time_range=(10, 50))
+        self.assertEqual(result['walls'], baseline['walls'])
+        self.assertEqual(result['analyzed_interval_center_range_s'], [11., 49.])
+        self.assertEqual(result['analyzed_acquisition_time_range_s'], [10., 50.])
+        review = dict(complete=True, intervals=[[10, 50]], events=[])
+        reviewed = summarize_patient(data, s_range=(.2, .8), time_range=(10, 50), review=review)
+        self.assertEqual(reviewed['event_summary']['event_count'], 0)
+        self.assertAlmostEqual(reviewed['event_summary']['effective_duration_s'], 38.)
+        # Older maps have identical behavior from center +/- actual dt/2.
+        del data['interval_start_s'];del data['interval_end_s']
+        older = summarize_patient(data, s_range=(.2, .8), time_range=(10, 50))
+        self.assertEqual(result['walls'], older['walls'])
+
+    def test_missing_sections_cannot_become_a_full_region_primary_amplitude(self):
+        data = maps()
+        data['valid_mask'][:, 0, 5] = False
+        result = summarize_patient(data, s_range=(.2, .8))
+        front, back = result['walls']
+        self.assertEqual(front['analyzed_sections'], 6)
+        self.assertEqual(front['requested_sections'], 7)
+        self.assertFalse(front['amplitude_covers_all_requested_sections'])
+        self.assertIsNone(front['radial_stretch_activity_amplitude'])
+        self.assertIsNotNone(front['partial_region_activity_amplitude_QC'])
+
+        self.assertEqual(front['amplitude_status'], 'insufficient_section_support')
+        self.assertIsNotNone(back['radial_stretch_activity_amplitude'])
+        self.assertIsNone(back['partial_region_activity_amplitude_QC'])
+        # A section with only sub-minimum fragments is also absent from the
+        # primary summary, even though many of its individual samples exist.
+        data = maps();data['valid_mask'][::100, 0, 5] = False
+        front = summarize_patient(data, s_range=(.2, .8))['walls'][0]
+        self.assertIsNone(front['radial_stretch_activity_amplitude'])
+        self.assertIsNotNone(front['partial_region_activity_amplitude_QC'])
+
+    def test_review_exposure_also_requires_full_interval_containment(self):
+        data = maps()
+        result = summarize_patient(data, s_range=(.2, .8),
+            review=dict(complete=True, intervals=[[10, 50]], events=[]))
+        self.assertEqual(result['event_summary']['event_count'], 0)
+        self.assertAlmostEqual(result['event_summary']['effective_duration_s'], 38.)
 
 
 if __name__ == '__main__':
     unittest.main()
+

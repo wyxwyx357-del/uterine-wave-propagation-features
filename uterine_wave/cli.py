@@ -41,7 +41,7 @@ def main(argv=None):
                              help='Preselected normalized anatomical range, applied to both walls')
     patient_cmd.add_argument('--review', help='JSON with complete, intervals, events; omitted means unreviewed, not zero waves')
     patient_cmd.add_argument('--time-range', type=float, nargs=2, metavar=('START', 'END'),
-                             help='Optional preselected acquisition-time interval in seconds')
+                             help='Acquisition-time bounds; only complete measurement intervals inside these bounds are used')
     patient_cmd.add_argument('--refine-mode-speed', action='store_true', help='Enable the existing continuous mode-speed candidate')
     patient_cmd.add_argument('--output', required=True)
     args = parser.parse_args(argv)
@@ -101,3 +101,4 @@ def main(argv=None):
 
 if __name__ == '__main__':
     main()
+
