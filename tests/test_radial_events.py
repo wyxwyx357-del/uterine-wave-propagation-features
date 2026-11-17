@@ -44,7 +44,7 @@ class RadialWaveCandidates(unittest.TestCase):
     def test_synchronous_local_and_low_amplitude_are_not_propagating_waves(self):
         sync=.005*np.cos(2*np.pi*self.t[:,None]/30)*np.ones((1,len(self.s)))
         self.assertEqual(self.detect(sync)['traveling_candidate_count'],0)
-        local=self.pulse();local[:,:7]=0;local[:,10:]=0
+        local=sync.copy();local[:,:7]=0;local[:,10:]=0
         self.assertEqual(self.detect(local)['traveling_candidate_count'],0)
         self.assertEqual(self.detect(.01*self.pulse())['candidate_count'],0)
         self.assertEqual(self.detect(np.zeros_like(sync))['candidate_count'],0)
@@ -111,10 +111,58 @@ class RadialWaveCandidates(unittest.TestCase):
         from uterine_wave.radial_events import _pair_phases
         ridges=[dict(sign=-1),dict(sign=1),dict(sign=-1),dict(sign=1)]
         supports={(0,1):9,(0,3):4,(1,2):5,(2,3):7}
-        edges={key:dict(columns=list(range(n)),score=(1,n,0)) for key,n in supports.items()}
+        edges={key:dict(columns=list(range(n)),association_weight=n) for key,n in supports.items()}
         chosen,ambiguous=_pair_phases(ridges,edges)
         self.assertEqual(set(chosen),{(0,1),(2,3)})
         self.assertEqual(set(ambiguous),{0,1,2,3})
+
+    def test_short_propagation_is_retained_without_a_path_fraction_veto(self):
+        y=self.pulse();y[:,:7]=0;y[:,10:]=0
+        result=self.detect(y)
+        traveling=[e for e in result['events'] if e['classification']=='C2F']
+        self.assertTrue(traveling)
+        self.assertTrue(any(e['spatial_span']<.15 and len(e['sections'])==3 for e in traveling))
+        self.assertTrue(all(not e['reviewed'] for e in traveling))
+
+    def test_coherent_pair_wins_over_two_inconsistent_pairs(self):
+        from uterine_wave.radial_events import _pair_phases
+        ridges=[dict(sign=-1),dict(sign=1),dict(sign=-1),dict(sign=1)]
+        edges={(0,1):dict(association_weight=5.),
+               (0,3):dict(association_weight=.1),
+               (1,2):dict(association_weight=.2)}
+        chosen,ambiguous=_pair_phases(ridges,edges)
+        self.assertEqual(chosen,[(0,1)])
+        self.assertTrue(ambiguous)
+
+    def test_single_phase_support_survives_without_a_forced_partner(self):
+        # Keep just one sign in the input. Band limiting may create opposite
+        # lobes, but censoring the timeline leaves an unpaired valid structure.
+        y=.006*np.cos(2*np.pi*(self.t[:,None]/60-self.s[None]))
+        result=self.detect(y)
+        singles=[e for e in result['events'] if e['evidence_kind']=='single_phase']
+        self.assertTrue(singles)
+        for e in singles:
+            self.assertIn('single_phase_event_identity_unresolved',e['quality_flags'])
+            self.assertEqual(e['arrival_marker'],'phase_peak')
+        self.assertIsNone(result['event_count'])
+
+    def test_one_fit_warning_does_not_delete_the_measurement(self):
+        from uterine_wave.radial_events import _describe_arrival,RadialWaveConfig
+        ids=np.arange(4);s=np.array([.2,.21,.22,.23]);arr=np.array([2.,2.,2.,6.])
+        e=_describe_arrival(ids,arr,s,.12,[],RadialWaveConfig(min_fit_r2=.9))
+        self.assertIn('weak_arrival_fit',e['quality_flags'])
+        self.assertEqual(e['classification'],'C2F')
+        self.assertEqual(e['sections'],ids.tolist())
+
+    def test_unselected_pair_measurements_are_still_available_for_review(self):
+        y=.006*np.cos(2*np.pi*(self.t[:,None]/30-self.s[None]))
+        result=self.detect(y)
+        alternatives=result['alternative_phase_pairs']
+        self.assertTrue(any(not e['selected'] for e in alternatives))
+        for e in alternatives:
+            self.assertEqual(len(e['sections']),len(e['arrival_time_s']))
+            self.assertIn('arrival_evidence',e)
+            self.assertIn('quality_flags',e)
 
 
 if __name__=='__main__':unittest.main()

@@ -1,7 +1,7 @@
-"""Automatic, reviewable biphasic propagation candidates from radial A(s,t).
+"""Reviewable propagation evidence from radial A(s,t).
 
-One candidate needs two adjacent opposite-sign phases at multiple positions.
-Engineering support/fit settings are not physiological or pregnancy thresholds.
+Keep short and unpaired structures. Pairing ranks propagation coherence rather
+than event count; engineering diagnostics do not establish physiological truth.
 """
 from dataclasses import dataclass, asdict
 import numpy as np
@@ -10,8 +10,7 @@ from .amplitude import band_limited_signal
 
 @dataclass(frozen=True)
 class RadialWaveConfig:
-    min_space_points: int = 4
-    min_path_span: float = .15
+    # Fit reference is used jointly with order/phase evidence, not as a veto.
     min_fit_r2: float = .5
     synchronous_tolerance_s: float = .5
 
@@ -27,6 +26,79 @@ def _fit(s, t):
     return dict(slope=float(slope), intercept=float(intercept),
                 r2=float(1-np.sum(residual**2)/total) if total > 1e-20 else None,
                 rmse_s=float(np.sqrt(np.mean(residual**2))))
+
+
+def _arrival_evidence(s, arrival, dt):
+    fit = _fit(s, arrival)
+    differences = (arrival[None, :] - arrival[:, None])[np.triu_indices(len(s), 1)]
+    resolved = abs(differences) > dt
+    agreement = float(np.mean(differences[resolved] * fit['slope'] > 0)) if resolved.any() else .5
+    extent = abs(fit['slope']) * float(np.ptp(s))
+    # Continuous engineering ranking, not a calibrated probability or p-value.
+    quality = (max(fit['r2'] or 0., 0.) * max(2*agreement-1, 0.) *
+               extent/(extent + 2*fit['rmse_s'] + dt))
+    return dict(**fit, order_agreement=agreement, fitted_time_extent_s=extent,
+                coherence=float(quality))
+
+
+def _describe_arrival(ids, arrival, s, dt, phase_fits, config):
+    evidence = _arrival_evidence(s[ids], arrival, dt)
+    warnings = []
+    delta = np.diff(arrival)
+    monotone = bool(np.all(delta >= -dt) or np.all(delta <= dt))
+    weak_fit = (evidence['r2'] or 0.) < config.min_fit_r2
+    phase_conflict = any(p['slope']*evidence['slope'] < 0 for p in phase_fits)
+    if not monotone: warnings.append('nonmonotone_arrivals')
+    if weak_fit: warnings.append('weak_arrival_fit')
+    if phase_conflict: warnings.append('phase_direction_conflict')
+    if any((p['r2'] or 0.) < config.min_fit_r2 for p in phase_fits):
+        warnings.append('weak_phase_fit')
+    if np.ptp(arrival) <= max(dt, config.synchronous_tolerance_s):
+        kind = 'synchronous'
+    elif not monotone and (weak_fit or phase_conflict):
+        kind = 'complex'
+    else:
+        kind = 'C2F' if evidence['slope'] > 0 else 'F2C'
+    return dict(classification=kind, sections=ids.tolist(),
+                s_start=float(s[ids[0]]), s_end=float(s[ids[-1]]),
+                spatial_span=float(s[ids[-1]]-s[ids[0]]),
+                arrival_time_s=arrival.tolist(), arrival_fit_R2=evidence['r2'],
+                arrival_fit_RMSE_s=evidence['rmse_s'],
+                arrival_time_slope=evidence['slope'], arrival_evidence=evidence,
+                velocity_paths_per_s=float(1/evidence['slope']) if kind in ('C2F','F2C') else None,
+                phase_arrival_fits=phase_fits, quality_flags=warnings)
+
+
+def _measure_pair(edge, ridges, filtered, t, s, config):
+    first, second = [ridges[edge[name]] for name in ('first', 'second')]
+    left = {x['column']: x for x in first['nodes']}
+    right = {x['column']: x for x in second['nodes']}
+    ids = np.asarray(edge['columns'])
+    arrival = []
+    for j in ids:
+        k, k2 = left[j]['last'], right[j]['first']
+        before, after = filtered[k, j], filtered[k2, j]
+        arrival.append(t[k] - before/(after-before)*(t[k2]-t[k]))
+    dt = float(np.median(np.diff(t)))
+    phases = [_arrival_evidence(s[ids], np.array([p[j]['peak_time_s'] for j in ids]), dt)
+              for p in (left, right)]
+    event = _describe_arrival(ids, np.asarray(arrival), s, dt, phases, config)
+    quality = event['arrival_evidence']['coherence']
+    for phase in phases:
+        quality *= phase['coherence']
+    agreeing = sum(p['slope']*event['arrival_time_slope'] > 0 for p in phases)
+    # Shared support contributes only in proportion to temporal coherence.
+    edge['association_weight'] = len(ids)*quality*(1+agreeing)/3
+    event.update(evidence_kind='paired_phase', arrival_marker='between_phase_zero_crossing',
+                 association_weight=edge['association_weight'],
+                 start_s=min(left[j]['start_s'] for j in ids),
+                 end_s=max(right[j]['end_s'] for j in ids),
+                 leading_polarity=first['sign'], phase_ridge_ids=[first['id'], second['id']],
+                 first_phase_arrival_s=[left[j]['peak_time_s'] for j in ids],
+                 second_phase_arrival_s=[right[j]['peak_time_s'] for j in ids],
+                 peak_absolute_rate_per_phase=[max(left[j]['amplitude'] for j in ids),
+                                               max(right[j]['amplitude'] for j in ids)])
+    return event
 
 
 def _lobes(y, valid, t, threshold):
@@ -119,9 +191,8 @@ def _phase_edges(ridges):
 def _pair_phases(ridges, edges):
     """Non-overlapping adjacent phase pairs, without counting both polarities.
 
-    Maximum-cardinality bipartite matching, then shared support and leading
-    polarity as tie breakers. Branches remain flagged for review, but do not
-    discard every supported pair in the connected component.
+    Maximize shared support weighted by propagation coherence. No reward for
+    pair count or preferred polarity. Unselected phases remain review evidence.
     """
     neighbors={i:[] for i in range(len(ridges))}
     for i,j in edges:neighbors[i].append(j);neighbors[j].append(i)
@@ -130,17 +201,14 @@ def _pair_phases(ridges, edges):
     positive=[i for i in neighbors if ridges[i]['sign']>0 and neighbors[i]]
     if not negative or not positive:return [],ambiguous
     n=len(negative);m=len(positive)
-    # Dummy columns permit unmatched phases. Integer weights encode the
-    # lexicographic objective without a tunable physiological coefficient.
-    support_bound=sum(len(e['columns']) for e in edges.values())+1
-    tie_bound=min(n,m)+1
+    # Dummy columns permit unmatched phases, including zero-coherence pairs.
     cost=np.zeros((n,m+n),float)
     cost[:,:m]=1
     for row,i in enumerate(negative):
         for col,j in enumerate(positive):
             edge=edges.get(tuple(sorted((i,j))))
             if edge is not None:
-                cost[row,col]=-((support_bound+len(edge['columns']))*tie_bound+edge['score'][2])
+                cost[row,col]=-edge['association_weight']
     # Rectangular shortest-augmenting-path assignment (rows <= columns).
     u=np.zeros(n+1);v=np.zeros(m+n+1)
     owner=np.zeros(m+n+1,int);previous=np.zeros(m+n+1,int)
@@ -166,7 +234,7 @@ def _pair_phases(ridges, edges):
 
 
 def detect_radial_events(signal, valid, time_s, space, *, noise_floor, config=None):
-    """Find paired contraction/relaxation candidates, with an explicit noise scale.
+    """Find radial propagation evidence, with an explicit noise scale.
 
     noise_floor is an absolute A threshold (s^-1), scalar or one per section.
     It must come from a stated noise reference, not per-video robust-z scaling.
@@ -181,57 +249,41 @@ def detect_radial_events(signal, valid, time_s, space, *, noise_floor, config=No
         raise ValueError('Expected matching native-uniform time x ordered normalized-space maps')
     threshold=np.broadcast_to(np.asarray(noise_floor,float),(len(s),))
     if not np.isfinite(threshold).all() or np.any(threshold<0):raise ValueError('Invalid absolute noise floor')
-    if (config.min_space_points<3 or not 0<=config.min_path_span<=1 or
-            not 0<=config.min_fit_r2<=1 or config.synchronous_tolerance_s<0):
+    if not 0<=config.min_fit_r2<=1 or config.synchronous_tolerance_s<0:
         raise ValueError('Invalid radial event support settings')
     filtered,columns=_lobes(y,m&np.isfinite(y),t,threshold)
     ridges=_ridges(columns,t,s);edges=_phase_edges(ridges)
+    measured={key:_measure_pair(edge,ridges,filtered,t,s,config) for key,edge in edges.items()}
     pairs,ambiguous=_pair_phases(ridges,edges);events=[]
     for key in pairs:
-        edge=edges[key];first=ridges[edge['first']];second=ridges[edge['second']]
-        ids=np.asarray(edge['columns']);left={x['column']:x for x in first['nodes']};right={x['column']:x for x in second['nodes']}
-        # The same phase transition at each section is an arrival marker in
-        # band-limited finite-interval A, not an instantaneous tissue extremum.
-        arrival=[]
-        for j in ids:
-            a,b=left[j],right[j];k=a['last'];k2=b['first']
-            before,after=filtered[k,j],filtered[k2,j]
-            arrival.append(float(t[k]+(-before)/(after-before)*(t[k2]-t[k])))
-        arrival=np.asarray(arrival);fit=_fit(s[ids],arrival)
-        span=float(s[ids[-1]]-s[ids[0]])
-        tolerance=max(float(np.median(np.diff(t))),config.synchronous_tolerance_s)
-        delta=np.diff(arrival)
-        native_tolerance=float(np.median(np.diff(t)))
-        monotone=np.all(delta>=-native_tolerance) or np.all(delta<=native_tolerance)
-        phase_fits=[_fit(s[ids],np.array([phase[j]['peak_time_s'] for j in ids]))
-                    for phase in (left,right)]
-        if len(ids)<config.min_space_points or span<config.min_path_span:
-            kind='local'
-        elif np.ptp(arrival)<=tolerance:
-            kind='synchronous'
-        elif (not monotone or fit['r2'] is None or fit['r2']<config.min_fit_r2 or
-              any(p['r2'] is None or p['r2']<config.min_fit_r2 or p['slope']*fit['slope']<=0 for p in phase_fits)):
-            kind='complex'
-        else:kind='C2F' if fit['slope']>0 else 'F2C'
-        events.append(dict(event_id='',classification=kind,reviewed=False,
-            start_s=min(left[j]['start_s'] for j in ids),end_s=max(right[j]['end_s'] for j in ids),
-            sections=ids.tolist(),s_start=float(s[ids[0]]),s_end=float(s[ids[-1]]),spatial_span=span,
-            arrival_time_s=arrival.tolist(),arrival_fit_R2=fit['r2'],arrival_fit_RMSE_s=fit['rmse_s'],
-            arrival_time_slope=fit['slope'],
-            velocity_paths_per_s=float(1/fit['slope']) if kind in ('C2F','F2C') else None,
-            leading_polarity=first['sign'],phase_ridge_ids=[first['id'],second['id']],
-            phase_pairing_ambiguous=any(i in ambiguous for i in key),
-            phase_arrival_fits=phase_fits,
-            first_phase_arrival_s=[left[j]['peak_time_s'] for j in ids],
-            second_phase_arrival_s=[right[j]['peak_time_s'] for j in ids],
-            peak_absolute_rate_per_phase=[max(left[j]['amplitude'] for j in ids),max(right[j]['amplitude'] for j in ids)]))
+        events.append(dict(measured[key],event_id='',reviewed=False,
+                           phase_pairing_ambiguous=any(i in ambiguous for i in key)))
+    used={i for key in pairs for i in key}
+    for ridge in ridges:
+        if ridge['id'] in used:continue
+        nodes=ridge['nodes'];ids=np.array([n['column'] for n in nodes])
+        arrival=np.array([n['peak_time_s'] for n in nodes])
+        event=_describe_arrival(ids,arrival,s,float(np.median(np.diff(t))),[],config)
+        event['quality_flags'].append('single_phase_event_identity_unresolved')
+        events.append(dict(event,event_id='',reviewed=False,evidence_kind='single_phase',
+            arrival_marker='phase_peak',start_s=min(n['start_s'] for n in nodes),
+            end_s=max(n['end_s'] for n in nodes),leading_polarity=ridge['sign'],
+            phase_ridge_ids=[ridge['id']],phase_pairing_ambiguous=ridge['id'] in ambiguous,
+            first_phase_arrival_s=arrival.tolist(),second_phase_arrival_s=[],
+            peak_absolute_rate_per_phase=[max(n['amplitude'] for n in nodes)]))
+    for event in events:
+        if event['phase_pairing_ambiguous']:
+            event['quality_flags'].append('alternative_phase_pairing')
     events.sort(key=lambda event:(np.median(event['arrival_time_s']),event['s_start']))
     for i,event in enumerate(events,1):event['event_id']=f'candidate_{i:03d}'
     return dict(status='automatic_radial_wave_candidates_require_review',config=asdict(config),
+        candidate_algorithm='radial_phase_evidence_v2',
         noise_floor_rate=threshold.copy(),filter_band_cpm=[.5,5.],filtered_A=filtered,
         events=events,candidate_count=len(events),
         traveling_candidate_count=sum(e['classification'] in ('C2F','F2C') for e in events),
         ambiguous_phase_ridge_ids=ambiguous,unpaired_ridge_count=len(ridges)-2*len(pairs),
+        alternative_phase_pairs=[dict(measured[key],selected=key in pairs)
+                                 for key in edges],
         event_count=None,event_frequency_cpm=None,
         phase_ridges=[dict(ridge_id=r['id'],sign=r['sign'],sections=[x['column'] for x in r['nodes']],
                            peak_time_s=[x['peak_time_s'] for x in r['nodes']],fit=r['fit']) for r in ridges])
@@ -256,6 +308,9 @@ def radial_candidates_from_maps(spacetime, *, noise_floor, s_range=(0.,1.), conf
             event['event_id']=f"wall{wall}_{event['event_id']}"
             event['wall']=wall;event['sections']=ids[event['sections']].tolist()
         for ridge in result['phase_ridges']:ridge['sections']=ids[ridge['sections']].tolist()
+        for edge in result['alternative_phase_pairs']:
+            edge['sections']=ids[edge['sections']].tolist()
+            edge['wall']=wall
         walls.append(dict(wall=wall,**result))
     report=dict(status='automatic_radial_wave_candidates_require_review',
         measurement_source='A_rate',measurement_units='s^-1',source_section_indices=ids.tolist(),

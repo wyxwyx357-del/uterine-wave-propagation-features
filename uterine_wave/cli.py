@@ -44,7 +44,7 @@ def main(argv=None):
                              help='Acquisition-time bounds; only complete measurement intervals inside these bounds are used')
     patient_cmd.add_argument('--refine-mode-speed', action='store_true', help='Enable the existing continuous mode-speed candidate')
     patient_cmd.add_argument('--output', required=True)
-    wave_cmd = commands.add_parser('wave-candidates', help='Find reviewable biphasic propagation candidates on radial maps')
+    wave_cmd = commands.add_parser('wave-candidates', help='Retain reviewable paired and single-phase propagation evidence on radial maps')
     wave_cmd.add_argument('--maps', required=True)
     wave_cmd.add_argument('--noise-floor', type=float, required=True,
                           help='Absolute A threshold in s^-1 from an explicitly documented noise reference')
