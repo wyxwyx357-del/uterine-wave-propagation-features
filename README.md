@@ -85,3 +85,12 @@ python -m uterine_wave features --tracks outputs/tracks.npz --layout outputs/tra
 
 A0追踪参数及恢复逻辑保持冻结。约2秒仅作为传播模式表征默认有限跨度；A、epsilon及其SD/RMS、ER结果按跨度分别命名和保存。已知组合运动6组NRMSE全部改善，均值0.3836→0.2542；波幅RMS比例偏差4.70%→2.84%，相关0.9232→0.9667，方向12/12正确。该结果不验证真实事件计数或事件速度。
 
+## 多病例人工复核导出
+
+`experiments/cohort_wave_review.py`按入组CSV的`case_id`与既有清单交集筛选至少60秒的视频，预先按编号等距抽样，再以冻结A0、约2秒跨度和同一噪声参照计算。旧缓存只提供真实时间与背景姿态；目标轨迹和径向图重新计算，不沿用R2频率。已用于开发的编号可通过`--exclude-review-ids`排除。
+
+```bash
+python experiments/cohort_wave_review.py --cohort data/included.csv --manifest data/runtime.csv --cache-manifest data/cache_manifest.csv --annotations data/patients.zip --legacy-root data/legacy --noise-reference data/noise_reference.json --output outputs/cohort_review --limit 12 --exports 6
+```
+
+Windows CUDA OpenCV需要时显式传`--opencv-bin`；视频与页面导出另需Matplotlib和Pillow。`--prepare-only`仅生成选择清单，不运行追踪。输出包括全部预选病例记录、候选JSON、原视频ROI与径向图同步的一倍速视频、离线`index.html`和人工复核CSV；视频保留所有原生帧，不补帧。导出示例按计算后的候选一致性排序，属于复核展示，不能估计人群检出率。未检出不代表无蠕动，检出方向结构也不代表已确认有波。患者数据及导出文件只留本地。
