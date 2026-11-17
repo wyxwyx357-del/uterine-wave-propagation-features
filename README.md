@@ -15,6 +15,7 @@
 | `deformation.py` | A：同壁径向相对长度变化率；B：局部曲率变化率；禁止跨失追、重定位和校正阶段计算 |
 | `amplitude.py` | 完整连续块内的0.5–5次/分零相位频带信号与区间应变SD；原始SD保留为QC |
 | `patient.py`、`events.py` | 固定解剖区域/时段汇总；已复核事件到达顺序、计数、速度与双壁配对 |
+| `radial_events.py` | 从现有径向图生成相位配对与传播候选，保留歧义，待人工复核后才进入正式计数 |
 | `spectrum.py` | 在实际空间坐标上计算方向能量比 ER；正值表示宫颈→宫底 |
 | `wavefit.py`、`modes.py` | 连续双向时空波拟合细化模式速度；按连续支持计算滑窗模式和双壁ER相似度 |
 | `controls.py` | 静止、整体平移、局部单次变化、正向传播和反向传播的已知图像变形 |
@@ -67,6 +68,8 @@ python -m uterine_wave features --tracks outputs/tracks.npz --layout outputs/tra
 
 当前 `features` 默认输出A、epsilon、有效掩码、归一化空间轴和区间时间；`--hop`显式保留旧A/B输出。位姿缓存提供`pose_valid`时，track保留该字段供区间测量消费，缺失时不伪造为全有效。频带幅度可调用`amplitude.summarize_interval_strain`；ER可调用`spectrum.direction`；模式速度与相似度可调用`modes.analyze_modes`。**不能将ER或连续波拟合解释为事件计数**。
 
+`wave-candidates`可在上述径向图上输出待复核的伸缩阶段、配对、到达顺序及传播候选。必须显式提供由噪声参照确定的A绝对阈值，不使用逐视频离群z值作为波定义。不会生成正式次数/次每分，也不会合计双壁候选。参数、JSON/NPZ、局限及复核接入见[特征定义](docs/FEATURE_DEFINITIONS.md#自动径向传播候选)。
+
 ## 当前证据
 
 此前在三张真实首帧纹理上完成了 15 组图像变形对照。A 路线波动 RMS 相对参考的平均绝对比例偏差约 3.2%，B 约 9.6%；正反传播的方向符号均恢复。整体晃动仍留下假形变，B 更明显。这是首帧图像变形对照结果，不是原视频真实波识别准确率。
@@ -81,3 +84,4 @@ python -m uterine_wave features --tracks outputs/tracks.npz --layout outputs/tra
 ## 约2秒传播表征默认值
 
 A0追踪参数及恢复逻辑保持冻结。约2秒仅作为传播模式表征默认有限跨度；A、epsilon及其SD/RMS、ER结果按跨度分别命名和保存。已知组合运动6组NRMSE全部改善，均值0.3836→0.2542；波幅RMS比例偏差4.70%→2.84%，相关0.9232→0.9667，方向12/12正确。该结果不验证真实事件计数或事件速度。
+

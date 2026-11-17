@@ -44,6 +44,12 @@ def main(argv=None):
                              help='Acquisition-time bounds; only complete measurement intervals inside these bounds are used')
     patient_cmd.add_argument('--refine-mode-speed', action='store_true', help='Enable the existing continuous mode-speed candidate')
     patient_cmd.add_argument('--output', required=True)
+    wave_cmd = commands.add_parser('wave-candidates', help='Find reviewable biphasic propagation candidates on radial maps')
+    wave_cmd.add_argument('--maps', required=True)
+    wave_cmd.add_argument('--noise-floor', type=float, required=True,
+                          help='Absolute A threshold in s^-1 from an explicitly documented noise reference')
+    wave_cmd.add_argument('--s-range', type=float, nargs=2, default=(0.,1.))
+    wave_cmd.add_argument('--output', required=True, help='JSON report; companion NPZ stores filtered maps')
     args = parser.parse_args(argv)
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -89,7 +95,7 @@ def main(argv=None):
         result = (compute_maps(tracks, grid, args.hop) if args.hop is not None else
                   compute_spacetime(tracks, grid, interval_s=args.interval_s))
         np.savez_compressed(output, **result)
-    else:
+    elif args.command == 'summarize':
         from .patient import summarize_patient
         with np.load(args.maps, allow_pickle=False) as data:
             spacetime = dict(data)
@@ -97,6 +103,16 @@ def main(argv=None):
         result = summarize_patient(spacetime, s_range=args.s_range, time_range=args.time_range, review=review,
                                    refine_mode_speed=args.refine_mode_speed)
         output.write_text(json.dumps(jsonable(result), ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')
+    else:
+        from .radial_events import radial_candidates_from_maps
+        if output.suffix.lower() != '.json':parser.error('wave-candidates --output must end in .json')
+        with np.load(args.maps, allow_pickle=False) as data:
+            spacetime = dict(data)
+        report, arrays = radial_candidates_from_maps(spacetime, noise_floor=args.noise_floor, s_range=args.s_range)
+        report['source_maps'] = str(Path(args.maps))
+        report['filtered_maps'] = str(output.with_suffix('.npz'))
+        output.write_text(json.dumps(jsonable(report), ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')
+        np.savez_compressed(output.with_suffix('.npz'), **arrays)
 
 
 if __name__ == '__main__':
