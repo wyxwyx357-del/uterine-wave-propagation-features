@@ -1,6 +1,9 @@
 """Signed interval deformation with explicit topology and continuity masks."""
 import numpy as np
 
+DEFAULT_PROPAGATION_INTERVAL_S = 2.0
+SENSITIVITY_INTERVAL_S = .96
+
 
 def validate_time(time_s, count, hop):
     t = np.asarray(time_s, float)
@@ -105,13 +108,14 @@ def compute_maps(tracks, grid, hop=8):
                 A_arc_positions=grid['arc_positions'], B_arc_positions=arcs)
 
 
-def compute_spacetime(tracks, grid, *, interval_s=.96):
-    """Frozen A0 measurement interface, separate from any wave/event detector.
+def compute_spacetime(tracks, grid, *, interval_s=DEFAULT_PROPAGATION_INTERVAL_S):
+    """A0 trajectories with a ~2 s primary propagation measurement interval.
 
     Choose a native-frame hop near the requested physical interval; retain its
     actual per-sample duration. Legacy compute_maps time_s stays right-ended.
     s remains the full annotated wall's normalized arc, without stretching a
     retained/valid subregion back to 0..1. No interpolation or smoothing.
+    Explicit interval_s=.96 retains the higher-resolution sensitivity scale.
     """
     if not np.isfinite(interval_s) or interval_s <= 0:
         raise ValueError('interval_s must be finite and positive')

@@ -138,7 +138,7 @@ class Measurements(unittest.TestCase):
             grid_path, track_path, out = root/'grid.npz', root/'tracks.npz', root/'maps.npz'
             main(['layout', '--annotation', str(annotation), '--output', str(grid_path)])
             np.savez(track_path, **reference_tracks(self.truth, self.t))
-            main(['features', '--layout', str(grid_path), '--tracks', str(track_path), '--output', str(out)])
+            main(['features', '--layout', str(grid_path), '--tracks', str(track_path), '--hop', '8', '--output', str(out)])
             with np.load(out, allow_pickle=False) as maps:
                 self.assertTrue(maps['A_valid'].all())
                 self.assertTrue(maps['B_valid'].all())

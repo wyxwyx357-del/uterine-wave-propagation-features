@@ -2,7 +2,7 @@
 import numpy as np
 
 
-def direction(y, time_s, space, band_cpm=(.5, 5.)):
+def _spectrum(y, time_s, space, band_cpm=(.5, 5.)):
     """ER>0 means cervix-to-fundus; space must increase anatomically C to F.
 
     No temporal filling or spatial filling. This diagnostic operates on a
@@ -27,14 +27,72 @@ def direction(y, time_s, space, band_cpm=(.5, 5.)):
     spatial = np.exp(-2j*np.pi*(space-space[0])[:, None]*fx[None, :])
     power = np.abs(transformed @ spatial)**2
     band = (np.abs(ft) >= band_cpm[0]/60) & (np.abs(ft) <= band_cpm[1]/60)
+    return y, t, space, ft, fx, power, band
+
+
+def _direction_summary(y, t, space, ft, fx, power, band, band_cpm):
+    dt = np.diff(t)
     ef = float(power[band[:, None] & (ft[:, None]*fx[None, :] < 0)].sum())
     eb = float(power[band[:, None] & (ft[:, None]*fx[None, :] > 0)].sum())
     total = float(power.sum())
+    band_energy = float(power[band].sum())
+    directional_energy = ef+eb
     er = (ef-eb)/(ef+eb) if ef+eb > max(1e-25, total*1e-12) else None
     return dict(ER=er, forward_energy=ef, backward_energy=eb,
+                directional_energy=directional_energy,
+                directional_rms=float(np.sqrt(directional_energy)/(len(t)*len(space))),
+                directional_band_energy_fraction=(directional_energy/band_energy if band_energy > 1e-25 else None),
                 time_resolution_cpm=60/(len(t)*np.median(dt)),
                 duration_s=float(t[-1]-t[0]), spatial_columns=len(space),
                 band_cpm=list(band_cpm), event_detected=None)
+
+
+def direction(y, time_s, space, band_cpm=(.5, 5.)):
+    """Unchanged ER convention: positive C2F; this does not detect events."""
+    return _direction_summary(*_spectrum(y, time_s, space, band_cpm), band_cpm)
+
+
+def mode_velocity(y, time_s, space, band_cpm=(.5, 5.), *, refine=False):
+    """Directional spectral peak speed, not individual-wave arrival speed.
+
+    v=-ft/fs for the Fourier convention used here. When space is the original
+    full-wall normalized arc, units are full-wall paths per second. Both
+    directions are retained, including standing/balanced activity. No new
+    physiological activity threshold or smoothing. The coarse grid peak is
+    archived when refine=True requests the continuous candidate. The default
+    preserves the baseline pending real-video validation of the candidate.
+    """
+    arrays = _spectrum(y, time_s, space, band_cpm)
+    y, t, space, ft, fx, power, band = arrays
+    result = _direction_summary(*arrays, band_cpm)
+    result['space_frequency_resolution'] = float(abs(fx[1]))
+    result['positive_temporal_band_bins'] = int((band & (ft > 0)).sum())
+    floor = max(1e-25, float(power.sum())*1e-12)
+    for name, sign in [('C2F', -1), ('F2C', 1)]:
+        mask = band[:, None] & (ft[:, None] > 0) & (ft[:, None]*fx[None, :]*sign > 0)
+        energy = float(power[mask].sum())
+        if not mask.any() or energy <= floor:
+            result[name] = dict(status='no_resolved_directional_energy', velocity=None)
+            continue
+        peak = np.where(mask, power, -np.inf)
+        i, j = np.unravel_index(np.argmax(peak), peak.shape)
+        result[name] = dict(status='spectral_mode_candidate', velocity=float(-ft[i]/fx[j]),
+            temporal_frequency_hz=float(ft[i]), spatial_frequency=float(fx[j]),
+            peak_energy_fraction=float(power[i, j]/energy), directional_energy=energy,
+            available_spectral_cells=int(mask.sum()),
+            lowest_nonzero_spatial_peak=bool(np.isclose(abs(fx[j]),abs(fx[1]))),
+            spatial_nyquist_peak=bool(len(fx)%2 == 0 and j == len(fx)//2))
+    if refine:
+        from .wavefit import fit_wave_modes
+        fit = fit_wave_modes(y, t, space, band_cpm)
+        result['velocity_fit'] = {key: value for key, value in fit.items() if key != 'components'}
+        for name in ('C2F', 'F2C'):
+            coarse = result[name]
+            component = fit['components'][name]
+            result[name] = dict(coarse, grid_peak=coarse.copy())
+            result[name].update(component)
+            result[name]['velocity_method'] = 'continuous_two_direction_fit'
+    return result
 
 
 def describe(measured, reference, valid, time_s, arc):

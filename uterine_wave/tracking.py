@@ -8,7 +8,7 @@ import cv2
 from ._lk import match, local_contrast
 
 def track_segments(gray,initial,time_s,poses,*,recover=True,retry_frames=4,
-                   window=21,max_fb_px=.75,contrast_sigma=5.,qc_downsample=1,qc_window=None,pose_epoch=None):
+                   window=21,max_fb_px=.75,contrast_sigma=5.,qc_downsample=1,qc_window=None,pose_epoch=None,pose_valid=None):
     t=np.asarray(time_s,float);ini=np.asarray(initial,np.float32);poses=np.asarray(poses,float)
     if t.ndim!=1 or len(t)<2 or not np.isfinite(t).all():raise ValueError('Expected at least two finite timestamps')
     if ini.ndim!=2 or ini.shape[1]!=2 or len(ini)==0 or not np.isfinite(ini).all():raise ValueError('Expected finite nonempty Nx2 seeds')
@@ -18,6 +18,8 @@ def track_segments(gray,initial,time_s,poses,*,recover=True,retry_frames=4,
     if gray[0].ndim!=2 or gray[0].dtype!=np.uint8:raise ValueError('Expected uint8 grayscale frames')
     epoch=np.zeros(len(t),int) if pose_epoch is None else np.asarray(pose_epoch)
     if epoch.shape!=t.shape:raise ValueError('pose_epoch must match timestamps')
+    pose_valid=None if pose_valid is None else np.asarray(pose_valid,bool)
+    if pose_valid is not None and pose_valid.shape!=t.shape:raise ValueError('pose_valid must match timestamps')
     if retry_frames<1:raise ValueError('retry_frames must be positive')
     if window<7 or window%2!=1 or max_fb_px<=0 or contrast_sigma<=0:raise ValueError('Invalid tracking scale')
     if not isinstance(qc_downsample,int) or qc_downsample<1:raise ValueError('QC downsample must be a positive integer')
@@ -72,8 +74,10 @@ def track_segments(gray,initial,time_s,poses,*,recover=True,retry_frames=4,
                         pending_index[col]=i;pending_point[col]=q[j]
                         reason[i,col]='awaiting_confirmation';score[i,col]=s[j];fb[i,col]=f[j]
     corrected=np.einsum('tni,tji->tnj',p.astype(float),poses[:,:2,:2])+poses[:,None,:2,2]
-    return dict(positions=p,corrected=corrected,target_valid=v,step_valid=step,segment_id=segment,reanchor=reanchor,
+    result=dict(positions=p,corrected=corrected,target_valid=v,step_valid=step,segment_id=segment,reanchor=reanchor,
         recovery_attempted=attempt,time_s=t,frame_indices=np.arange(n),initial_points=ini,poses=poses,
         target_ncc=score,target_fb=fb,reject_reason=reason,pose_epoch=epoch)
+    if pose_valid is not None:result['pose_valid']=pose_valid.copy()
+    return result
 
 

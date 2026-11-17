@@ -5,6 +5,7 @@ from pathlib import Path
 import numpy as np
 from .geometry import CONFIG, read_labelme, layout
 from .io import jsonable
+from .deformation import DEFAULT_PROPAGATION_INTERVAL_S
 
 
 def main(argv=None):
@@ -26,11 +27,23 @@ def main(argv=None):
     track_cmd.add_argument('--time-factor', type=float, required=True)
     track_cmd.add_argument('--scale', type=float, default=.5)
     track_cmd.add_argument('--output', required=True)
-    maps_cmd = commands.add_parser('features', help='Compute A/B maps from saved tracks and topology')
+    maps_cmd = commands.add_parser('features', help='Compute physical-interval radial maps; explicit --hop keeps legacy A/B output')
     maps_cmd.add_argument('--tracks', required=True)
     maps_cmd.add_argument('--layout', required=True)
-    maps_cmd.add_argument('--hop', type=int, default=8)
+    interval_group = maps_cmd.add_mutually_exclusive_group()
+    interval_group.add_argument('--interval-s', type=float, default=DEFAULT_PROPAGATION_INTERVAL_S,
+                                help='Physical interval in seconds (default: 2.0; sensitivity: 0.96)')
+    interval_group.add_argument('--hop', type=int, help='Explicit legacy frame interval and A/B output')
     maps_cmd.add_argument('--output', required=True)
+    patient_cmd = commands.add_parser('summarize', help='Fixed-region radial wave features and reviewed event measurements')
+    patient_cmd.add_argument('--maps', required=True, help='Physical-interval spacetime NPZ')
+    patient_cmd.add_argument('--s-range', type=float, nargs=2, required=True, metavar=('START', 'END'),
+                             help='Preselected normalized anatomical range, applied to both walls')
+    patient_cmd.add_argument('--review', help='JSON with complete, intervals, events; omitted means unreviewed, not zero waves')
+    patient_cmd.add_argument('--time-range', type=float, nargs=2, metavar=('START', 'END'),
+                             help='Optional preselected acquisition-time interval in seconds')
+    patient_cmd.add_argument('--refine-mode-speed', action='store_true', help='Enable the existing continuous mode-speed candidate')
+    patient_cmd.add_argument('--output', required=True)
     args = parser.parse_args(argv)
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -58,20 +71,32 @@ def main(argv=None):
         frames, t = read_video(args.video, time_factor=args.time_factor, coordinate_scale=args.scale)
         with np.load(args.poses, allow_pickle=False) as data:
             pose_time, poses, epoch = data['time_s'], data['poses'], data['pose_epoch']
+            pose_valid = data['pose_valid'] if 'pose_valid' in data else None
         if pose_time.shape != t.shape or not np.allclose(pose_time, t, atol=1e-6, rtol=0):
             raise ValueError('Pose timestamps differ from the decoded acquisition timeline')
         if epoch.shape != t.shape:
             raise ValueError('pose_epoch must match acquisition timestamps')
-        tracks = track_segments(frames, np.vstack((grid['A_points'], grid['B_points'])), t, poses, pose_epoch=epoch)
+        tracks = track_segments(frames, np.vstack((grid['A_points'], grid['B_points'])), t, poses,
+                                pose_epoch=epoch, pose_valid=pose_valid)
         np.savez_compressed(output, **tracks)
         np.savez_compressed(output.with_name(output.stem+'_layout.npz'), **grid)
-    else:
-        from .deformation import compute_maps
+    elif args.command == 'features':
+        from .deformation import compute_maps, compute_spacetime
         with np.load(args.tracks, allow_pickle=False) as data:
             tracks = dict(data)
         with np.load(args.layout, allow_pickle=False) as data:
             grid = dict(data)
-        np.savez_compressed(output, **compute_maps(tracks, grid, args.hop))
+        result = (compute_maps(tracks, grid, args.hop) if args.hop is not None else
+                  compute_spacetime(tracks, grid, interval_s=args.interval_s))
+        np.savez_compressed(output, **result)
+    else:
+        from .patient import summarize_patient
+        with np.load(args.maps, allow_pickle=False) as data:
+            spacetime = dict(data)
+        review = json.loads(Path(args.review).read_text(encoding='utf-8')) if args.review else None
+        result = summarize_patient(spacetime, s_range=args.s_range, time_range=args.time_range, review=review,
+                                   refine_mode_speed=args.refine_mode_speed)
+        output.write_text(json.dumps(jsonable(result), ensure_ascii=False, indent=2, allow_nan=False), encoding='utf-8')
 
 
 if __name__ == '__main__':

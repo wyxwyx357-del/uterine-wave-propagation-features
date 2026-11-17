@@ -34,11 +34,14 @@ class CudaTracking(unittest.TestCase):
         t = np.arange(20)*.12
         for condition in ('static', 'rigid'):
             frames, truth, poses = known_motion(gray, shapes, grid, t, condition)
-            track = track_segments(frames, points, t, poses)
+            pose_valid=np.ones(len(t),bool);pose_valid[10]=False
+            track = track_segments(frames, points, t, poses, pose_valid=pose_valid)
+            np.testing.assert_array_equal(track['pose_valid'],pose_valid)
             self.assertEqual(track['positions'].shape, truth.shape)
             self.assertFalse(track['step_valid'][0].any())
             self.assertTrue(track['target_valid'][1:].any())
             maps = compute_maps(track, grid)
+            self.assertFalse(maps['A_valid'][2:11].any())
             self.assertEqual(len(maps['time_s']), len(t)-8)
             if condition == 'static':
                 np.testing.assert_allclose(track['corrected'], truth, atol=1e-5)
