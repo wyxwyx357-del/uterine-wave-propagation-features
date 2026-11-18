@@ -62,3 +62,7 @@ python experiments/prepare_published_video_reference.py \
 先核对采集时间尺度和解剖采样适配，再运行当前冻结pipeline；不为匹配作者方向
 调整参数，不用已知方向挑选最有利ROI。缺失逐波真值时不报告波计数准确率。
 当前准备完成不等于检测验证完成，`accuracy`和正式`event_count`保持空值。
+
+2026-11-19后续：已完成三段完整视频的固定管线初步试跑，见
+[试跑结果与适配边界](PUBLISHED_VIDEO_TRIAL.md)。静息示例仍有方向候选，传播示例存在
+较多支持缺失；时间倍率与独立解剖端点仍未确认，没有报告准确率或冻结自动数波。
