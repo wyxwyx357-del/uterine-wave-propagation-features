@@ -133,3 +133,5 @@ python experiments/match_clinical_wave_reference.py --workbook data/clinical.xls
 [连续双事件验证](docs/DOUBLE_EVENT_VALIDATION.md)：区分注入成分与原始合成信号中的可观测活动，使用不依赖滤波器的真值和一对一匹配，定位滤波、相位连接及片段归属的影响。镜像未替换默认；未验证的匹配不作为正式次数。
 
 [事件输入短时平滑对照](docs/EVENT_INPUT_SMOOTHING_TRIAL.md)：只测试一个沿用测量跨度的平滑尺度，同时比较冻结噪声参照和同规则重标定，联合评价双事件分离、弱活动支持及非传播候选；未替换正式输入滤波。
+
+[父候选内部受限拆分](docs/CANDIDATE_SPLIT_TRIAL.md)：辅助信号只在现有候选及一个测量跨度上下文内工作，输出保留/拆成两个/不确定；复用原87组并比较3/4/5相邻section支持。因跨父候选重复归属及支持损失，尚未进入真实病例或正式计数。
