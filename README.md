@@ -137,3 +137,5 @@ python experiments/match_clinical_wave_reference.py --workbook data/clinical.xls
 [父候选内部受限拆分](docs/CANDIDATE_SPLIT_TRIAL.md)：辅助信号只在现有候选及一个测量跨度上下文内工作，输出保留/拆成两个/不确定；复用原87组并比较3/4/5相邻section支持。因跨父候选重复归属及支持损失，尚未进入真实病例或正式计数。
 
 [全局事件归属执行与验收协议](docs/GLOBAL_OWNERSHIP_PROTOCOL.md)：明确重复判定优先级、合并/保留/歧义规则、canonical支持保留及事务依赖；协调既有parent/child，不重新检测波。提供固定87组验证和12例提案复核入口，正式计数保持空值。
+
+[完整视频人工参考复核](docs/WHOLE_VIDEO_MANUAL_REFERENCE.md)：先看3段完整原视频，人工记录大致活动时刻、方向和不确定性，再按需展开程序；独立参考快照与对照后修改分别保留，导出JSON/CSV，未复核不当零次。患者视频及标注仅留本地。
