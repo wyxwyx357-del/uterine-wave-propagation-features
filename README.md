@@ -87,6 +87,7 @@ python -m uterine_wave features --tracks outputs/tracks.npz --layout outputs/tra
 - [完整相位连接优先级的独立配对实验](docs/PHASE_LINK_PRIORITY_TRIAL.md)
 - [暂时隐藏一个位置的相位连接内部检查](docs/PHASE_PREDICTION_CHECK.md)
 - [固定残余噪声的弱传播与同步活动对照](docs/WEAK_WAVE_SIGNAL_CHECK.md)
+- [额外候选的滤波、边界及相位归属来源追溯](docs/EXTRA_CANDIDATE_ORIGINS.md)
 - [共同目标](TRACKING_GOAL.md)
 - [逐次事件冻结方案](docs/EVENT_DEFINITION_PLAN.md)
 
