@@ -131,3 +131,5 @@ python experiments/match_clinical_wave_reference.py --workbook data/clinical.xls
 [实验协议与输出边界](docs/EVENT_FILTER_ABLATION.md)：仅在沙盒比较周期FFT、镜像延拓FFT和平滑带通，分别配对原始及不完整相位保留版本；统一检查已知波的方向、空间支持、到达误差和非传播对照。正式幅度、ER及患者计数接口保持不变。
 
 [连续双事件验证](docs/DOUBLE_EVENT_VALIDATION.md)：区分注入成分与原始合成信号中的可观测活动，使用不依赖滤波器的真值和一对一匹配，定位滤波、相位连接及片段归属的影响。镜像未替换默认；未验证的匹配不作为正式次数。
+
+[事件输入短时平滑对照](docs/EVENT_INPUT_SMOOTHING_TRIAL.md)：只测试一个沿用测量跨度的平滑尺度，同时比较冻结噪声参照和同规则重标定，联合评价双事件分离、弱活动支持及非传播候选；未替换正式输入滤波。
