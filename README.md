@@ -139,3 +139,5 @@ python experiments/match_clinical_wave_reference.py --workbook data/clinical.xls
 [全局事件归属执行与验收协议](docs/GLOBAL_OWNERSHIP_PROTOCOL.md)：明确重复判定优先级、合并/保留/歧义规则、canonical支持保留及事务依赖；协调既有parent/child，不重新检测波。提供固定87组验证和12例提案复核入口，正式计数保持空值。
 
 [完整视频人工参考复核](docs/WHOLE_VIDEO_MANUAL_REFERENCE.md)：先看3段完整原视频，人工记录大致活动时刻、方向和不确定性，再按需展开程序；独立参考快照与对照后修改分别保留，导出JSON/CSV，未复核不当零次。患者视频及标注仅留本地。
+
+[期刊作者视频参考](docs/PUBLISHED_VIDEO_REFERENCES.md)：用户医学标注任务暂停，已核查取得作者描述的双方向传播及静息超声示例。记录图例、文件时间尺度和参考边界；准备材料不等于检测验证，未将曲线动画当原始超声或报告临床准确率。
