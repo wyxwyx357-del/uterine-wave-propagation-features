@@ -12,6 +12,7 @@
 |---|---|
 | `geometry.py` | 用宫颈/宫底端确定解剖顺序；沿前后壁采样，建立显式径向点对和三条窄带曲线 |
 | `tracking.py`、`_lk.py` | 保留当前 CUDA LK、增强图定位、原灰度 QC 和分段重定位逻辑，移除旧工程路径依赖 |
+| `quality.py` | 汇总已有原生步骤PCC及覆盖率，按同一径向测量区间对应候选；不排除患者、不判波 |
 | `deformation.py` | A：同壁径向相对长度变化率；B：局部曲率变化率；禁止跨失追、重定位和校正阶段计算 |
 | `amplitude.py` | 完整连续块内的0.5–5次/分零相位频带信号与区间应变SD；原始SD保留为QC |
 | `patient.py`、`events.py` | 固定解剖区域/时段汇总；已复核事件到达顺序、计数、速度与双壁配对 |
@@ -78,6 +79,7 @@ python -m uterine_wave features --tracks outputs/tracks.npz --layout outputs/tra
 
 - [特征定义和轨迹接口](docs/INTERFACES.md)
 - [文献对应及未复现部分](docs/LITERATURE.md)
+- [NCC/PCC质量定义、覆盖及候选对齐](docs/TRACKING_QUALITY.md)
 - [共同目标](TRACKING_GOAL.md)
 - [逐次事件冻结方案](docs/EVENT_DEFINITION_PLAN.md)
 
@@ -104,3 +106,13 @@ python experiments/compare_midline_radial.py --source outputs/cohort_review --ou
 ```
 
 需要时传`--opencv-bin`。离线页面提供原视频、前后壁径向图、中线图及可展开的相邻窄带图；支持同步游标、原始/频带切换、全景/局部放大和测量位置图层。复制原始视频并核对SHA256，不补帧或重编码。图层坐标只作显示，测量使用保存的全精度轨迹；缺失不连接。B保留原空间轴，五点曲率拟合的两端缺失显示为灰色。颜色表示各自量的正负，不比较A/B颜色强度或把它当方向。此次没有新增事件检测或自动次数，数据和页面仅留本地。
+
+## 临床蠕动记录匹配
+
+`experiments/match_clinical_wave_reference.py`只解码工作簿“最终队列”中明确列出的病例编号、时间、视频时长、临床检查编号和正反蠕动字段，按视频编号和检查日期匹配复核病例，不读取结局列值。保留数值0、空白及非数值活动描述的区别。可显式传`--record-unit per_minute`记录次/分，`--positive-direction`未确认时保持unconfirmed。
+
+```bash
+python experiments/match_clinical_wave_reference.py --workbook data/clinical.xlsx --cohort-review outputs/cohort_review --output outputs/clinical_reference --record-unit per_minute
+```
+
+输出为临床参考审计，不是程序准确率。临床次/分不自动换算成视频内整数次数，正反频率之和仅是两列合计。程序的方向候选数不能直接作为事件频率比较；观察时段对应关系及临床方向约定需单独确认。患者级输出仅保留本地。

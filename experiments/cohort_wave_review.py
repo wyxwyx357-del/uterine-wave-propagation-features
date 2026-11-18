@@ -22,6 +22,7 @@ sys.path.insert(0,str(ROOT))
 from uterine_wave.geometry import layout
 from uterine_wave.deformation import compute_spacetime
 from uterine_wave.radial_events import radial_candidates_from_maps
+from uterine_wave.quality import tracking_quality, radial_quality_maps, candidate_quality
 from uterine_wave.io import jsonable
 
 
@@ -79,7 +80,7 @@ def prepare(args):
                 key=lambda r:int(r['case_id'].split('-')[0]))
     ids=np.unique(np.rint(np.linspace(0,len(pool)-1,min(args.limit,len(pool)))).astype(int))
     selected=[pool[i] for i in ids]
-    algorithm_files=['tracking.py','_lk.py','geometry.py','deformation.py','amplitude.py','radial_events.py']
+    algorithm_files=['tracking.py','_lk.py','geometry.py','deformation.py','amplitude.py','radial_events.py','quality.py']
     protocol=dict(code_commit='94b5fe2f5c596ce4f5c8e51f80a8652da53fd3c4',
         source_hashes={p:digest(ROOT/'uterine_wave'/p) for p in algorithm_files},
         cohort_csv_sha256=digest(args.cohort),cohort_identifier_count=len(included),
@@ -133,17 +134,23 @@ def process(row,args,protocol,cv2):
                           pose_epoch=base['epoch'],pose_valid=base['pose_valid'])
     maps=compute_spacetime(tracks,grid,interval_s=2.)
     report,arrays=radial_candidates_from_maps(maps,noise_floor=protocol['noise_floor_rate'])
+    quality=tracking_quality(tracks,grid)
+    quality_maps=radial_quality_maps(tracks,grid,maps)
     np.savez_compressed(destination/'tracks.npz',**tracks)
     np.savez_compressed(destination/'grid.npz',**grid)
     np.savez_compressed(destination/'maps.npz',**maps)
     np.savez_compressed(destination/'candidate_maps.npz',**arrays)
     save(destination/'candidates.json',report)
+    save(destination/'tracking_quality.json',quality)
+    save(destination/'candidate_quality.json',candidate_quality(quality_maps,report))
+    np.savez_compressed(destination/'quality_maps.npz',**quality_maps)
     direction=[dict(e,wall=w['wall']) for w in report['walls'] for e in w['events'] if e['classification'] in ('C2F','F2C')]
     # Ranking selects review material only; it never changes detection or counts waves.
     def score(e):return e.get('association_weight',0.) if e['evidence_kind']=='paired_phase' else 0.
     ranked=sorted(direction,key=score,reverse=True)
     summary=dict(review_id=row['review_id'],case_id=row['case_id'],status='screened',frames=len(t),fps=fps,
         duration_s=len(t)/fps,columns_per_wall=len(grid['u']),actual_interval_s=float(np.median(maps['interval_dt_s'])),
+        radial_pcc_on_valid_native_steps=quality['radial_points'],
         pair_valid_fraction=maps['valid_mask'].mean((0,2)).tolist(),pose_valid_fraction=float(base['pose_valid'].mean()),
         candidates_per_wall=[w['candidate_count'] for w in report['walls']],
         directional_structures_per_wall=[w['traveling_candidate_count'] for w in report['walls']],
