@@ -13,6 +13,7 @@
 | `geometry.py` | 用宫颈/宫底端确定解剖顺序；沿前后壁采样，建立显式径向点对和三条窄带曲线 |
 | `tracking.py`、`_lk.py` | 保留当前 CUDA LK、增强图定位、原灰度 QC 和分段重定位逻辑，移除旧工程路径依赖 |
 | `quality.py` | 汇总已有原生步骤PCC及覆盖率，按同一径向测量区间对应候选；不排除患者、不判波 |
+| `candidate_evidence.py` | 检查候选与上下文、相邻波形/次序及活动身份歧义；仅供复核，不自动合并计数 |
 | `deformation.py` | A：同壁径向相对长度变化率；B：局部曲率变化率；禁止跨失追、重定位和校正阶段计算 |
 | `amplitude.py` | 完整连续块内的0.5–5次/分零相位频带信号与区间应变SD；原始SD保留为QC |
 | `patient.py`、`events.py` | 固定解剖区域/时段汇总；已复核事件到达顺序、计数、速度与双壁配对 |
@@ -80,6 +81,7 @@ python -m uterine_wave features --tracks outputs/tracks.npz --layout outputs/tra
 - [特征定义和轨迹接口](docs/INTERFACES.md)
 - [文献对应及未复现部分](docs/LITERATURE.md)
 - [NCC/PCC质量定义、覆盖及候选对齐](docs/TRACKING_QUALITY.md)
+- [候选活动、连续传播及身份关系审查](docs/CANDIDATE_EVIDENCE.md)
 - [共同目标](TRACKING_GOAL.md)
 - [逐次事件冻结方案](docs/EVENT_DEFINITION_PLAN.md)
 
