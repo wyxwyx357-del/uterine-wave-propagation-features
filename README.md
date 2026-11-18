@@ -94,3 +94,13 @@ python experiments/cohort_wave_review.py --cohort data/included.csv --manifest d
 ```
 
 Windows CUDA OpenCV需要时显式传`--opencv-bin`；视频与页面导出另需Matplotlib和Pillow。`--prepare-only`仅生成选择清单，不运行追踪。输出包括全部预选病例记录、候选JSON、原视频ROI与径向图同步的一倍速视频、离线`index.html`和人工复核CSV；视频保留所有原生帧，不补帧。导出示例按计算后的候选一致性排序，属于复核展示，不能估计人群检出率。未检出不代表无蠕动，检出方向结构也不代表已确认有波。患者数据及导出文件只留本地。
+
+## 中线与径向同步对照
+
+`experiments/compare_midline_radial.py`复用上一批复核文件，保留原有径向A，按同一原生帧跨度计算已有B曲率变化率。中线是初始0.5位置的A0追踪曲线，另显示0.25/0.75相邻窄带；不声称是逐帧分割得到的真实内膜中线，不直接把曲率符号解释为C2F/F2C。
+
+```bash
+python experiments/compare_midline_radial.py --source outputs/cohort_review --output outputs/shape_comparison
+```
+
+需要时传`--opencv-bin`。离线页面提供原视频、前后壁径向图、中线图及可展开的相邻窄带图；支持同步游标、原始/频带切换、全景/局部放大和测量位置图层。复制原始视频并核对SHA256，不补帧或重编码。图层坐标只作显示，测量使用保存的全精度轨迹；缺失不连接。B保留原空间轴，五点曲率拟合的两端缺失显示为灰色。颜色表示各自量的正负，不比较A/B颜色强度或把它当方向。此次没有新增事件检测或自动次数，数据和页面仅留本地。
