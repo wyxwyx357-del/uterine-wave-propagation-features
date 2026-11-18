@@ -64,11 +64,13 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def known_match(report, direction, truth_arrival, clean_filtered, s):
+def known_match(report, direction, truth_arrival, clean_raw, s):
     """Same prespecified whole-path matching as the fixed-noise experiment.
 
     A direction hit alone is not recovery: retain timing and spatial support.
     Ground-truth injection is used only for evaluation, never for detection.
+    Single-phase references are native RAW isolated-signal extrema, independent
+    of the tested filter. Filtering the reference would hide peak displacement.
     """
     options = []
     for event in report['events']:
@@ -76,7 +78,7 @@ def known_match(report, direction, truth_arrival, clean_filtered, s):
             continue
         ids = event['sections']
         expected = truth_arrival[ids] if event['evidence_kind'] == 'paired_phase' else (
-            report['time_s'][np.argmax(event['leading_polarity']*clean_filtered[:, ids], axis=0)])
+            report['time_s'][np.argmax(event['leading_polarity']*clean_raw[:, ids], axis=0)])
         error = np.asarray(event['arrival_time_s'])-expected
         options.append(dict(event_id=event['event_id'],
             retained_path_fraction=float(np.ptp(s[ids])/np.ptp(s)),
@@ -100,7 +102,7 @@ def compare(source, family, a, valid, t, s, floor, *, clean=None,
                     report = detector(a[:, wall], valid[:, wall], t, s, noise_floor=floor)
                     report.pop('filtered_A')
                     report['time_s'] = t
-                    match = known_match(report, direction, truth_arrival, function(clean, t), s) if clean is not None else None
+                    match = known_match(report, direction, truth_arrival, clean, s) if clean is not None else None
                     report.pop('time_s')
                     walls.append(dict(wall=wall, report=report,
                                       known_injection_match=match))

@@ -76,3 +76,9 @@ under the reflected/partial combination. Single-pulse fixtures do not establish
 correct separation of successive events. Formal default replacement and
 automatic patient wave counting remain unvalidated. Patient data and all
 derived outputs stay local under ignored `outputs/`.
+
+Follow-up: [double-activity separation](DOUBLE_EVENT_VALIDATION.md) adds
+filter-independent raw references, one-to-one identity matching and clean
+causal controls. The single-phase reference in the runner now uses raw isolated
+peaks; historical filtered-reference timing outputs are not retroactively
+corrected.
