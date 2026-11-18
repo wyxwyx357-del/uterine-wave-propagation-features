@@ -135,3 +135,5 @@ python experiments/match_clinical_wave_reference.py --workbook data/clinical.xls
 [事件输入短时平滑对照](docs/EVENT_INPUT_SMOOTHING_TRIAL.md)：只测试一个沿用测量跨度的平滑尺度，同时比较冻结噪声参照和同规则重标定，联合评价双事件分离、弱活动支持及非传播候选；未替换正式输入滤波。
 
 [父候选内部受限拆分](docs/CANDIDATE_SPLIT_TRIAL.md)：辅助信号只在现有候选及一个测量跨度上下文内工作，输出保留/拆成两个/不确定；复用原87组并比较3/4/5相邻section支持。因跨父候选重复归属及支持损失，尚未进入真实病例或正式计数。
+
+[全局事件归属执行与验收协议](docs/GLOBAL_OWNERSHIP_PROTOCOL.md)：明确重复判定优先级、合并/保留/歧义规则、canonical支持保留及事务依赖；协调既有parent/child，不重新检测波。提供固定87组验证和12例提案复核入口，正式计数保持空值。
