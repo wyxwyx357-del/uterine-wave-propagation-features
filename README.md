@@ -82,6 +82,7 @@ python -m uterine_wave features --tracks outputs/tracks.npz --layout outputs/tra
 - [文献对应及未复现部分](docs/LITERATURE.md)
 - [NCC/PCC质量定义、覆盖及候选对齐](docs/TRACKING_QUALITY.md)
 - [候选活动、连续传播及身份关系审查](docs/CANDIDATE_EVIDENCE.md)
+- [原视频候选分类复核（隐藏强度和程序方向）](docs/BLIND_WAVE_REVIEW.md)
 - [共同目标](TRACKING_GOAL.md)
 - [逐次事件冻结方案](docs/EVENT_DEFINITION_PLAN.md)
 
