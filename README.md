@@ -85,6 +85,7 @@ python -m uterine_wave features --tracks outputs/tracks.npz --layout outputs/tra
 - [原视频候选分类复核（隐藏强度和程序方向）](docs/BLIND_WAVE_REVIEW.md)
 - [ROI外分区多点共同运动核对](docs/EXTERNAL_MOTION_AUDIT.md)
 - [完整相位连接优先级的独立配对实验](docs/PHASE_LINK_PRIORITY_TRIAL.md)
+- [暂时隐藏一个位置的相位连接内部检查](docs/PHASE_PREDICTION_CHECK.md)
 - [共同目标](TRACKING_GOAL.md)
 - [逐次事件冻结方案](docs/EVENT_DEFINITION_PLAN.md)
 
