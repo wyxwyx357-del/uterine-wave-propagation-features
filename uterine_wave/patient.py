@@ -25,7 +25,8 @@ def _duration(mask, interval_start_s, interval_end_s):
     return float(total+end-start)
 
 
-def summarize_patient(spacetime, *, s_range, time_range=None, review=None, refine_mode_speed=False):
+def summarize_patient(spacetime, *, s_range, time_range=None, review=None, refine_mode_speed=False,
+                      include_mode_velocity=True):
     """Same preselected anatomical region for amplitude, modes and exposure.
 
     review=None means no event review, not zero waves. A review contains
@@ -94,7 +95,8 @@ def summarize_patient(spacetime, *, s_range, time_range=None, review=None, refin
                 blocks.append(dict(start_s=float(t[start]), end_s=float(t[end-1]),
                                    samples=end-start, band_SD=float(amplitude['band_SD_mean']),
                                    raw_SD=float(amplitude['raw_SD_mean']),
-                                   frequency_resolution_cpm=amplitude['time_resolution_cpm']))
+                                   frequency_resolution_cpm=amplitude['time_resolution_cpm'],
+                                   positive_frequency_bins=amplitude['positive_frequency_bins']))
             samples = sum(row['samples'] for row in blocks)
             pooled = {kind: float(np.sqrt(sum(row['samples']*row[kind]**2 for row in blocks)/samples))
                       if samples else None for kind in ('band_SD', 'raw_SD')}
@@ -120,7 +122,7 @@ def summarize_patient(spacetime, *, s_range, time_range=None, review=None, refin
     complete = good[:, :, lo:hi].all(2)
     fixed['valid_mask'][:, :, lo:hi] &= complete[:, :, None]
     modes = analyze_modes(fixed, regions=[(0, lo, hi, 'anterior'), (1, lo, hi, 'posterior')],
-                          refine_velocity=refine_mode_speed)
+                          refine_velocity=refine_mode_speed, include_velocity=include_mode_velocity)
     events, pairs = [], []
     counts = dict(status='not_reviewed', event_count=None, event_frequency_cpm=None)
     if review is not None:

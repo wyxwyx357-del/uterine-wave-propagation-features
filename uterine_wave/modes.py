@@ -1,6 +1,6 @@
 """Segment-supported propagation mode features, separate from event detection."""
 import numpy as np
-from .spectrum import mode_velocity
+from .spectrum import direction, mode_velocity
 from .amplitude import summarize_interval_strain
 
 
@@ -9,7 +9,8 @@ def contiguous_blocks(mask, minimum=3):
     return [(int(a), int(b)) for a, b in edges if b-a >= minimum]
 
 
-def analyze_modes(spacetime, *, window_s=20., step_s=1., regions=None, refine_velocity=False):
+def analyze_modes(spacetime, *, window_s=20., step_s=1., regions=None, refine_velocity=False,
+                  include_velocity=True):
     """Each spectrum uses an intact rectangular block; no concatenated gaps.
 
     20 s follows the prior literature-inspired mode protocol; 1 s step and
@@ -17,6 +18,11 @@ def analyze_modes(spacetime, *, window_s=20., step_s=1., regions=None, refine_ve
     All supported spatial blocks are kept. Coordination compares identical
     sections and window times on the two walls, grouped by spatial block.
     """
+    if refine_velocity and not include_velocity:
+        raise ValueError('Velocity refinement requires include_velocity=True')
+    def measure(values, clock, positions):
+        return (mode_velocity(values,clock,positions,refine=refine_velocity) if include_velocity
+                else direction(values,clock,positions))
     a=np.asarray(spacetime['A'],float);v=np.asarray(spacetime['valid_mask'],bool)
     epsilon=np.asarray(spacetime['epsilon'],float) if 'epsilon' in spacetime else None
     t=np.asarray(spacetime['interval_center_s'],float);s=np.asarray(spacetime['s'],float)
@@ -49,7 +55,7 @@ def analyze_modes(spacetime, *, window_s=20., step_s=1., regions=None, refine_ve
             if not blocks:missing.append(dict(region=name,window_start_s=float(t[first]),reason='no_contiguous_three_column_support'))
             for lo,hi in blocks:
                 lo+=begin;hi+=begin
-                result=mode_velocity(a[first:last,wall,lo:hi],t[first:last],s[lo:hi],refine=refine_velocity)
+                result=measure(a[first:last,wall,lo:hi],t[first:last],s[lo:hi])
                 if epsilon is not None:
                     amplitude=summarize_interval_strain(epsilon[first:last,wall,lo:hi],t[first:last])
                     result.update(interval_strain_raw_SD_mean=float(amplitude['raw_SD_mean']),
@@ -64,7 +70,7 @@ def analyze_modes(spacetime, *, window_s=20., step_s=1., regions=None, refine_ve
             for wall in (0,1):
                 key=(wall,lo,hi)
                 if key not in window_results:
-                    window_results[key]=mode_velocity(a[first:last,wall,lo:hi],t[first:last],s[lo:hi],refine=refine_velocity)
+                    window_results[key]=measure(a[first:last,wall,lo:hi],t[first:last],s[lo:hi])
                 pair_results.append(window_results[key])
             left,right=pair_results
             if left['ER'] is not None and right['ER'] is not None:
@@ -87,3 +93,4 @@ def analyze_modes(spacetime, *, window_s=20., step_s=1., regions=None, refine_ve
         actual_window_sample_span_s=float((n-1)*np.median(dt)),
         actual_step_s=float(step*np.median(dt)),
         numerical_minimum_columns=3,refined_velocity=bool(refine_velocity),event_count=None,event_frequency_cpm=None)
+

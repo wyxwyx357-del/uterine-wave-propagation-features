@@ -1,5 +1,9 @@
 # 共同目标
 
+## 2026-11-19 本地数据整理与自动衔接
+
+按用户表格整理输入及异常清单，原视频、已有标注和背景pose逐例绑定。新增run_frozen_features.py，显式ROI，少量技术测试后停止，不跑全队列。A0与径向/幅度/ER/CC/MSE公式不改；仅在patient/modes增加关闭附带谱速度的接口开关，沿用原direction函数。病例失败保留原因和null，不能写0或阻断后续。用户再次明确当前以整理与打包为主，不继续计算更多患者。见docs/FROZEN_FEATURE_PIPELINE.md。
+
 ## 2026-11-19 有效时长修复后冻结特征计算
 
 核对外部审查，patient有效时长由中心跨度修为实际measurement interval并集；连续60/40秒、支持缺口及重叠复核测试通过。三份既有真实径向图复算，除支持时长外各wall/mode测量逐值不变；raw方向谱能量显式标未归一化FFT power且仅QC。冻结A/epsilon、幅度、window/block ER、RMS/energy fraction、block级CC/MSE与有效支持；不定义新的全片global ER或单一患者CC/MSE，不重启计数与速度优化。详见docs/DURATION_UNION_FIX.md。

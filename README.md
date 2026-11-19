@@ -1,5 +1,7 @@
 # 子宫蠕动波传播特征
 
+[本地输入整理与冻结特征流水线](docs/FROZEN_FEATURE_PIPELINE.md)：`run_frozen_features.py`先核对现有视频/首帧标签/pose，再显式少量运行A0→2 s径向图→冻结特征。无自动计数或速度，不启动隐含全队列；患者输入和结果仅保留本地。
+
 [特征计算冻结与有效时长修复](docs/DURATION_UNION_FIX.md)：有效时长改为实际测量区间并集；幅度、window/block级ER与CC/MSE公式保持，raw FFT power显式仅作QC。154项测试中152通过、2项CUDA跳过；三份真实缓存配对复算仅支持时长变化。
 
 [保留证据类型与条件身份范围试验](docs/PROVENANCE_COUNT_TRIAL.md)：87组中单相误计消除且必要强波保留，但10秒双波重复仍在，另有真实第二活动失去主支持；实验不替换正式计数，条件范围不当真波上下界。
