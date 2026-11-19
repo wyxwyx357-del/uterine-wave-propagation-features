@@ -1,5 +1,7 @@
 # 子宫蠕动波传播特征
 
+[保留证据类型与条件身份范围试验](docs/PROVENANCE_COUNT_TRIAL.md)：87组中单相误计消除且必要强波保留，但10秒双波重复仍在，另有真实第二活动失去主支持；实验不替换正式计数，条件范围不当真波上下界。
+
 [完整活动周期身份试验](docs/COMPLETE_CYCLE_IDENTITY_TRIAL.md)：固定87组沙盒，local_once实验确认归零，但15/20秒双波非回退失败；周期起点与相位占用仍不唯一，已按停止规则停止追加参数，正式计数不变。
 
 [相位身份关系沙盒试验](docs/WAVEFRONT_PHASE_OWNERSHIP_TRIAL.md)：87组已存结果发现单相复用及竞争关系；未唯一解决完整活动周期身份，正式计数不变。
@@ -161,3 +163,4 @@ python experiments/match_clinical_wave_reference.py --workbook data/clinical.xls
 [Patient-level activity aggregation](docs/PATIENT_ACTIVITY_AGGREGATION.md): one activity ledger per patient, unique cross-wall evidence pairing, unresolved identity ranges, and union-based candidate rates. Supersedes separate-wall clinical count comparisons; no clinical/outcome fitting.
 
 [Retained-direction and identity-first integration](docs/DIRECTION_IDENTITY_TRIAL.md): refit each contiguous salience-retained block after cross-wall identity reconciliation; preserves 12/12 necessary strong-wave controls and leaves one known 10-second complementary-wall duplication unresolved.
+
