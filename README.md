@@ -1,5 +1,9 @@
 # 子宫蠕动波传播特征
 
+[完整活动周期身份试验](docs/COMPLETE_CYCLE_IDENTITY_TRIAL.md)：固定87组沙盒，local_once实验确认归零，但15/20秒双波非回退失败；周期起点与相位占用仍不唯一，已按停止规则停止追加参数，正式计数不变。
+
+[相位身份关系沙盒试验](docs/WAVEFRONT_PHASE_OWNERSHIP_TRIAL.md)：87组已存结果发现单相复用及竞争关系；未唯一解决完整活动周期身份，正式计数不变。
+
 [Wavefront定义审查](docs/WAVEFRONT_DEFINITION_REVIEW.md)：局部活动、传播fragment和唯一wavefront分层；只读定位局部单相误计和双波的跨壁重复/回程额外表示，不增加50%阈值或修改正式算法。
 
 当前主任务：[固定0.6的显著传播活动计数](docs/SIGNIFICANT_ACTIVITY_COUNTS.md)。方向仅作QC；87组对照与12例统一重算，已知相邻双事件重复和局部误计仍未通过冻结条件。

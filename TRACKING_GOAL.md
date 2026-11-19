@@ -1,5 +1,13 @@
 # 共同目标
 
+## 2026-11-19 complete activity cycle identity试验停止
+
+只在沙盒枚举有序正负相位cycle，复用span+dt与3相邻支持；保留phase竞争，未改正式计数。87组结果：local_once原2次变0实验确认；单强波6/6保留，但15/20秒双强波全部陷入正负周期起点竞争，非回退失败。10秒双F2C提出8个cycle，7个竞争，最终仅1个未对应truth的base被误确认，两个truth各2个proposal且均未确认，另有2个跨truth混配。cycle identity仍不可唯一确定，按用户停止规则不再加阈值/特例，不进入正式。详见docs/COMPLETE_CYCLE_IDENTITY_TRIAL.md。
+
+## 2026-11-19 相位身份关系沙盒试验
+
+复用87组保存结果，仅测试活动间相位对应，不改正式计数或阈值。local_once找到跨壁正相位对应，但不能证明正负两相属于一个完整周期；双波额外base与child有三组单极性相位关系，存在竞争，不能直接传递合并。未实现local_once 2→0或双波6→2，不宣称修复成功。结果见docs/WAVEFRONT_PHASE_OWNERSHIP_TRIAL.md。
+
 ## 2026-11-19 wavefront定义审查（不改正式算法）
 
 按用户指令先形式化local activity→fragment→wavefront→唯一ownership→count，参考IC-EHG定义原则，不搬3/5、50%或速度阈值。已取得原文方法段，确认先建立wavefront后分析方向、使用收缩质心。只读诊断local_once两条及10秒双波六条：前者单相peak即arrival，后者4条child含2份跨壁重复，额外2条base均为负→正谷部/回程角色。当前缺活动相位角色与全局身份层，50%不足以解决，暂不做该实验。审查见docs/WAVEFRONT_DEFINITION_REVIEW.md；正式计数保持2c0f630行为。
