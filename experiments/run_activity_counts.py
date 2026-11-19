@@ -17,7 +17,7 @@ from experiments.test_activity_strength_trial import read,save
 
 
 def run():
-    root=ROOT/'outputs';out=root/'significant_activity_counts_20261119_v1';out.mkdir(exist_ok=True)
+    root=ROOT/'outputs';out=root/(sys.argv[1] if len(sys.argv)>1 else 'significant_activity_counts_20261119_v2');out.mkdir(exist_ok=True)
     paths=list(sorted((root/'global_ownership_trial_20261119_v1').glob('texture*.json')))
     paths+=list(sorted((root/'global_ownership_real_20261119_v1').glob('case_*.json')))
     summary=[]

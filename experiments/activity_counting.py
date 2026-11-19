@@ -7,7 +7,22 @@ from copy import deepcopy
 from itertools import combinations
 import numpy as np
 from experiments.direction_identity_trial import compare_identity_without_direction
-from uterine_wave.radial_events import _describe_arrival, RadialWaveConfig
+from uterine_wave.radial_events import _describe_arrival, _arrival_evidence, RadialWaveConfig
+
+
+def retained_phase_fits(node,block,s,dt):
+    """Fit signed phase peaks only where each section has one unambiguous peak."""
+    fits=[];availability=[]
+    for sign in (1,-1):
+        peaks=[[p['peak_s'] for p in node['profile'][int(c)] if p['sign']==sign]
+               for c in block]
+        complete=all(len(values)==1 for values in peaks)
+        availability.append(dict(sign=sign,complete=complete,
+                                 peak_counts=[len(values) for values in peaks]))
+        if complete:
+            fits.append(dict(_arrival_evidence(np.asarray(s)[block],
+                             np.array([values[0] for values in peaks]),dt),sign=sign))
+    return fits,availability
 
 
 def count_activities(nodes,s,span,dt,observation_seconds):
@@ -31,8 +46,10 @@ def count_activities(nodes,s,span,dt,observation_seconds):
             for block in np.split(ids,np.flatnonzero(np.diff(ids)!=1)+1):
                 if len(block)<3:continue
                 arrival=np.array([node['arrival'][int(c)] for c in block])
-                m=_describe_arrival(block,arrival,np.asarray(s),dt,[],RadialWaveConfig())
+                phase_fits,availability=retained_phase_fits(node,block,s,dt)
+                m=_describe_arrival(block,arrival,np.asarray(s),dt,phase_fits,RadialWaveConfig())
                 evidence.append(dict(node_id=node['node_id'],sections=block.tolist(),measurement=m,
+                    phase_fit_availability=availability,
                     propagation_supported=m['classification'] in ('C2F','F2C')))
         members=[n['node_id'] for n in group]
         phases=[p for n in group for ps in n['profile'].values() for p in ps]
