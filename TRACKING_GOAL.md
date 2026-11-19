@@ -1,5 +1,9 @@
 # 共同目标
 
+## 2026-11-19 wavefront定义审查（不改正式算法）
+
+按用户指令先形式化local activity→fragment→wavefront→唯一ownership→count，参考IC-EHG定义原则，不搬3/5、50%或速度阈值。已取得原文方法段，确认先建立wavefront后分析方向、使用收缩质心。只读诊断local_once两条及10秒双波六条：前者单相peak即arrival，后者4条child含2份跨壁重复，额外2条base均为负→正谷部/回程角色。当前缺活动相位角色与全局身份层，50%不足以解决，暂不做该实验。审查见docs/WAVEFRONT_DEFINITION_REVIEW.md；正式计数保持2c0f630行为。
+
 ## 2026-11-19 补回相位峰值拟合的受限验证
 
 次数流程按连续block补回正负相位peak fit，沿用已有分类器不新增阈值、不改跨壁规则。87组+12例重算，必要强波12/12，local_once仍误计2次（单相位peak即arrival，相位拟合非独立证据），10秒双波仍6次。额外两条已定位为base双相结构而非单相；四条child是两个truth在互补壁段的重复表示。本轮停止追加规则。真实输出16次、其他显著活动6次，1040由5变4；结果不视为准确率提升证明。见docs/SIGNIFICANT_ACTIVITY_COUNTS.md。

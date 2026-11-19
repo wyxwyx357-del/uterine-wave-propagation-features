@@ -1,5 +1,7 @@
 # 子宫蠕动波传播特征
 
+[Wavefront定义审查](docs/WAVEFRONT_DEFINITION_REVIEW.md)：局部活动、传播fragment和唯一wavefront分层；只读定位局部单相误计和双波的跨壁重复/回程额外表示，不增加50%阈值或修改正式算法。
+
 当前主任务：[固定0.6的显著传播活动计数](docs/SIGNIFICANT_ACTIVITY_COUNTS.md)。方向仅作QC；87组对照与12例统一重算，已知相邻双事件重复和局部误计仍未通过冻结条件。
 
 本仓库整理当前一轮的研究代码：**解剖布点 → 分段 CUDA LK 追踪 → 径向形变 / 内膜窄带曲率变化 → 传播方向模式分析 → 已知运动对照**。
