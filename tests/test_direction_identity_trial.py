@@ -34,6 +34,21 @@ class DirectionIdentityTrial(unittest.TestCase):
         self.assertEqual(result['direction_status'], 'retained_support_conflicts_with_original')
         self.assertIsNone(result['supported_direction'])
 
+    def test_disconnected_retained_blocks_are_never_fitted_across_gap(self):
+        candidate = node('a', 0, 'C2F', arrival=[10., 11., 12.])
+        candidate['sections'] = [0, 1, 2, 6, 7, 8]
+        candidate['arrival'] = {0: 10., 1: 11., 2: 12.,
+                                6: 30., 7: 29., 8: 28.}
+        candidate['profile'].update({section: [
+            dict(sign=1, peak_s=candidate['arrival'][section],
+                 start_s=candidate['arrival'][section]-1,
+                 end_s=candidate['arrival'][section]+1, epoch=[0, 1])]
+            for section in (6, 7, 8)})
+        result = revalidate_retained_direction(candidate, np.arange(9), .1)
+        self.assertEqual(result['retained_contiguous_blocks'], [[0, 1, 2], [6, 7, 8]])
+        self.assertEqual(result['direction_status'], 'retained_support_conflicts_with_original')
+        self.assertIsNone(result['supported_direction'])
+
     def test_identity_precedes_opposing_wall_direction(self):
         result = reconcile_identity_then_direction(
             [node('a', 0, 'C2F'), node('b', 1, 'F2C', .1)],

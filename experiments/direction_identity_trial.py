@@ -20,6 +20,14 @@ def _longest_adjacent(ids):
         ids, np.flatnonzero(np.diff(ids) != 1) + 1)), default=0)
 
 
+def _adjacent_blocks(ids):
+    ids = np.asarray(sorted(set(ids)), int)
+    if not len(ids):
+        return []
+    return [block for block in np.split(
+        ids, np.flatnonzero(np.diff(ids) != 1) + 1) if len(block)]
+
+
 def _phase_subset_matches(left, right, tolerance_s):
     """Allow extra local phases while matching the smaller signed sequence."""
     smaller, larger = (left, right) if len(left) <= len(right) else (right, left)
@@ -74,26 +82,35 @@ def compare_identity_without_direction(a, b, span_s, sample_dt_s):
 
 
 def revalidate_retained_direction(node, s, sample_dt_s, config=RadialWaveConfig()):
-    """Refit arrival evidence on the positions retained by salience screening."""
+    """Refit each contiguous retained block; never bridge a salience gap."""
     sections = np.asarray(sorted(node['sections']), int)
-    arrival = np.asarray([node['arrival'][int(section)] for section in sections], float)
-    measurement = _describe_arrival(
-        sections, arrival, np.asarray(s, float), float(sample_dt_s), [], config)
-    refit = measurement['classification'] if measurement['classification'] in DIRECTIONS else None
+    blocks = _adjacent_blocks(sections)
+    measurements = []
+    for block in blocks:
+        arrival = np.asarray([node['arrival'][int(section)] for section in block], float)
+        measurement = _describe_arrival(
+            block, arrival, np.asarray(s, float), float(sample_dt_s), [], config)
+        measurements.append(dict(sections=block.tolist(), arrival_time_s=arrival.tolist(),
+                                 measurement=measurement))
+    block_directions = [item['measurement']['classification'] for item in measurements
+                        if item['measurement']['classification'] in DIRECTIONS]
+    refit = block_directions[0] if len(set(block_directions)) == 1 else None
     original = node['direction'] if node['direction'] in DIRECTIONS else None
     if original is None:
         status, supported = 'original_direction_unresolved', None
-    elif refit is None:
-        status, supported = 'retained_support_unresolved', None
-    elif refit != original:
+    elif any(direction != original for direction in block_directions):
         status, supported = 'retained_support_conflicts_with_original', None
-    else:
+    elif any(direction == original for direction in block_directions):
         status, supported = 'retained_support_agrees', original
+    else:
+        status, supported = 'retained_support_unresolved', None
     return dict(node_id=node['node_id'], original_direction=original,
                 retained_refit_direction=refit, supported_direction=supported,
                 direction_status=status, retained_sections=sections.tolist(),
-                retained_arrival_time_s=arrival.tolist(),
-                retained_arrival_measurement=measurement)
+                retained_contiguous_blocks=[block.tolist() for block in blocks],
+                block_direction_evidence=measurements,
+                direction_rule=('each contiguous retained block refit separately; '
+                                'opposing block makes direction unresolved'))
 
 
 def reconcile_identity_then_direction(nodes, s, span_s, sample_dt_s):
@@ -142,11 +159,20 @@ def reconcile_identity_then_direction(nodes, s, span_s, sample_dt_s):
         related = sorted({other for member in members
                           for other in uncertain[member] + choices[member]
                           if other not in members})
-        activities.append(dict(activity_id=f'activity_{index:03d}',
+        phases = [phase for node in group for values in node['profile'].values()
+                  for phase in values]
+        activity_id=f'activity_{index:03d}'
+        activities.append(dict(activity_id=activity_id,patient_candidate_id=activity_id,
             source_nodes=members, walls=sorted({node['wall'] for node in group}),
             cross_wall_identity=len(group) == 2, direction=direction,
             direction_status=direction_status, direction_evidence=evidence,
-            unresolved_related_nodes=related))
+            classification=('propagation' if direction else 'direction_unresolved_activity'),
+            ownership_status=('unresolved_cross_wall' if related else
+                              'shared_identity' if len(group) == 2 else 'single_wall'),
+            unresolved_related_nodes=related,
+            evidence_start_s=min(phase['start_s'] for phase in phases),
+            evidence_end_s=max(phase['end_s'] for phase in phases),
+            source_measurements=deepcopy(group), reviewed=False))
     return dict(activities=activities, identity_comparisons=comparisons,
                 input_candidate_rows=len(nodes), activity_rows=len(activities),
                 cross_wall_identity_pairs=len(pairs),

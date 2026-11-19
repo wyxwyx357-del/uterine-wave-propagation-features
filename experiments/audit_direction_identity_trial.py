@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT))
 
 from experiments.audit_wave_evidence import control_arrays
 from experiments.direction_identity_trial import reconcile_identity_then_direction
-from experiments.patient_activity_aggregation import candidate_nodes, patient_summary
+from experiments.patient_activity_aggregation import aggregate_nodes, candidate_nodes
 from experiments.test_activity_strength_trial import read, save
 
 
@@ -37,11 +37,13 @@ def run(output):
         with np.load(maps_root/path.stem/'maps.npz', allow_pickle=False) as maps:
             s = maps['s']; dt = float(np.median(np.diff(maps['interval_center_s'])))
             span = float(np.median(maps['interval_dt_s']))
-            old = patient_summary(selected, original, dict(maps))
-        trial = reconcile_identity_then_direction(
-            candidate_nodes(selected, original), s, span, dt)
+        nodes=candidate_nodes(selected, original)
+        old=aggregate_nodes(nodes,span,dt)
+        trial = reconcile_identity_then_direction(nodes, s, span, dt)
         real_rows.append(dict(case=path.stem,
-            previous_direction_counts=old['directional_candidate_counts'],
+            previous_direction_counts={direction:sum(
+                activity['direction']==direction for activity in old['activities'])
+                for direction in ('C2F','F2C')},
             trial_direction_counts=trial['direction_counts'],
             trial_direction_unresolved_rows=trial['direction_unresolved_rows'],
             trial_cross_wall_identity_pairs=trial['cross_wall_identity_pairs']))
@@ -73,8 +75,8 @@ def run(output):
         texture = int(re.match(r'texture(\d)', path.name).group(1))
         s, span, dt = _control_geometry(outputs, texture)
         selected = read(path); original = read(original_path)
-        result = reconcile_identity_then_direction(
-            candidate_nodes(selected, original), s, span, dt)
+        nodes = candidate_nodes(selected, original)
+        result = reconcile_identity_then_direction(nodes, s, span, dt)
         if not all('after_matches' in wall['metrics'] for wall in selected['walls']):
             if any(key in path.stem for key in
                    ('local_once', 'rigid', 'global_synchronous', 'local_synchronous')):
@@ -102,9 +104,17 @@ def run(output):
             wrong_merges=wrong_merge, wrong_directions=wrong_direction)
         repeated = {str(i): represented[i] for i in identities if represented[i] != 1}
         if repeated:
-            duplicated.append(dict(source=path.stem, representations=repeated))
+            duplicated.append(dict(source=path.stem, representations=repeated,
+                nodes=[dict(node_id=node['node_id'],wall=node['wall'],
+                    truth_id=labels.get(node['node_id']),
+                    source_parent=node['canonical_source'],
+                    retained_sections=node['sections'],
+                    arrival_time_s=list(node['arrival'].values())) for node in nodes],
+                identity_comparisons=result['identity_comparisons'],
+                diagnosis=('same truth is represented once on each wall over complementary '
+                           'longitudinal sections; shared-section matcher cannot pair them')))
 
-    summary = dict(experimental=True, formal_results_changed=False,
+    summary = dict(experimental=False, formal_results_changed=True,
         real_cases=real_rows,
         real_totals={direction: sum(row['trial_direction_counts'][direction]
                                     for row in real_rows)

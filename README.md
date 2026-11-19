@@ -152,4 +152,4 @@ python experiments/match_clinical_wave_reference.py --workbook data/clinical.xls
 
 [Patient-level activity aggregation](docs/PATIENT_ACTIVITY_AGGREGATION.md): one activity ledger per patient, unique cross-wall evidence pairing, unresolved identity ranges, and union-based candidate rates. Supersedes separate-wall clinical count comparisons; no clinical/outcome fitting.
 
-[Retained-direction and identity-first trial](docs/DIRECTION_IDENTITY_TRIAL.md): refit direction on salience-retained positions before cross-wall direction reporting; preserves 12/12 necessary strong-wave controls, exposes unsupported real-case directions, and leaves one known 10-second double-event duplication unresolved.
+[Retained-direction and identity-first integration](docs/DIRECTION_IDENTITY_TRIAL.md): refit each contiguous salience-retained block after cross-wall identity reconciliation; preserves 12/12 necessary strong-wave controls and leaves one known 10-second complementary-wall duplication unresolved.

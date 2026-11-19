@@ -7,6 +7,8 @@ from copy import deepcopy
 from itertools import combinations
 import numpy as np
 
+from experiments.direction_identity_trial import reconcile_identity_then_direction
+
 
 def longest_adjacent(ids):
     ids=np.asarray(sorted(set(ids)),int)
@@ -158,24 +160,55 @@ def aggregate_by_direction(nodes,span,dt,seconds):
     return buckets
 
 
+def _identity_first_buckets(reconciled,seconds):
+    """Adapt identity-first activities to the existing patient report interface."""
+    buckets={}
+    for label in ('C2F','F2C','other'):
+        activities=[deepcopy(activity) for activity in reconciled['activities']
+                    if (activity['direction']==label if label!='other'
+                        else activity['direction'] not in ('C2F','F2C'))]
+        for index,activity in enumerate(activities,1):
+            activity['patient_candidate_id']=f'{label}_{index:03d}'
+        count=len(activities);rate=count*60/seconds if seconds>0 else None
+        buckets[label]=dict(activities=activities,patient_candidate_rows=count,
+            conditional_identity_count_range=[count,count],
+            candidate_rate_range_cpm=[rate,rate],direction_bucket=label,
+            direction_source=('arrival refit on each contiguous salience-retained block; '
+                              'cross-wall identity reconciled before direction'),
+            formal_event_count=None,formal_event_frequency_cpm=None)
+    return buckets
+
+
 def patient_summary(salience,ownership,maps):
     dt=float(np.median(np.diff(maps['interval_center_s'])));span=float(np.median(maps['interval_dt_s']))
     nodes=candidate_nodes(salience,ownership)
-    result=aggregate_nodes(nodes,span,dt)
     exposure=observation_union(maps);seconds=exposure['seconds']
-    count=result['patient_candidate_rows'];directional=sum(a['direction'] is not None for a in result['activities'])
-    low,high=result['conditional_identity_count_range']
-    rates=[low*60/seconds,high*60/seconds] if seconds>0 else [None,None]
-    result.update(exposure=exposure,candidate_activity_rate_cpm=count*60/seconds if seconds>0 and low==high else None,
+    legacy=aggregate_nodes(nodes,span,dt)
+    reconciled=reconcile_identity_then_direction(nodes,np.asarray(maps['s'],float),span,dt)
+    activities=reconciled['activities'];count=len(activities)
+    directional=sum(a['direction'] in ('C2F','F2C') for a in activities)
+    unresolved_cross_wall=sum(bool(a['unresolved_related_nodes']) for a in activities)
+    result=dict(activities=activities,cross_wall_evidence=reconciled['identity_comparisons'],
+        input_wall_proposal_rows=len(nodes),patient_candidate_rows=count,
+        cross_wall_pairs_merged=reconciled['cross_wall_identity_pairs'],
+        unresolved_cross_wall_rows=unresolved_cross_wall,
+        conditional_identity_count_range=[count,count],
+        conditional_range_semantics='exact output of current identity-first algorithm; not a confidence interval',
+        formal_event_count=None,formal_event_frequency_cpm=None)
+    result.update(exposure=exposure,candidate_activity_rate_cpm=count*60/seconds if seconds>0 else None,
         unresolved_ledger_row_density_cpm=count*60/seconds if seconds>0 else None,
-        conditional_candidate_rate_range_cpm=rates,
+        conditional_candidate_rate_range_cpm=[count*60/seconds,count*60/seconds] if seconds>0 else [None,None],
         directional_candidate_rows=directional,local_or_unresolved_rows=count-directional,
         candidate_propagation_rate_cpm=directional*60/seconds if seconds>0 else None,
-        directional_candidate_counts={d:sum(a['direction']==d for a in result['activities']) for d in ('C2F','F2C')},
+        directional_candidate_counts={d:sum(a['direction']==d for a in activities) for d in ('C2F','F2C')},
         rates_are_exploratory_candidate_densities=True,timing_tolerance_s=span+dt)
-    buckets=aggregate_by_direction(nodes,span,dt,seconds)
-    result.update(primary_reporting='direction_first',directional_summaries={d:buckets[d] for d in ('C2F','F2C')},
+    buckets=_identity_first_buckets(reconciled,seconds)
+    result.update(primary_reporting='identity_first_direction_second',directional_summaries={d:buckets[d] for d in ('C2F','F2C')},
         non_directional_summary=buckets['other'],
         directional_candidate_count_range=[sum(buckets[d]['conditional_identity_count_range'][i] for d in ('C2F','F2C')) for i in (0,1)],
-        combined_activity_fields_are_secondary_QC=True)
+        combined_activity_fields_are_secondary_QC=True,
+        legacy_direction_first_QC=dict(patient_candidate_rows=legacy['patient_candidate_rows'],
+            conditional_identity_count_range=legacy['conditional_identity_count_range'],
+            cross_wall_pairs_merged=legacy['cross_wall_pairs_merged']),
+        retained_direction_refit=True,identity_before_direction=True)
     return result

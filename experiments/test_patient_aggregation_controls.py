@@ -15,7 +15,7 @@ def run(output):
     for texture in range(3):
         control=ROOT/f'outputs/p3_outer_ideal_prior_20261117_v2/texture{texture}_rigid.npz'
         a,v,t,s,span=control_arrays(control);sources[str(control)]=digest(control)
-        maps=dict(A=a,valid_mask=v,interval_center_s=t,interval_dt_s=np.full(len(t),span),
+        maps=dict(A=a,valid_mask=v,s=s,interval_center_s=t,interval_dt_s=np.full(len(t),span),
                   interval_start_s=t-span/2,interval_end_s=t+span/2)
         for direction in ('C2F','F2C'):
             for family,expected in [('single',1),('double',2)]:
