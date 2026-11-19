@@ -1,4 +1,4 @@
-"""Directional spectral energy. ER describes a pattern, not an event detector."""
+"""Directional spectra; raw FFT power is QC, not cross-grid physical energy."""
 import numpy as np
 
 
@@ -40,6 +40,9 @@ def _direction_summary(y, t, space, ft, fx, power, band, band_cpm):
     er = (ef-eb)/(ef+eb) if ef+eb > max(1e-25, total*1e-12) else None
     return dict(ER=er, forward_energy=ef, backward_energy=eb,
                 directional_energy=directional_energy,
+                spectral_energy_normalization='unnormalized_fft_power',
+                spectral_energy_role='QC_only',
+                spectral_energy_cross_grid_comparable=False,
                 directional_rms=float(np.sqrt(directional_energy)/(len(t)*len(space))),
                 directional_band_energy_fraction=(directional_energy/band_energy if band_energy > 1e-25 else None),
                 time_resolution_cpm=60/(len(t)*np.median(dt)),
@@ -116,3 +119,4 @@ def describe(measured, reference, valid, time_s, arc):
                    measured_ER=direction(measured[:, u:v], time_s, arc[u:v])['ER'],
                    reference_ER=direction(reference[:, u:v], time_s, arc[u:v])['ER'])
     return row
+

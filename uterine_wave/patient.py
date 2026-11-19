@@ -5,9 +5,24 @@ from .events import measure_event, pair_wall_events
 from .modes import analyze_modes, contiguous_blocks
 
 
-def _duration(mask, time_s):
-    """Union of adjacent supported time intervals; gaps contribute zero."""
-    return float(np.diff(time_s)[mask[:-1] & mask[1:]].sum())
+def _duration(mask, interval_start_s, interval_end_s):
+    """Length of the selected measurement-interval union, in seconds.
+
+    Endpoints are validated by summarize_patient. Only overlapping/touching
+    intervals merge; positive gaps between supported intervals stay missing.
+    """
+    intervals = sorted(zip(interval_start_s[mask], interval_end_s[mask]))
+    if not intervals:
+        return 0.
+    start, end = intervals[0]
+    total = 0.
+    for left, right in intervals[1:]:
+        if left <= end:
+            end = max(end, right)
+        else:
+            total += end-start
+            start, end = left, right
+    return float(total+end-start)
 
 
 def summarize_patient(spacetime, *, s_range, time_range=None, review=None, refine_mode_speed=False):
@@ -98,7 +113,7 @@ def summarize_patient(spacetime, *, s_range, time_range=None, review=None, refin
                           analyzed_sections=len(analyzed), requested_sections=len(ids),
                           amplitude_covers_all_requested_sections=covers_region,
                           valid_fraction=float(good[:, wall, lo:hi].mean()),
-                          common_region_duration_s=_duration(common, t)))
+                          common_region_duration_s=_duration(common, interval_start, interval_end)))
     # Retain the exact region: a varying set of surviving columns would change
     # the patient's physiological measurement between windows.
     fixed = dict(spacetime, valid_mask=good.copy())
@@ -136,7 +151,7 @@ def summarize_patient(spacetime, *, s_range, time_range=None, review=None, refin
             if len(rows) == 2 and max(row['start_s'] for row in rows) > min(row['end_s'] for row in rows):
                 raise ValueError('Shared event_id on two walls requires overlapping event time bounds')
         exposure = complete & reviewed[:, None]
-        duration = _duration(exposure.any(1), t)
+        duration = _duration(exposure.any(1), interval_start, interval_end)
         accepted = [row for row in events if row['status'] in ('reviewed_propagation', 'reviewed_complex_activity')]
         ids_counted = {row['event_id'] for row in accepted}
         failed = [row for row in events if row['status'] not in
@@ -172,6 +187,7 @@ def summarize_patient(spacetime, *, s_range, time_range=None, review=None, refin
                 analyzed_acquisition_time_range_s=[float(interval_start.min()), float(interval_end.max())],
                 requested_acquisition_time_range_s=list(time_range) if time_range is not None else None,
                 time_range_rule='full_measurement_interval_containment',
+                duration_definition='union_of_supported_measurement_intervals',
                 sections=ids.tolist(), nominal_interval_s=float(spacetime.get('nominal_interval_s', np.median(dt))),
                 actual_interval_s_range=[float(dt.min()), float(dt.max())],
                 amplitude_units='dimensionless', amplitude_band_cpm=[.5, 5.],

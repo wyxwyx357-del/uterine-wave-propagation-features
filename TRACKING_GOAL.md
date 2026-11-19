@@ -1,5 +1,9 @@
 # 共同目标
 
+## 2026-11-19 有效时长修复后冻结特征计算
+
+核对外部审查，patient有效时长由中心跨度修为实际measurement interval并集；连续60/40秒、支持缺口及重叠复核测试通过。三份既有真实径向图复算，除支持时长外各wall/mode测量逐值不变；raw方向谱能量显式标未归一化FFT power且仅QC。冻结A/epsilon、幅度、window/block ER、RMS/energy fraction、block级CC/MSE与有效支持；不定义新的全片global ER或单一患者CC/MSE，不重启计数与速度优化。详见docs/DURATION_UNION_FIX.md。
+
 ## 2026-11-19 provenance与条件身份范围沙盒
 
 仅测试双相主候选/单相未定证据及历史跨壁条件范围，正式代码和患者输出不变。87组：local_once 2→0，单强波和15/20秒双强波保持；指定10秒双F2C仍6条，互补sections不产生匹配边，条件范围[6,6]不能说明6个独立真波。另一10秒条件移走单相后失去真实第二活动的唯一主支持，因此不进入正式计数，不再加规则。详见docs/PROVENANCE_COUNT_TRIAL.md。

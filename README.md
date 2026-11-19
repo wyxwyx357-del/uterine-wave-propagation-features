@@ -1,5 +1,7 @@
 # 子宫蠕动波传播特征
 
+[特征计算冻结与有效时长修复](docs/DURATION_UNION_FIX.md)：有效时长改为实际测量区间并集；幅度、window/block级ER与CC/MSE公式保持，raw FFT power显式仅作QC。154项测试中152通过、2项CUDA跳过；三份真实缓存配对复算仅支持时长变化。
+
 [保留证据类型与条件身份范围试验](docs/PROVENANCE_COUNT_TRIAL.md)：87组中单相误计消除且必要强波保留，但10秒双波重复仍在，另有真实第二活动失去主支持；实验不替换正式计数，条件范围不当真波上下界。
 
 [完整活动周期身份试验](docs/COMPLETE_CYCLE_IDENTITY_TRIAL.md)：固定87组沙盒，local_once实验确认归零，但15/20秒双波非回退失败；周期起点与相位占用仍不唯一，已按停止规则停止追加参数，正式计数不变。

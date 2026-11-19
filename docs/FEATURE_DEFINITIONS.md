@@ -12,9 +12,13 @@ Sammali 2019第137–138页同样基于相邻测量时刻相对点距变化与�
 
 ## 方向、模式速度及协调性
 
-ER为`(E_C2F-E_F2C)/(E_C2F+E_F2C)`。正值C2F，负值F2C；接近零只表示方向能量平衡。绝对方向能量、方向RMS及刚体参照用于解释活动支持，属于QC。
+ER为`(E_C2F-E_F2C)/(E_C2F+E_F2C)`。正值C2F，负值F2C；接近零只表示方向能量平衡。原始方向谱能量、方向RMS及刚体参照用于解释活动支持，属于QC。
+
+`forward_energy`、`backward_energy`、`directional_energy`为**未归一化FFT power**，随时间样本数和空间列数变化，不能直接当跨患者的物理绝对能量。输出显式保存`spectral_energy_normalization=unnormalized_fft_power`、`spectral_energy_role=QC_only`及`spectral_energy_cross_grid_comparable=false`。当前ER、已归一化的directional RMS和directional band energy fraction公式不改；比较仍需固定测量尺度和解剖范围。
 
 `modes.analyze_modes`继续提供20 s模式窗及前后壁ER的零时延Pearson CC、MSE。这些是有文献依据的协调性代理，不要求先完成逐波匹配。小MSE也可来自两壁都弱，必须结合活动支持。固定区域必须实际覆盖两壁被比较位置；相同归一化s不保证同一物理横截面。
+
+患者接口当前返回window/spatial-block ER及一个或多个连续block的CC/MSE，不将窗口ER称作全片global ER，也不自行平均多个block得到唯一患者CC/MSE标量。这些患者级聚合尚未冻结。
 
 模式速度仍为`-ft/fs`，默认裸谱速度保留候选身份。`--refine-mode-speed`可显式复用已有连续双向时空拟合，保留原谱峰、拟合残差、边界和收敛诊断。20 s窗口的低频信息不足不会因连续优化而消失，不把未解决的模式速度自动汇总为患者真实波速。
 
@@ -27,6 +31,8 @@ ER为`(E_C2F-E_F2C)/(E_C2F+E_F2C)`。正值C2F，负值F2C；接近零只表示�
 事件内epsilon的无滤波逐点对SD均值作为明确命名的事件伸缩活动幅度，**不在几秒事件窗强行计算0.5次/分幅度**。双壁事件按已复核共享ID配对，报告同一采样位置的后壁减前壁到达差和方向一致性。患者速度先合并同一事件的双壁测量，再分别对各方向事件取中位数。
 
 频率=唯一事件数/有效观察分钟。观察使用显式固定解剖区域，分母为指定复核时段内至少一壁该区域连续有效的时间并集；重复/重叠时段不重复累加。缺失不记无波。只有声明完整复核、无未解决事件且存在有效时长时输出正式次数/频率。未输入复核时为null；完整复核且无事件时才为0。
+
+2026-11-19修复：`common_region_duration_s`和复核的`effective_duration_s`均按有效measurement intervals的**实际端点并集**计时，不再累计有效中心之间的距离。只合并重叠或相接区间，正长度支持缺口不计时；多壁和重叠复核时段不重复累加。0–60秒的完整2秒测量支持得到60秒，10–50秒得到40秒。输出`duration_definition=union_of_supported_measurement_intervals`标识已修复版本；旧JSON不会自动更新，需从同一缓存重新汇总。幅度及模式谱不因该修复改变。
 
 ## 自动径向传播候选
 

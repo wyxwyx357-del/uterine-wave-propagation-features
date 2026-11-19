@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 
 from uterine_wave.events import measure_event
-from uterine_wave.patient import summarize_patient
+from uterine_wave.patient import _duration, summarize_patient
 
 
 def maps():
@@ -39,8 +39,8 @@ class PatientFeatures(unittest.TestCase):
         review = dict(complete=True, intervals=[[0, 60]], events=[front, back])
         result = summarize_patient(data, s_range=(.2, .8), review=review)
         self.assertEqual(result['event_summary']['event_count'], 1)
-        self.assertAlmostEqual(result['event_summary']['effective_duration_s'], 58.)
-        self.assertAlmostEqual(result['event_summary']['event_frequency_cpm'], 60/58)
+        self.assertAlmostEqual(result['event_summary']['effective_duration_s'], 60.)
+        self.assertAlmostEqual(result['event_summary']['event_frequency_cpm'], 1.)
         self.assertAlmostEqual(result['events'][0]['velocity_paths_per_s'], .05)
         self.assertEqual(result['events'][0]['direction'], 'C2F')
         self.assertEqual(result['paired_wall_events'][0]['mean_arrival_difference_s'], 1.)
@@ -128,7 +128,7 @@ class PatientFeatures(unittest.TestCase):
         review = dict(complete=True, intervals=[[10, 50]], events=[])
         reviewed = summarize_patient(data, s_range=(.2, .8), time_range=(10, 50), review=review)
         self.assertEqual(reviewed['event_summary']['event_count'], 0)
-        self.assertAlmostEqual(reviewed['event_summary']['effective_duration_s'], 38.)
+        self.assertAlmostEqual(reviewed['event_summary']['effective_duration_s'], 40.)
         # Older maps have identical behavior from center +/- actual dt/2.
         del data['interval_start_s'];del data['interval_end_s']
         older = summarize_patient(data, s_range=(.2, .8), time_range=(10, 50))
@@ -160,7 +160,31 @@ class PatientFeatures(unittest.TestCase):
         result = summarize_patient(data, s_range=(.2, .8),
             review=dict(complete=True, intervals=[[10, 50]], events=[]))
         self.assertEqual(result['event_summary']['event_count'], 0)
-        self.assertAlmostEqual(result['event_summary']['effective_duration_s'], 38.)
+        self.assertAlmostEqual(result['event_summary']['effective_duration_s'], 40.)
+
+    def test_complete_overlapping_measurements_cover_the_acquisition(self):
+        result = summarize_patient(maps(), s_range=(.2, .8), time_range=(0, 60),
+            review=dict(complete=True, intervals=[[0, 40], [20, 60]], events=[event()]))
+        self.assertEqual([w['common_region_duration_s'] for w in result['walls']], [60., 60.])
+        self.assertEqual(result['event_summary']['effective_duration_s'], 60.)
+        self.assertEqual(result['event_summary']['event_frequency_cpm'], 1.)
+
+    def test_supported_interval_union_preserves_a_real_gap(self):
+        data = maps()
+        clock = data['interval_center_s']
+        data['valid_mask'][(clock > 19) & (clock < 31)] = False
+        result = summarize_patient(data, s_range=(.2, .8), time_range=(0, 60),
+            review=dict(complete=True, intervals=[[0, 60]], events=[]))
+        # Valid intervals cover [0,20] and [30,60]. The ten-second gap
+        # contributes nothing, and two walls do not double the denominator.
+        self.assertEqual([w['common_region_duration_s'] for w in result['walls']], [50., 50.])
+        self.assertEqual(result['event_summary']['effective_duration_s'], 50.)
+
+    def test_interval_union_handles_order_duplicates_and_empty_selection(self):
+        start = np.array([10., 0., 1., 0., 30.])
+        end = np.array([12., 2., 3., 2., 31.])
+        self.assertEqual(_duration(np.array([True]*4+[False]), start, end), 5.)
+        self.assertEqual(_duration(np.zeros(5, bool), start, end), 0.)
 
 
 if __name__ == '__main__':
