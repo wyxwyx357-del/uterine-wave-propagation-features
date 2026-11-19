@@ -25,7 +25,7 @@ def candidate_nodes(salience, ownership):
             e=lookup[score['event_proposal_id']];entity=source['source_evidence'][e['canonical_source_entity_id']]
             arrival=dict(zip(e['supporting_sections'],e['arrival_time_s']))
             ids=score['retained_sections']
-            profile={c:deepcopy(entity['profile'][str(c)]) for c in ids}
+            profile={c:deepcopy(entity['profile'][c] if c in entity['profile'] else entity['profile'][str(c)]) for c in ids}
             nodes.append(dict(node_id=f'wall{wall}/'+e['event_proposal_id'],wall=wall,
                 source_proposal_id=e['event_proposal_id'],canonical_source=e['canonical_source_entity_id'],
                 sections=ids,arrival={c:arrival[c] for c in ids},profile=profile,

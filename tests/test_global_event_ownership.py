@@ -75,15 +75,15 @@ class GlobalOwnershipTests(unittest.TestCase):
         self.assertNotEqual(result['source_to_final']['base:p0'],result['source_to_final']['base:p2'])
         self.assertTrue(any(a['source_entity_id']=='base:p1' for a in result['ambiguous_ownership']))
 
-    def test_opposite_direction_with_same_timing_is_ambiguous(self):
+    def test_opposite_direction_with_same_structure_counts_once(self):
         report=source_report([source_event('p0',5.),source_event('p1',5.)])
         report['events'][1]['classification']='F2C'
         result=self.run_ownership(report,[])
-        self.assertEqual(len(result['event_proposals']),2)
-        self.assertTrue(all(e['ownership_status']=='ambiguous_preserved_existing' for e in result['event_proposals']))
+        self.assertEqual(len(result['event_proposals']),1)
         entities,_=build_entities(report,[],self.t,self.valid)
         rel=compare_identity(entities['base:p0'],entities['base:p1'],sample_dt_s=.12,measurement_span_s=2.04)
-        self.assertEqual(rel['relation'],'ambiguous')
+        self.assertEqual(rel['relation'],'duplicate')
+        self.assertTrue(rel['direction_conflict'])
 
     def test_physical_continuity_is_required_for_duplicate_merge(self):
         report=source_report([source_event('p0',5.),source_event('p1',5.)])

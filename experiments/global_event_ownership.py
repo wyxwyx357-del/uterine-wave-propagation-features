@@ -72,7 +72,8 @@ def compare_identity(a,b,*,sample_dt_s,measurement_span_s):
     shared=sorted(set(a['profile'])&set(b['profile']))
     tolerance=measurement_span_s+sample_dt_s
     evidence=dict(shared_sections=shared,tolerance_s=tolerance,matched_sections=[],
-                  exact_phase_nodes=0,phase_sequence_conflict=False)
+                  exact_phase_nodes=0,phase_sequence_conflict=False,
+                  direction_conflict=bool(a['direction'] and b['direction'] and a['direction']!=b['direction']))
     if not shared:
         return dict(relation='unrelated',priority=0,reason='no shared native support',**evidence)
     paired=a['complete'] and b['complete']
@@ -105,9 +106,6 @@ def compare_identity(a,b,*,sample_dt_s,measurement_span_s):
         elif min(distances)<=tolerance:
             contradictions.append(c)
     evidence.update(matched_sections=matched,exact_phase_nodes=exact)
-    if a['direction'] and b['direction'] and a['direction']!=b['direction']:
-        return dict(relation='ambiguous' if near else 'distinct',priority=0,
-                    reason='opposing known propagation directions',**evidence)
     if evidence['phase_sequence_conflict']:
         return dict(relation='distinct',priority=0,reason='different ordered phase sequences',**evidence)
     blocks=np.split(np.asarray(matched,int),np.flatnonzero(np.diff(matched)!=1)+1)
