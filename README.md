@@ -151,3 +151,5 @@ python experiments/match_clinical_wave_reference.py --workbook data/clinical.xls
 [Clinical-record / salience comparison](docs/CLINICAL_SALIENCE_COMPARISON.md): pair recorded cpm with separate wall proposal counts and original-video replay. Observation-period correspondence remains unconfirmed; no fabricated wave frequency, ICC, outcome reading or threshold tuning.
 
 [Patient-level activity aggregation](docs/PATIENT_ACTIVITY_AGGREGATION.md): one activity ledger per patient, unique cross-wall evidence pairing, unresolved identity ranges, and union-based candidate rates. Supersedes separate-wall clinical count comparisons; no clinical/outcome fitting.
+
+[Retained-direction and identity-first trial](docs/DIRECTION_IDENTITY_TRIAL.md): refit direction on salience-retained positions before cross-wall direction reporting; preserves 12/12 necessary strong-wave controls, exposes unsupported real-case directions, and leaves one known 10-second double-event duplication unresolved.
