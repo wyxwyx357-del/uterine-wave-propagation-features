@@ -1,5 +1,9 @@
 # 共同目标
 
+## 2026-11-19 全部已有患者级特征与L1/SVM对照
+
+用户授权合并特征并试LASSO/SVM。仅把双壁幅度、显著活动次数/频率、既有单block CC/MSE六个标量加入既有7临床变量；多block和窗口ER不自行平均，QC不作生理预测量。按患者外5折、内3折调参，固定5种子重复，插补/标准化/L1选择均在训练折；各算法分别对照临床基线。未更改提取算法/0.6/ROI/归属，病例或参数不因结局调整。入口experiments/all_features_auc.py，结果outputs/auc_all_features_nested_223_20261119，属于内部探索建模，不等于计数或模型已冻结。
+
 ## 2026-11-19 用户授权波次数进入AUC对照
 
 在冻结幅度AUC之后，用户明确要求继续计算波。此次仅批量调用已有显著传播活动计数器，不重启优化：固定0.6、噪声参照、partial/split/ownership和phase-fit判据，方向仅QC。复用223例A0径向图，217例可分析、6例无滤波相邻支持记null，未重跑追踪；历史12例计数/频率逐例重现。AUC沿用先前队列/患者分组折/临床模型，次数/分为主、总次数为敏感性；临床及临床+幅度预测逐例一致。局部误计、相邻重复和弱活动漏检仍是已知限制，不能因已运行或AUC而宣称计数算法已冻结。入口experiments/batch_wave_counts.py与experiments/wave_count_auc.py，结果仅本地outputs/wave_counts_223_20261119及outputs/auc_wave_counts_223_20261119；未改冻结算法与阈值。
