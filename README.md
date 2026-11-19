@@ -145,3 +145,5 @@ python experiments/match_clinical_wave_reference.py --workbook data/clinical.xls
 [期刊真实超声初步试跑](docs/PUBLISHED_VIDEO_TRIAL.md)：三段全片沿用A0和当前候选链，分别报告4/8倍时间假设与图像轴方向。静息候选仍多，传播示例支持不足；没有把未核实的时间或解剖端点当成真值，没有冻结自动数波。
 
 [Activity strength trial](docs/ACTIVITY_STRENGTH_TRIAL.md): fixed whole-activity RMS and matched rigid references; 87 existing conditions plus 12 development cases. No patient-specific tuning. Not adopted: real proposals 214 to 214.
+
+[Fixed 0.6 normalized activity trial](docs/NORMALIZED_ACTIVITY_TRIAL.md): pointwise |filtered A| min/max over each full video and both walls; 87 controls and 12 cases, no threshold sweep. Proposals 214 to 22; weak second activities can be lost. Experimental salience, not total wave counts.
