@@ -40,7 +40,9 @@ def run(output):
                     pairs_merged=result['cross_wall_pairs_merged'],expected_patient_activities=expected,
                     represented_per_truth={str(i):len(set(ids)) for i,ids in represented.items()},
                     merged_distinct_truths=wrong,conditional_count_range=result['conditional_identity_count_range'])
-                row['passed']=result['patient_candidate_rows']==expected and not wrong and all(len(set(ids))==1 for ids in represented.values())
+                row['direction_primary_rows']=result['directional_summaries'][direction]['patient_candidate_rows']
+                row['opposite_direction_rows']=result['directional_summaries']['F2C' if direction=='C2F' else 'C2F']['patient_candidate_rows']
+                row['passed']=result['patient_candidate_rows']==expected and row['direction_primary_rows']==expected and row['opposite_direction_rows']==0 and not wrong and all(len(set(ids))==1 for ids in represented.values())
                 rows.append(row);save(output/(name+'.json'),dict(summary=row,result=result));print(row,flush=True)
     if any(digest(Path(p))!=sha for p,sha in sources.items()):raise RuntimeError('Control inputs changed')
     summary=dict(conditions=len(rows),passed_conditions=sum(r['passed'] for r in rows),passed=all(r['passed'] for r in rows),

@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from experiments.patient_activity_aggregation import aggregate_nodes,observation_union
+from experiments.patient_activity_aggregation import aggregate_nodes,observation_union,aggregate_by_direction
 
 
 def node(name,wall,shift=0.,direction='C2F'):
@@ -35,6 +35,16 @@ class PatientActivityAggregation(unittest.TestCase):
         exposure=observation_union(maps)
         self.assertEqual(exposure['seconds'],5.)
         self.assertEqual(exposure['intervals_s'],[[0.,3.],[5.,7.]])
+
+    def test_primary_direction_buckets_exclude_local_and_do_not_merge_opposing_waves(self):
+        nodes=[node('a',0),node('b',1,.2),node('reverse',0,0.,'F2C'),node('local',1,0.,None)]
+        result=aggregate_by_direction(nodes,2.,.1,60.)
+        self.assertEqual(result['C2F']['conditional_identity_count_range'],[1,1])
+        self.assertEqual(result['F2C']['conditional_identity_count_range'],[1,1])
+        self.assertEqual(result['other']['conditional_identity_count_range'],[1,1])
+        self.assertEqual(result['C2F']['candidate_rate_range_cpm'],[1.,1.])
+        same_direction_separate=aggregate_by_direction([node('a',0),node('later',1,10.)],2.,.1,60.)
+        self.assertEqual(same_direction_separate['C2F']['conditional_identity_count_range'],[2,2])
 
 
 if __name__=='__main__':unittest.main()

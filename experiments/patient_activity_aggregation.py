@@ -139,9 +139,29 @@ def observation_union(maps):
         coverage_scope='locally observable radial activity, not proof of full-cavity visibility')
 
 
+def aggregate_by_direction(nodes,span,dt,seconds):
+    """Direction first; tissue wall never becomes the reporting category.
+
+    Same direction is necessary, not sufficient, for shared identity. Local,
+    complex and unknown-direction proposals stay outside C2F/F2C frequency.
+    """
+    buckets={}
+    for label in ('C2F','F2C','other'):
+        selected=[n for n in nodes if n['direction']==label] if label!='other' else [n for n in nodes if n['direction'] not in ('C2F','F2C')]
+        result=aggregate_nodes(selected,span,dt)
+        for i,event in enumerate(result['activities'],1):event['patient_candidate_id']=f'{label}_{i:03d}'
+        low,high=result['conditional_identity_count_range']
+        result['candidate_rate_range_cpm']=[low*60/seconds,high*60/seconds] if seconds>0 else [None,None]
+        result['direction_bucket']=label
+        result['direction_source']='original arrival-order proposal, not radial strain sign or wall label'
+        buckets[label]=result
+    return buckets
+
+
 def patient_summary(salience,ownership,maps):
     dt=float(np.median(np.diff(maps['interval_center_s'])));span=float(np.median(maps['interval_dt_s']))
-    result=aggregate_nodes(candidate_nodes(salience,ownership),span,dt)
+    nodes=candidate_nodes(salience,ownership)
+    result=aggregate_nodes(nodes,span,dt)
     exposure=observation_union(maps);seconds=exposure['seconds']
     count=result['patient_candidate_rows'];directional=sum(a['direction'] is not None for a in result['activities'])
     low,high=result['conditional_identity_count_range']
@@ -153,4 +173,9 @@ def patient_summary(salience,ownership,maps):
         candidate_propagation_rate_cpm=directional*60/seconds if seconds>0 else None,
         directional_candidate_counts={d:sum(a['direction']==d for a in result['activities']) for d in ('C2F','F2C')},
         rates_are_exploratory_candidate_densities=True,timing_tolerance_s=span+dt)
+    buckets=aggregate_by_direction(nodes,span,dt,seconds)
+    result.update(primary_reporting='direction_first',directional_summaries={d:buckets[d] for d in ('C2F','F2C')},
+        non_directional_summary=buckets['other'],
+        directional_candidate_count_range=[sum(buckets[d]['conditional_identity_count_range'][i] for d in ('C2F','F2C')) for i in (0,1)],
+        combined_activity_fields_are_secondary_QC=True)
     return result
