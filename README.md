@@ -149,3 +149,5 @@ python experiments/match_clinical_wave_reference.py --workbook data/clinical.xls
 [Fixed 0.6 normalized activity trial](docs/NORMALIZED_ACTIVITY_TRIAL.md): pointwise |filtered A| min/max over each full video and both walls; 87 controls and 12 cases, no threshold sweep. Proposals 214 to 22; weak second activities can be lost. Experimental salience, not total wave counts.
 
 [Clinical-record / salience comparison](docs/CLINICAL_SALIENCE_COMPARISON.md): pair recorded cpm with separate wall proposal counts and original-video replay. Observation-period correspondence remains unconfirmed; no fabricated wave frequency, ICC, outcome reading or threshold tuning.
+
+[Patient-level activity aggregation](docs/PATIENT_ACTIVITY_AGGREGATION.md): one activity ledger per patient, unique cross-wall evidence pairing, unresolved identity ranges, and union-based candidate rates. Supersedes separate-wall clinical count comparisons; no clinical/outcome fitting.
