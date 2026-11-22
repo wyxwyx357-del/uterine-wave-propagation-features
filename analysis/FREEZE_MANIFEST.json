@@ -1077,8 +1077,8 @@
     },
     {
       "relative_path": "analysis/PUBLISH_VALIDATION.md",
-      "SHA256": "a07161efb181b54acd5b2fc07ca5d5b72f581a67a910bb44a756e47bcca3c1ae",
-      "size": 2207,
+      "SHA256": "29e143d977a4ded43a6087c6cb88ade36ccba1f634be61572d42c4a17784d0a3",
+      "size": 2406,
       "role": "documentation/provenance",
       "reads_outcome": false,
       "contains_patient_level_data": false,
@@ -1269,6 +1269,15 @@
       "SHA256": "67d119b810e976e85005dd93c586b801f0b80671ccba35bbe4ba14057852385f",
       "size": 449,
       "role": "synthetic-only analysis CI",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": ".github/workflows/tests.yml",
+      "SHA256": "90007acaae1c7e36836d33c41a4d54134a2f1f855d36bde77f250f03c81bc9dd",
+      "size": 371,
+      "role": "existing numerical CI: missing test dependencies supplied; no algorithm change",
       "reads_outcome": false,
       "contains_patient_level_data": false,
       "uploaded_to_git": true
