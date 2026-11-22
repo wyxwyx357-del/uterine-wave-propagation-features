@@ -2,6 +2,8 @@
 
 Every table in `results/` is copied from saved aggregate CSVs; source relative paths and hashes are in `../RESULT_SOURCE_MAP.json`. No new AUC, OR, patient selection or feature extraction was run for this package.
 
+Review clarification: the historical numeric MSE formula is label-independent, but its full aggregation script already held clinical/outcome columns. It was not a strictly outcome-blind run. This provenance correction changes no stored result. CC pools supported segments and remains auxiliary; the new measurement-only boundary is a future workflow, not a new validation result.
+
 ## Association and decomposition
 
 The earlier223-examination development cohort had157 available complete-record MSE measurements. Non-pregnancy n57: mean MSE0.203217; clinical pregnancy n100: mean0.308610. The fixed7-clinical-variable complete-case association used154 examinations/151 patients and gave adjusted OR/SD2.291151,95%CI1.449546–3.621393. These are association results, not Clinical9 test-fold prediction estimates.

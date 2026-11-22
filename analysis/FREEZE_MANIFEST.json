@@ -1,9 +1,27 @@
 {
-  "version": "MSE_prediction_publication_20261123",
+  "version": "MSE_prediction_PR1_review_fix_20261123",
   "self_hash_excluded": true,
   "publication_branch": "mse-classification-freeze",
   "base_commit": "ffe07932c39b49f2eedfda4b841e69d98ae77754",
   "files": [
+    {
+      "relative_path": ".github/workflows/frozen-analysis-tests.yml",
+      "SHA256": "2512cceb19a5340608b2416a79fa0c96815e77a4f571fc4fb85656e2b4ec319b",
+      "size": 866,
+      "role": "synthetic-only analysis CI",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": ".github/workflows/tests.yml",
+      "SHA256": "90007acaae1c7e36836d33c41a4d54134a2f1f855d36bde77f250f03c81bc9dd",
+      "size": 371,
+      "role": "existing numerical CI: missing test dependencies supplied; no algorithm change",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
     {
       "relative_path": "analysis/__init__.py",
       "SHA256": "7ed3e3c553c842b915c259521bfa750c92565b3df6a2ba963fa5e93efa8ed2d8",
@@ -15,8 +33,8 @@
     },
     {
       "relative_path": "analysis/FREEZE_STATUS.md",
-      "SHA256": "41af459456ec545f52569d2cdb517fdc427edd1980f4f381ade2fac5f4c809a4",
-      "size": 2484,
+      "SHA256": "3366e55da3abf38a057ae9bc70bdffd6be3df9d7797cb7a21167aef39e099124",
+      "size": 3130,
       "role": "documentation/provenance",
       "reads_outcome": false,
       "contains_patient_level_data": false,
@@ -24,7 +42,7 @@
     },
     {
       "relative_path": "analysis/IDENTIFIER_AUDIT_SUMMARY.json",
-      "SHA256": "b29b4d6ac8cc1c849eb65d626432429b97dffc4c7d1706f62d407ca3ec034364",
+      "SHA256": "a170729236344a7e6398ca714454a3a8b2eda5c7670dae3f9dcf73da4d13c776",
       "size": 516,
       "role": "documentation/provenance",
       "reads_outcome": false,
@@ -428,6 +446,15 @@
       "uploaded_to_git": true
     },
     {
+      "relative_path": "analysis/mse_pregnancy_association/code/mse_outcome_association.py",
+      "role": "review source/documentation",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "83cf85b8d7b0ecc384fc5b231019bf4a7593710767511aff9352d77c7b53d602",
+      "size": 3257
+    },
+    {
       "relative_path": "analysis/mse_pregnancy_association/code/normalized_activity.py",
       "SHA256": "0d4928c97a6263292d3a7b649c5891e1c1f392b1901947d10c05cee0bb018709",
       "size": 3346,
@@ -455,9 +482,27 @@
       "uploaded_to_git": true
     },
     {
+      "relative_path": "analysis/mse_pregnancy_association/code/record_mse_core.py",
+      "role": "review source/documentation",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "5f6a21b971271aa1b4d6f9a4c65a4ecd987e9e235ab70c6c012a0dbfb60c6935",
+      "size": 7746
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/record_mse_measurement.py",
+      "role": "review source/documentation",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "464fd0743cee2e2f2c7abb4e67a619d5c48bc9b7905edf41c38160fdefb8afec",
+      "size": 4480
+    },
+    {
       "relative_path": "analysis/mse_pregnancy_association/code/replay_measurement.py",
-      "SHA256": "11782191bf22267e73348bf2694dd67696ca9707b9f1245f86bd2533e30a1386",
-      "size": 1926,
+      "SHA256": "07821cd301ff44df33ea4b302a623b28b00aa57643f66d34cd8cc666a23ea202",
+      "size": 2859,
       "role": "analysis source",
       "reads_outcome": false,
       "contains_patient_level_data": false,
@@ -483,8 +528,8 @@
     },
     {
       "relative_path": "analysis/mse_pregnancy_association/LIMITATIONS.md",
-      "SHA256": "0b98f9a0c3a608e77e84820695765ede56340f931669e32a12ad9a9ef9ad7d9b",
-      "size": 1597,
+      "SHA256": "d9ad243a084f4b207654eb4512a745d292fcc503f1f388097f77491d5df8c784",
+      "size": 2106,
       "role": "documentation/provenance",
       "reads_outcome": false,
       "contains_patient_level_data": false,
@@ -492,8 +537,8 @@
     },
     {
       "relative_path": "analysis/mse_pregnancy_association/METHOD.md",
-      "SHA256": "ccf62cc487678b95ee4befc205c4bc8fe3856a08126aa607bb68ef54b215e0ab",
-      "size": 6886,
+      "SHA256": "301e6b1abbbcf82399fbe08cacc69ddab31360494f6e95d3cc86b803ac1598ea",
+      "size": 9619,
       "role": "documentation/provenance",
       "reads_outcome": true,
       "contains_patient_level_data": false,
@@ -501,8 +546,8 @@
     },
     {
       "relative_path": "analysis/mse_pregnancy_association/README.md",
-      "SHA256": "711add646aabc86f605e14ba733959245fd442f0025d28b8b4797a1939a8f7d2",
-      "size": 3508,
+      "SHA256": "0f40cae8e1fdbf346899ec91322d712481c12bdcb9e240de184063241764e69a",
+      "size": 4766,
       "role": "documentation/provenance",
       "reads_outcome": true,
       "contains_patient_level_data": false,
@@ -591,8 +636,8 @@
     },
     {
       "relative_path": "analysis/mse_pregnancy_association/RESULTS.md",
-      "SHA256": "7f402395192e2667c094591854de66ae1a72026c3da195739c376e33459895c9",
-      "size": 3070,
+      "SHA256": "1d569f6bb3f7a0dae579e74aadb543323c421cdf184ed38e2df78b0653f5ca2b",
+      "size": 3451,
       "role": "documentation/provenance",
       "reads_outcome": true,
       "contains_patient_level_data": false,
@@ -879,8 +924,8 @@
     },
     {
       "relative_path": "analysis/pregnancy_prediction/README.md",
-      "SHA256": "051f7995841a73ff00f555b9ead6a6465f51c3933858bda06674e58ed1a62c18",
-      "size": 2266,
+      "SHA256": "87d83621bb5250f424947fd9e99e5098d553ebf31806b15c5783bf3ff9aee02b",
+      "size": 2634,
       "role": "documentation/provenance",
       "reads_outcome": true,
       "contains_patient_level_data": false,
@@ -1059,8 +1104,8 @@
     },
     {
       "relative_path": "analysis/pregnancy_prediction/VALIDATION_PROTOCOL.md",
-      "SHA256": "9923dc8539e5ee8db8c2a5c772dfed647f13fb7eeaa5a403288147fed2353f8c",
-      "size": 3304,
+      "SHA256": "c76b4f962fa9aa72b0d7fa552d2418d70f8daf18d854e18d04439d68620d6f1a",
+      "size": 3470,
       "role": "documentation/provenance",
       "reads_outcome": true,
       "contains_patient_level_data": false,
@@ -1068,7 +1113,7 @@
     },
     {
       "relative_path": "analysis/PRIVACY_AUDIT.json",
-      "SHA256": "6a27509714343232b0e1dfebf2d91384d1304069a076e611267d2429fc5af741",
+      "SHA256": "5e5299968619141c3ebb824d87989aa9762fdec2179f5d7fb30980247eb0f4d7",
       "size": 763,
       "role": "documentation/provenance",
       "reads_outcome": true,
@@ -1077,8 +1122,8 @@
     },
     {
       "relative_path": "analysis/PUBLISH_VALIDATION.md",
-      "SHA256": "29e143d977a4ded43a6087c6cb88ade36ccba1f634be61572d42c4a17784d0a3",
-      "size": 2406,
+      "SHA256": "131197c2fe0e2d39ec4789280af8b31f847a1907056195787f68c97fecc89064",
+      "size": 2966,
       "role": "documentation/provenance",
       "reads_outcome": false,
       "contains_patient_level_data": false,
@@ -1086,8 +1131,8 @@
     },
     {
       "relative_path": "analysis/README.md",
-      "SHA256": "45e8638ce15dd50405b3980bad0878f24be55f6791dae430177ea2cd57f3ccf1",
-      "size": 3530,
+      "SHA256": "b1744af6add496210d0ff4d2fc2015200383dc55f7cb7145b9536097cf518ae7",
+      "size": 3608,
       "role": "documentation/provenance",
       "reads_outcome": true,
       "contains_patient_level_data": false,
@@ -1110,6 +1155,24 @@
       "reads_outcome": true,
       "contains_patient_level_data": false,
       "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/REVIEW_CORE_PROVENANCE.json",
+      "role": "review source/documentation",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "81429b2566d7c161c72f722aa9676afaa5bc84bccf5487516190da2065301525",
+      "size": 1312
+    },
+    {
+      "relative_path": "analysis/REVIEW_RESPONSE.md",
+      "role": "review source/documentation",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "1683bb623e69744cf012d049e6214a45afbd1664fc915204a3f96e619ed2f619",
+      "size": 3734
     },
     {
       "relative_path": "analysis/SANDBOX_CODE_INVENTORY.md",
@@ -1140,8 +1203,8 @@
     },
     {
       "relative_path": "analysis/TEST_RESULTS.json",
-      "SHA256": "d09311458bc371119d88ca127acd345afc6d904850980db77fe8633dcf9d46fb",
-      "size": 243,
+      "SHA256": "52960466c0318002f93eeb943d5379330523f5442a4b5b2b75fb7469cc981ef7",
+      "size": 377,
       "role": "documentation/provenance",
       "reads_outcome": false,
       "contains_patient_level_data": false,
@@ -1229,9 +1292,18 @@
       "uploaded_to_git": true
     },
     {
+      "relative_path": "analysis/tests/test_record_mse_boundary.py",
+      "role": "synthetic test",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "032d50054110d1022984b701469bc826c821799c3eb09ef0893f09c85780636e",
+      "size": 7746
+    },
+    {
       "relative_path": "analysis/tests/test_saved_tracks_chain.py",
-      "SHA256": "7dc5214a9bd6a7648bb8eed90e1c7a3d1d833e6a3aca3cd7ae22dd2b33c2e1e3",
-      "size": 1252,
+      "SHA256": "03a2427e577dd00cdab4756dd5781cda6a9aaaf7048bd11891a316d45b330647",
+      "size": 1278,
       "role": "synthetic test",
       "reads_outcome": true,
       "contains_patient_level_data": false,
@@ -1263,24 +1335,7 @@
       "reads_outcome": false,
       "contains_patient_level_data": false,
       "uploaded_to_git": true
-    },
-    {
-      "relative_path": ".github/workflows/frozen-analysis-tests.yml",
-      "SHA256": "67d119b810e976e85005dd93c586b801f0b80671ccba35bbe4ba14057852385f",
-      "size": 449,
-      "role": "synthetic-only analysis CI",
-      "reads_outcome": false,
-      "contains_patient_level_data": false,
-      "uploaded_to_git": true
-    },
-    {
-      "relative_path": ".github/workflows/tests.yml",
-      "SHA256": "90007acaae1c7e36836d33c41a4d54134a2f1f855d36bde77f250f03c81bc9dd",
-      "size": 371,
-      "role": "existing numerical CI: missing test dependencies supplied; no algorithm change",
-      "reads_outcome": false,
-      "contains_patient_level_data": false,
-      "uploaded_to_git": true
     }
-  ]
+  ],
+  "review_parent_commit": "06e83169d8c3ba726dc70e8b3d215b7e186866fc"
 }

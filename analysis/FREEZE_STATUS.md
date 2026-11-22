@@ -16,6 +16,11 @@
 | Activity/event identity | not established as true discrete-wave counting | historical negative/inconclusive prediction results retained |
 | Model/feature search | closed | no patient reanalysis in this package |
 | Independent evaluation | pending | new patients uninvolved in development required |
+| Historical strictly outcome-blind aggregation | not established | numeric function label-independent; historical run already held outcome/clinical columns |
+| Future measurement-only boundary | strict schema/metadata checks | record_mse_measurement.py; clinical labels enter only in a later join |
+| Record CC | auxiliary pooled-segment correlation | segment means can influence it; not continuous-time synchrony |
+| Tiny MLP automated verification | dedicated CPU CI job | calls the unchanged verification() on synthetic inputs |
+| Overlap/non-overlap sensitivity | deferred | no patient recalculation or definition selection in this review |
 
 Audit scope: actual source code, saved aggregate tables and historical reports. Formal record-aggregation documentation agrees with the executable weighting. One old inline code comment describes the spatial-average ER series; METHOD explicitly distinguishes that CC series from the actual squared-error MSE path. No numerical discrepancy was found that required replacing a feature or stopping its publication.
 

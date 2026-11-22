@@ -53,6 +53,8 @@ This answers the aggregation questions explicitly:
 9. With one block per time, record MSE equals the ordinary mean squared ER difference, weighted by window count across runs. It equals the old single-block value only where that old and new observation support is identical.
 10. The name `time_equal` refers to unique **observed window tuples**, not to all original video seconds or equally weighted segments.
 
+`record_CC_time_equal` first averages ER across blocks at each observed time and then computes one Pearson correlation over **all supported times pooled across segments**. Gaps are not interpolated, but segment mean shifts can affect this pooled correlation. It is neither continuous-sequence synchrony nor an average of within-segment correlations. CC remains auxiliary/descriptive. MSE instead averages squared differences at each observed time, without introducing cross-segment lags or temporal relationships.
+
 The nearby historical inline comment about first averaging ER describes the CC series; the actual MSE implementation uses `error_by_time`, as the equations above show. The code is preserved and the documentation follows the executable formula. The old formal METHOD's stated same-time squared-difference weighting agrees with the actual implementation.
 
 ## Post-hoc explanatory analysis
@@ -67,6 +69,16 @@ The code requires at least3 observations and non-negligible variance for CC/MSE_
 
 Signed `delta_ER = record_ER_mean_anterior-record_ER_mean_posterior`; absolute difference is its absolute value. These and `record_mean_bias_sq`, `record_sd_scale_sq`, `record_time_shape_term`, `record_MSE_z` are **post-hoc explanatory analysis**. They are not substituted for primary ER-MSE or promoted using their pregnancy associations.
 
-## Outcomes are downstream
+## Historical label access and future measurement separation
 
-Tracking, A, support, spectra, ER and record aggregation do not use pregnancy. Clinical labels are joined only in association/prediction analyses. Association scripts and their historical clinical adjustment are distinct from Clinical9 prediction; the older7-variable association model and current9-variable prediction model must not be conflated.
+The mathematical tracking/A/ER/MSE functions do not use pregnancy labels. However, historical `complete_record_coordination.py:run()` reads a cohort CSV that already contains OUTCOME, CLINICAL and GROUP, copies these fields into the aggregated records, then performs association/prediction in the same invocation. **That historical run was not strictly outcome-blind.** Formula-level label independence and runtime label access are different claims. No outcome-dependent branch was found in the numeric MSE function; this provenance correction changes no stored value/result.
+
+Future `record_mse_measurement.py:measure_record` accepts exactly `case_id`, `paired_ER_windows` and `measurement_metadata`. Nested schemas are allowlisted: pregnancy, outcome and clinical fields are rejected rather than silently dropped. `record_mse_core.py` copies the four historical numeric functions verbatim; tests compare their full ASTs and outputs. This new measurement path imports no clinical/model modules and opens no clinical table.
+
+Before aggregation, metadata must specify `definition_version=radial_wave_features_v2`, `requested_s_range=[0.2,0.8]`, `nominal_interval_s=2`, `nominal_window_s=20`, `nominal_step_s=1`, `band_cpm=[0.5,5]`. Missing/mismatched metadata fail explicitly; no protocol is guessed, missing value replaced with0, patient silently deleted, or new physiological threshold imposed. Native sample-rounded durations are carried separately. This verifies declared protocol consistency, not authenticity of arbitrary external metadata.
+
+`replay_measurement` constructs/checks metadata from its fixed measurement pipeline and calls that boundary. Its CLI now requires `--case-id` and writes the strict phase1 artifact only; its Python function retains diagnostic modes alongside the artifact. The unchanged historical mixed-cohort script is an archive, not the entry for future label-free validation.
+
+Only the separate phase2 `mse_outcome_association.py` loads clinical/outcome data and joins exact case keys after measurement files are saved/frozen. It preserves unmatched/missing records and performs no fitting, AUC, OR, variable selection or label recoding. Further association/prediction still needs its specified protocol; the older7-variable association model and Clinical9 prediction remain distinct.
+
+The new interface cannot retroactively blind development. Future independent validation requires patients/data access uninvolved in development. No patient measurement or association is rerun by this review fix.

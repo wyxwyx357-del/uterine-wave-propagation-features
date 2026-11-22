@@ -9,9 +9,12 @@
 - Actual Ridge implementation: `code/clinical9_models.py`, `code/clinical9_frozen_mse.py`.
 - Actual Tiny MLP: `code/tiny_mlp_models.py`, `code/tiny_mlp_sensitivity.py`.
 - Actual within-fold evaluator/bootstrap: `code/frozen_foldwise_auc.py`.
+- Reported AUC means fold-stratified / pair-weighted outer-fold AUC; the post-hoc audit/revision history remains explicit in VALIDATION_PROTOCOL.
 - Original grouped split generation: `code/first_pass_extended6.py:prepare` (global maps), seeds fixed in that source.
 
 The existing implementations were relocated, not replaced with a newly optimized model. The primary published result is AUC0.491969→0.575988 on185 examinations/179 patients, not the largest AUC found among sensitivity analyses.
+
+The dedicated `tiny-mlp-verification` CI job installs CPU torch2.6.0 and invokes the unchanged `tiny_mlp_models.verification()` on synthetic inputs. It does not rerun patient training or change the sensitivity-only role.
 
 ## Private-input replay
 

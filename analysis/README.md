@@ -23,6 +23,7 @@ Pregnancy prediction
 - [Code relocation provenance](SOURCE_RELOCATION_MAP.json)
 - [Aggregate result provenance](RESULT_SOURCE_MAP.json)
 - [Manifest](FREEZE_MANIFEST.json)
+- [PR review corrections and future label-free interface](REVIEW_RESPONSE.md)
 
 Primary comparison: Clinical9 versus Clinical9+ER-MSE, Ridge Logistic Regression, on the same 185 examinations/179 patients. Clinical6, Clinical11, Enhanced and Clinical v2 remain baseline sensitivity/exploratory analyses; their different cohorts must be retained.
 

@@ -8,6 +8,8 @@ Imputation, continuous scaling and categorical modes are learned independently i
 
 ## Frozen AUC aggregation
 
+The primary reported quantity is **fold-stratified / pair-weighted outer-fold AUC**, not pooled-OOF AUC. Existing result columns named `AUC` are retained unchanged.
+
 For repeat r,test fold f, calculate AUC_rf within that test fold and pair weight `w_rf = n_positive_rf*n_negative_rf`:
 
 `AUC_r = sum_f(w_rf*AUC_rf)/sum_f(w_rf)`

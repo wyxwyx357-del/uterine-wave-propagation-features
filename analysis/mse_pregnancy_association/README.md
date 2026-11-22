@@ -4,6 +4,8 @@
 
 Read [METHOD](METHOD.md), [RESULTS](RESULTS.md) and [LIMITATIONS](LIMITATIONS.md). Patient-level inputs/results remain private; aggregate source tables are in `results/`.
 
+The numeric MSE function does not use labels, but the historical aggregation run already held clinical/outcome columns and then ran associations. It was **not strictly outcome-blind**. Future [record_mse_measurement.py](code/record_mse_measurement.py) enforces label-free inputs and fixed protocol metadata around a verbatim numeric-only core; only the separate [phase2 join](code/mse_outcome_association.py) loads labels.
+
 ## Source chain
 
 | Stage | Frozen source |
@@ -24,6 +26,16 @@ Read [METHOD](METHOD.md), [RESULTS](RESULTS.md) and [LIMITATIONS](LIMITATIONS.md
 Important: record aggregation uses the **paired ER window observations**, not a simple average of previously emitted block MSE values. Block MSE is a parallel descriptive output; unequal windows/block support require the explicit record weighting in METHOD.
 
 Portable saved-tracks entry: `python -m analysis.mse_pregnancy_association.code.replay_measurement --help`. No tracking/videos or clinical data are run during this packaging task.
+
+Future phase1 example:
+
+```sh
+python -m analysis.mse_pregnancy_association.code.replay_measurement --case-id local_record --tracks data/private/tracks.npz --grid data/private/grid.npz --output outputs/private/measurement.json
+```
+
+For existing paired ER windows use `python -m analysis.mse_pregnancy_association.code.record_mse_measurement --input data/private/paired.json --output outputs/private/measurement.json`. Only the three allowlisted input fields and verified metadata are accepted; see METHOD. Freeze that private artifact before the later clinical join. The saved-tracks CLI now emits this same strict phase1 schema.
+
+CC pools supported segments and remains descriptive. Overlap/non-overlap sensitivity is deferred to the next measurement-robustness task; this review changes no aggregation definition or patient result.
 
 ## Evidence statement
 

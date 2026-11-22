@@ -15,7 +15,7 @@ class SavedTracksChain(unittest.TestCase):
                 phase=2*np.pi*t/20+(1 if wall==0 else -1)*6*grid['u'][section]
                 scale=1+.02*np.sin(phase)
                 points[:,outer]=seed[inner]+(seed[outer]-seed[inner])*scale[:,None]
-        result=replay(reference_tracks(points,t),grid)
+        result=replay(reference_tracks(points,t),grid,case_id='synthetic_chain')
         self.assertEqual(result['nominal_interval_s'],2.)
         self.assertGreater(result['record']['paired_window_count'],0)
         self.assertTrue(np.isfinite(result['record']['record_MSE_time_equal']))
