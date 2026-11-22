@@ -1,0 +1,5 @@
+model,n_exams,n_unique_patients,repeated_patient_groups,pregnancy_n,non_pregnancy_n,AUC,AUC_CI_low,AUC_CI_high,Brier,logloss,interval_scope
+Clinical,180,174,6,117,63,0.5065428066066279,0.4227838709259314,0.5933146702684481,0.2328664633948654,0.6599754497666925,fixed OOF conditional; not full-refit uncertainty
+Clinical_Static,180,174,6,117,63,0.4924377681639694,0.4157122433130563,0.5707230703766758,0.2342688970260139,0.6634263644307086,fixed OOF conditional; not full-refit uncertainty
+Clinical_Dynamic,180,174,6,117,63,0.5486361681175105,0.4663369566328822,0.6291870347483086,0.2338228061520288,0.6620594473099543,fixed OOF conditional; not full-refit uncertainty
+Clinical_Static_Dynamic,180,174,6,117,63,0.5332612400386499,0.4527720802489711,0.6120332052188132,0.2347154432611743,0.6641522618910808,fixed OOF conditional; not full-refit uncertainty

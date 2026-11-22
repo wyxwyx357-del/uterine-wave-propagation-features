@@ -1,0 +1,5 @@
+model,n_exams,n_unique_patients,repeated_patient_groups,pregnancy_n,non_pregnancy_n,AUC,AUC_CI_low,AUC_CI_high,Brier,logloss,scope
+Clinical,180,174,6,117,63,0.5065428066066279,0.4226409675115899,0.5906883916296484,0.2328664633948654,0.6599754497666925,exploratory supervised feature-selection analysis; fixed OOF conditional interval
+Clinical_Static_EN,180,174,6,117,63,0.5027850582313514,0.419307086522979,0.5866654409806579,0.2340718180278194,0.6630523018023311,exploratory supervised feature-selection analysis; fixed OOF conditional interval
+Clinical_Dynamic,180,174,6,117,63,0.5486361681175105,0.468140045047092,0.6284208113889641,0.2338228061520288,0.6620594473099543,exploratory supervised feature-selection analysis; fixed OOF conditional interval
+Clinical_Dynamic_Static_EN,180,174,6,117,63,0.5457675586850737,0.4658563764806288,0.6254474861121886,0.2342416144734505,0.6638854943605538,exploratory supervised feature-selection analysis; fixed OOF conditional interval

@@ -1,0 +1,25 @@
+{
+  "files_inspected": 28553,
+  "by_extension": {
+    ".md": 484,
+    ".py": 1457,
+    ".json": 10965,
+    ".csv": 7135,
+    ".npz": 8484,
+    ".xlsx": 23,
+    ".yml": 3,
+    ".yaml": 2
+  },
+  "relevant_by_content": 6243,
+  "excluded_runtime_or_publication_directories": [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "build",
+    "freeze_publish_audit_local_20261123",
+    "mse_classification_publish_20261123",
+    "node_modules"
+  ],
+  "patient_named_paths_kept_local": true,
+  "no_outcome_analyses_or_array_recomputation": true
+}

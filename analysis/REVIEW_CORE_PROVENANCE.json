@@ -1,0 +1,34 @@
+{
+  "source_relative_path": "analysis/mse_pregnancy_association/code/complete_record_coordination.py",
+  "source_SHA256": "112acf2292d775ea94c844d95ed3d8890762f351d9bf4402d5616d1927796f75",
+  "extracted_core_relative_path": "analysis/mse_pregnancy_association/code/record_mse_core.py",
+  "extracted_core_SHA256": "5f6a21b971271aa1b4d6f9a4c65a4ecd987e9e235ab70c6c012a0dbfb60c6935",
+  "original_mixed_runner_unchanged": true,
+  "numeric_function_ASTs": [
+    {
+      "function": "_segments",
+      "AST_SHA256": "0fd4bd4b178b6754f535081259edcd98fe37d8cb6c7862b273b562ea9d9e9a28",
+      "identical": true
+    },
+    {
+      "function": "_coordination",
+      "AST_SHA256": "c489ec656191c32bc55a0716180c5f035fd86f626ab47ae29c2c6453ad587f8b",
+      "identical": true
+    },
+    {
+      "function": "_decompose",
+      "AST_SHA256": "b4672da0b15af0913bf53a27e267d6b31a7d02d2a34d20b7d5ffa93af3160d08",
+      "identical": true
+    },
+    {
+      "function": "summarize_paired_windows",
+      "AST_SHA256": "d30448fd4b2dfc835b06827b2bc300fa54276bc8f1f8c7eb93e111f13e94c703",
+      "identical": true
+    }
+  ],
+  "future_measurement_reads_outcome": false,
+  "historical_full_aggregation_reads_outcome": true,
+  "no_patient_recalculation": true,
+  "no_AUC_OR_or_model_changes": true,
+  "window_robustness_deferred": true
+}

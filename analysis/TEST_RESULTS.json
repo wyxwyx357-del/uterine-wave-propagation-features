@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "tests_run": 32,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "scope": "Synthetic only; no patient feature extraction, AUC/OR or training rerun.",
+  "command": "python -m unittest discover -s analysis/tests -v",
+  "review_additions": "strict label-free schema, frozen metadata checks, verbatim-core equivalence and later exact-key clinical join"
+}

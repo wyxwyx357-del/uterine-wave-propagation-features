@@ -1,0 +1,1341 @@
+{
+  "version": "MSE_prediction_PR1_review_fix_20261123",
+  "self_hash_excluded": true,
+  "publication_branch": "mse-classification-freeze",
+  "base_commit": "ffe07932c39b49f2eedfda4b841e69d98ae77754",
+  "files": [
+    {
+      "relative_path": ".github/workflows/frozen-analysis-tests.yml",
+      "SHA256": "2512cceb19a5340608b2416a79fa0c96815e77a4f571fc4fb85656e2b4ec319b",
+      "size": 866,
+      "role": "synthetic-only analysis CI",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": ".github/workflows/tests.yml",
+      "SHA256": "90007acaae1c7e36836d33c41a4d54134a2f1f855d36bde77f250f03c81bc9dd",
+      "size": 371,
+      "role": "existing numerical CI: missing test dependencies supplied; no algorithm change",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/__init__.py",
+      "SHA256": "7ed3e3c553c842b915c259521bfa750c92565b3df6a2ba963fa5e93efa8ed2d8",
+      "size": 65,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/FREEZE_STATUS.md",
+      "SHA256": "3366e55da3abf38a057ae9bc70bdffd6be3df9d7797cb7a21167aef39e099124",
+      "size": 3130,
+      "role": "documentation/provenance",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/IDENTIFIER_AUDIT_SUMMARY.json",
+      "SHA256": "a170729236344a7e6398ca714454a3a8b2eda5c7670dae3f9dcf73da4d13c776",
+      "size": 516,
+      "role": "documentation/provenance",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/INVENTORY_SCOPE.json",
+      "SHA256": "5f8d9f3230c3ca10b4ad63175120e8bb6b81a6f45ee885744f94ea5eacfc24d1",
+      "size": 537,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/__init__.py",
+      "SHA256": "7ed3e3c553c842b915c259521bfa750c92565b3df6a2ba963fa5e93efa8ed2d8",
+      "size": 65,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/__init__.py",
+      "SHA256": "7ed3e3c553c842b915c259521bfa750c92565b3df6a2ba963fa5e93efa8ed2d8",
+      "size": 65,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/activity_counting.py",
+      "SHA256": "91d4c43a7ca630275395b9852e075fba27cab74230667d50d47fcbe503f7e95c",
+      "size": 4276,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/activity_strength.py",
+      "SHA256": "622491c8b948f3f2aa95a5ec6437411b2bb5440eac2bfc60892041a71bcde2c7",
+      "size": 6315,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/all_features_auc.py",
+      "SHA256": "f1fe28b74ccf55f804922aa51842e778f38dcc99c958b3e104e4792a8752fd59",
+      "size": 12240,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/batch_wave_counts.py",
+      "SHA256": "0c815ae48dc19c5ca865e2f5daeabda0a30b39d61b09f030d6741d15d44bec43",
+      "size": 10129,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/candidate_split_verifier.py",
+      "SHA256": "5e964abc7ae2753e78767b4d116036a5d0f0b546b6a31dd9b01c4fdef2eb5713",
+      "size": 12433,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/clinical_variable_screen.py",
+      "SHA256": "70e16ac84bf76a145f140945ca081fb274ed28b928a90100b4d5981b652bb578",
+      "size": 31988,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/complete_record_coordination.py",
+      "SHA256": "112acf2292d775ea94c844d95ed3d8890762f351d9bf4402d5616d1927796f75",
+      "size": 26279,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/direction_identity_trial.py",
+      "SHA256": "0e9187c3643ff2d06e882ca762d2040a0d1ab7cf823b258b8f437e4ad43b4a3f",
+      "size": 9857,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/er_directional_support_audit.py",
+      "SHA256": "ea518ebc4923045721afb621e39c5d3d5c29724f5a16f1be2454cc6e4c7fd1cb",
+      "size": 40097,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/er_mean_offset_batch_audit.py",
+      "SHA256": "e882357823990a3de94494d7d3fecaacc9d8498d52ad93f9ee51d0ee85377a2b",
+      "size": 17658,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/er_mse_credibility_audit.py",
+      "SHA256": "fbc24ba039d25a1dcf5e29cfb5c2d2008bbd5afe111d0722d3ec43ca569d950b",
+      "size": 29330,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/event_input_smoothing.py",
+      "SHA256": "56de4b65996f154e7b7b81431e34b0e76cedde18e8c858affc0ef8d0daedc8bf",
+      "size": 1628,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/exploratory_activity_rate_increment.py",
+      "SHA256": "c7d49f459c4cfbe2a67805de529d33c3ed4718adf471cd6f5b9a77c5c58e10eb",
+      "size": 10762,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/feature_association.py",
+      "SHA256": "4f63b90bc7abd85db5ae592afce0dbb73a428f66fd8217f83815af5505dab72b",
+      "size": 15288,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/first_pass_metrics.py",
+      "SHA256": "894be8ee83a12ead2d55fa0e89743db2ad21f3656986cd7f4ef45fc9a21ca9b3",
+      "size": 17172,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/frozen_feature_auc.py",
+      "SHA256": "b415931eeb41127e479a0401d750cdeedd709c14203c06dc42e9e66cc489bd02",
+      "size": 16616,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/global_event_ownership.py",
+      "SHA256": "74c47aeb2444571bd930efaaf8ca84fb25829fea53dfc7738556c70c0b5c2dfb",
+      "size": 18324,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/huang_bridge_phase_a.py",
+      "SHA256": "e6fe5040948120ec3978813e0aaed59abf1ae21bb2bc47c87739621a00e33007",
+      "size": 25939,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/huang_bridge_phase_b.py",
+      "SHA256": "64a66f157793a1eabe7cb175023db7da80d24398b8bd4d61c5fb97eaa9c05449",
+      "size": 11714,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/__init__.py",
+      "SHA256": "85594a5c560af76ae5ccbcf485bc505a37598cf20bda4b4ef7fcac5dc7a5d2f4",
+      "size": 100,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/__main__.py",
+      "SHA256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "size": 30,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/_lk.py",
+      "SHA256": "3ada5c8f440e48a56a3e960b01a2918d999cd6c8bad88ff8657920e041cabbb5",
+      "size": 3469,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/amplitude.py",
+      "SHA256": "946a67a6958e8f784f000e5638e3b3db3ff9a527828b58821fce58aece3a3a39",
+      "size": 2735,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/candidate_evidence.py",
+      "SHA256": "e069ac14c0969fa04798f641871bc14b12a2ee7a6a4b0d74b9488500863dd896",
+      "size": 9425,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/cli.py",
+      "SHA256": "b9fb33aac1570b5c4475af7c30c88cde6025941d229c8ca1dd299498126e7b00",
+      "size": 8001,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/controls.py",
+      "SHA256": "7795fdf47709225a2434f61efa98fb505db54d030a938dfcbcc397db3315737e",
+      "size": 5339,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/deformation.py",
+      "SHA256": "2c821f91bfd03e2668af52b77d0a717b86984e3db9eeb3fe7d2a6fc52cce991e",
+      "size": 6954,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/events.py",
+      "SHA256": "bd3ea4ae50ed1bbfea688565b84726184a58a17a31832110ebc58298831e5854",
+      "size": 5560,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/frozen_pipeline.py",
+      "SHA256": "30af12464031ede53365f7d51538c4249125f0301a58c8c2146f9db710574fc6",
+      "size": 9552,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/geometry.py",
+      "SHA256": "5bd135e789bacc74ba7b62025d55c69e27ca0a3e2f886914c99b29a03c1c85ed",
+      "size": 4661,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/input_inventory.py",
+      "SHA256": "3b3b88bc998c4c13e20351c74fb47c6019a54f7d4a74abd07ea5b8eb8b842fdc",
+      "size": 17732,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/io.py",
+      "SHA256": "93a5f6e97ec1d42eb002c02ba82b2e37db613d7604e88bb6b2345676c8551157",
+      "size": 1705,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/modes.py",
+      "SHA256": "59c55a58c1f40906623334114517b726a5f109f0134d579ef69c94fc1939935b",
+      "size": 6190,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/motion_consensus.py",
+      "SHA256": "f075df82bfe6cb5a71a5e33fa8dac4f7b1ea827b465577b71ed6b804280f86b8",
+      "size": 3291,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/p3_outer.py",
+      "SHA256": "6389d95f32c7cf944912b4b517719c6560f01cf31f17fd13dcc8f5b2911d4da9",
+      "size": 9505,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/patient.py",
+      "SHA256": "d0445459b372662164003e3aa4f2879a8531f435931ea2557dc24648d4bf81ec",
+      "size": 13378,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/quality.py",
+      "SHA256": "44951676d8652bc951ce5821bbe0c3ad08dc312b7276ead36deaf0a44035c305",
+      "size": 8823,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/radial_events.py",
+      "SHA256": "8b7ae5408a7ec01832786a13ca3e662b2c663fae115819c8c60ad7be369f3133",
+      "size": 17152,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/spectrum.py",
+      "SHA256": "0511fc1e565c00a6975a9db08fa7ceba72f13fe146a2f63fe2cfd35bc6d464d3",
+      "size": 6763,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/tracking.py",
+      "SHA256": "1d2df6a610723f4da100bdb519a0485840315de7d561ee4ec4230fc41d3c6823",
+      "size": 6124,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/measurement/wavefit.py",
+      "SHA256": "57ca53a3b4f272d933aa4f1bd44c3024188521c5c9d2bc290064e7186c1bfefa",
+      "size": 6432,
+      "role": "frozen measurement source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/mse_outcome_association.py",
+      "role": "review source/documentation",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "83cf85b8d7b0ecc384fc5b231019bf4a7593710767511aff9352d77c7b53d602",
+      "size": 3257
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/normalized_activity.py",
+      "SHA256": "0d4928c97a6263292d3a7b649c5891e1c1f392b1901947d10c05cee0bb018709",
+      "size": 3346,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/partial_phase_events.py",
+      "SHA256": "4380102e22a43ded718faace8588a72345b2fa2d67cdccaf7ea873367acf9a5c",
+      "size": 12191,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/patient_activity_aggregation.py",
+      "SHA256": "9ac2058d978aac3335a3f44b762c67dc0df2f5b0dfa476c12680f8bdc408bd04",
+      "size": 13529,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/record_mse_core.py",
+      "role": "review source/documentation",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "5f6a21b971271aa1b4d6f9a4c65a4ecd987e9e235ab70c6c012a0dbfb60c6935",
+      "size": 7746
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/record_mse_measurement.py",
+      "role": "review source/documentation",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "464fd0743cee2e2f2c7abb4e67a619d5c48bc9b7905edf41c38160fdefb8afec",
+      "size": 4480
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/replay_measurement.py",
+      "SHA256": "07821cd301ff44df33ea4b302a623b28b00aa57643f66d34cd8cc666a23ea202",
+      "size": 2859,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/short_holdout_outcome_validation.py",
+      "SHA256": "075b08bc9abe8c633d9e141eb2f3b129bcb33f393d7f447e5cf1cd0088056dbd",
+      "size": 13915,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/code/static_dynamic_pca_test.py",
+      "SHA256": "1e5781bd3e45e3a16cf3e2774110851fc7d5f45e832ed40a71ddc1826f3a7e9c",
+      "size": 23960,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/LIMITATIONS.md",
+      "SHA256": "d9ad243a084f4b207654eb4512a745d292fcc503f1f388097f77491d5df8c784",
+      "size": 2106,
+      "role": "documentation/provenance",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/METHOD.md",
+      "SHA256": "301e6b1abbbcf82399fbe08cacc69ddab31360494f6e95d3cc86b803ac1598ea",
+      "size": 9619,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/README.md",
+      "SHA256": "0f40cae8e1fdbf346899ec91322d712481c12bdcb9e240de184063241764e69a",
+      "size": 4766,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/results/clinical_adjusted_association_summary.csv",
+      "SHA256": "457bd19910beaa469ec535679865d36d9bc0e2dd09790b29bd4cdebdfe9bae20",
+      "size": 2380,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/results/mse_decomposition_summary.csv",
+      "SHA256": "43b6ec3b3c16ec9993bc06e02cdbffbcd5af6f6656b2f9e7b6bccb6bc8fb1d27",
+      "size": 331,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/results/mse_incremental_prediction_summary.csv",
+      "SHA256": "3b979d098ee5a5786b5c3255ea983ab9f50bf177f306d5fe11b3be28e5421209",
+      "size": 3806,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/results/mse_outcome_summary.csv",
+      "SHA256": "f75765951a0e45e9c66e6e43deb159dafe9ae4de079539f69b36600ba3bf7f41",
+      "size": 615,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/results/mse_technical_adjustment_summary.csv",
+      "SHA256": "411a8a0a4b24a0019f21963328877deb9df8b72208ed3ebe5ab01e17264e0481",
+      "size": 2464,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/results/posthoc_ER_offset_descriptives.csv",
+      "SHA256": "8605300f0d4e37ef135bd689fff8c177c1593e51fdaf50f55223f09d0650b84c",
+      "size": 1484,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/results/rigid_and_synthetic_control_summary.csv",
+      "SHA256": "f9bf1fa457a3101d087125091e9479c61678a0d121b34a13541f016ed64e6707",
+      "size": 909,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/results/support_direction_accuracy_summary.csv",
+      "SHA256": "09f44d17623812f273012988fe1e89fb87842ae115d9932b78be2dd90eb08016",
+      "size": 6158,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/results/technical_correlation_summary.csv",
+      "SHA256": "ffc7467f8c3d139f371711257abf9bd9859856a430728444c81419980bdc8cd4",
+      "size": 362,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/mse_pregnancy_association/RESULTS.md",
+      "SHA256": "1d569f6bb3f7a0dae579e74aadb543323c421cdf184ed38e2df78b0653f5ca2b",
+      "size": 3451,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/__init__.py",
+      "SHA256": "7ed3e3c553c842b915c259521bfa750c92565b3df6a2ba963fa5e93efa8ed2d8",
+      "size": 65,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/__init__.py",
+      "SHA256": "7ed3e3c553c842b915c259521bfa750c92565b3df6a2ba963fa5e93efa8ed2d8",
+      "size": 65,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/block_elasticnet.py",
+      "SHA256": "4709c31eafbcd97394a783bad8497139317759cccfb9ddabb457a03ad1cd47ed",
+      "size": 9409,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/clinical11_blood_audit.py",
+      "SHA256": "0d16bb46e38055f211512fe0433293033c2b409d52adf5af1de46f1cd6032100",
+      "size": 12338,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/clinical11_blood_sensitivity.py",
+      "SHA256": "bde16c221a89c9fcf41712f11b24f0efda80561323d58c74d877f3189319d74f",
+      "size": 18822,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/clinical11_models.py",
+      "SHA256": "80b8c8c8c42bdc192c767bbd3bde36eed2c2ec96dd23715e819738d0596d373d",
+      "size": 3775,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/clinical9_data_audit.py",
+      "SHA256": "112fa02812f412a03ae5150842c8e349364af6ba02719620f9c2fa92ae2dbeac",
+      "size": 19775,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/clinical9_frozen_mse.py",
+      "SHA256": "49c8e269e340174bbc47a84d4ed3d7a8a5dc452786dc8fd4ac6a45af28e79cf0",
+      "size": 20207,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/clinical9_models.py",
+      "SHA256": "4482e0fb726463c2b8cc2c4ce99ab91bf71bb2f8323a98ff76511f216ea6d0cc",
+      "size": 4974,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/clinical_v2_models.py",
+      "SHA256": "b054fed7f11002e037c36f43a9e28a241e6064315b6c495f59a462c1e1f2bd43",
+      "size": 3278,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/clinical_v2_treatment.py",
+      "SHA256": "635b0819bb59ec81b6d6110fc37787cd4c75e0320cf2d299d93f28e48a38cefe",
+      "size": 21620,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/enhanced_clinical_audit.py",
+      "SHA256": "d39a3f5b8bafcd5c16b9368e9c8591370c57d9a8425efa8b5e86675d73e363ad",
+      "size": 7472,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/enhanced_clinical_models.py",
+      "SHA256": "fe70b0fb5d515ed1b6bfceb20452f196be9cdee91d1e4b8cc0731a16cdf4f485",
+      "size": 4795,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/enhanced_clinical_v1.py",
+      "SHA256": "89b7e4b489e881e91558d6535305530f3f34244c5956de3c9dc799d94166cabb",
+      "size": 18458,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/feature_inventory_audit.py",
+      "SHA256": "75d33ce74ced332eb8b0c1a60447deb5e1bdf710d7582cd8b9ab9dcf383bee65",
+      "size": 87746,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/first_pass_extended6.py",
+      "SHA256": "ad35eb6e54d4b1976fb148221e8c343d64e684cf494e008e267f35a4464650e5",
+      "size": 21423,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/frozen_foldwise_auc.py",
+      "SHA256": "8f0bb37e3f632b9d769618f4eecc9cdc498936c92c31b23100e66606aeaecf4c",
+      "size": 4853,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/provenance/build_clinical_baseline_design.py",
+      "SHA256": "5578935c1d34235388e4b2ebc314bfe9b8f81ff9697c878026a70b8c77b4ecca",
+      "size": 25352,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/provenance/build_expanded_sample_registry.py",
+      "SHA256": "08f9f9058ee344c0d918996fd3c9afc718906b62c6aa9d87860028d5a57116bd",
+      "size": 7266,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/provenance/freeze_extended6_increment_plan.py",
+      "SHA256": "eb7d22e032d042b0585ddcb4b6425c8f3c3debf9c55e70754f2b821e00678179",
+      "size": 22226,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/provenance/README.md",
+      "SHA256": "45951333aa684d615447e0a0d08ee47b2bb28bd865a16135c3cb9358d15b70bf",
+      "size": 2469,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/provenance/reconcile_feature_inventory.py",
+      "SHA256": "889c6c6c4830a83097df945da10dcc63e781e79429e463442142c18a82f5b24a",
+      "size": 38168,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/replay_prediction.py",
+      "SHA256": "665acfd808a319e3644a6ccc784ed221e4f53cac6218fc04bdb599fef6ae5276",
+      "size": 4974,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/short_activity_auc.py",
+      "SHA256": "d477aa8bee81f1e03a09d71fa52acd0350dc4986f3ffb293bd62ae13d8fee700",
+      "size": 13984,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/static_dynamic_pca_models.py",
+      "SHA256": "8b105ba1baba396533cc8247577f16635fb67cbb4c4db2c924838d4df2dc2953",
+      "size": 3960,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/static_elasticnet_final.py",
+      "SHA256": "72f181d1bcd60316947f46b5b6818e7b3028881f95665c9709839aaf4203222c",
+      "size": 28088,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/tiny_mlp_models.py",
+      "SHA256": "fe577284f4d36b54c880b6fb433dc8a9382c02bd9055b6f439cba0e1ea05f926",
+      "size": 7484,
+      "role": "analysis source",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/code/tiny_mlp_sensitivity.py",
+      "SHA256": "65fa0a825cb0ac6fca8d61b5330e3e8d80d658d1bd8d8aafc30519a8b614779a",
+      "size": 17012,
+      "role": "analysis source",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/LIMITATIONS.md",
+      "SHA256": "dd012b35082d5db9b0ab7d50e864698b3af24b97ff6dceaab8987afd2969a07c",
+      "size": 1853,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/MODEL_DEFINITIONS.md",
+      "SHA256": "e90aea621d0cbadbb092d316c65028c76a18e39f265b630e6c666b0eb37bada5",
+      "size": 2733,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/PRIVATE_INPUT_SHA256.json",
+      "SHA256": "97768d87715064fa71516686247a9ab1adfacd63742db5e90d8a5436e22e7f06",
+      "size": 384,
+      "role": "documentation/provenance",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/README.md",
+      "SHA256": "87d83621bb5250f424947fd9e99e5098d553ebf31806b15c5783bf3ff9aee02b",
+      "size": 2634,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/clinical11_paired_summary.csv",
+      "SHA256": "e8621b5d81e3dbd2a002283c2e0f27696b06eb41cfd47a72e6f54a4f7058f566",
+      "size": 796,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/clinical11_performance_summary.csv",
+      "SHA256": "2c6d74e40c637e508dd467f4fa1cc8d4045abd5d433fabc46752e8128536fa23",
+      "size": 943,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/clinical9_fold_results.csv",
+      "SHA256": "a4170b2c0acd89a1a2d3039b7078d9805c9986dc9f5aa994b1fed986d1b9b5e1",
+      "size": 32901,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/clinical_baseline_sensitivity_summary.csv",
+      "SHA256": "ca311e9aa4448f8dc8c43c445d31180ccdd4cfc39b64a21be8183130ea3982d9",
+      "size": 4665,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/clinical_v2_paired_summary.csv",
+      "SHA256": "f6299bcb852876bc1a0753114472070dea817d51c445e7044d351e8f1e238203",
+      "size": 808,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/clinical_v2_performance_summary.csv",
+      "SHA256": "950dd58f6ad7a841681a15b7e32fe3fc457f342ad54aadbd09183bb7e517343d",
+      "size": 923,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/enhanced_paired_summary.csv",
+      "SHA256": "f617500dad835a9b1b04f6c894acb5bf3ba2e5909e87a9ae8cd6158e823c151e",
+      "size": 1170,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/enhanced_performance_summary.csv",
+      "SHA256": "b360d28a3217fab82d3a3f4ab27d13652099dc76127f93ee978ebb4150fa9c5e",
+      "size": 1331,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/model_form_performance_summary.csv",
+      "SHA256": "5774693accb60e5d6d2099bc02cd0c84c9c15072bedac52c04aa8765e1fc3dfc",
+      "size": 696,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/model_form_sensitivity_summary.csv",
+      "SHA256": "cbadab58aa33f10fd1a741a649e7c027ca9ccf3d09e8dae6216ded667aa26c6f",
+      "size": 812,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/model_performance_summary.csv",
+      "SHA256": "1fcb4e0c4a3a464e3f7801ddcf2ad685999ba1e8dc2df7cf750fd9a195dbef14",
+      "size": 1219,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/other_dynamic_increment_summary.csv",
+      "SHA256": "f2aec32add9ee8c10673ef7a5b7cdaeaf845193e3106a95e5f70354b71b33ce8",
+      "size": 3848,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/paired_increment_summary.csv",
+      "SHA256": "47e0c5cff07eb6217d9aeef4a1a21fe092c5eb6e8062f26009ee0989bb726cf5",
+      "size": 985,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/static_EN_increment_summary.csv",
+      "SHA256": "d7510b7124aa9cce44e5e5acf200c6b100737125cc3db7de654161ee4ec7339c",
+      "size": 597,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/static_EN_performance_summary.csv",
+      "SHA256": "df58a63f79b5ea1a9738c5027cc7ebc9ecbb25af792cd6fbec217004fd114474",
+      "size": 982,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/static_EN_selection_frequency_summary.csv",
+      "SHA256": "64be5e1dc051bcbd5689d46bfe9d4b38dffe0ed7f3d607a2b53a8ed76ba5b7b8",
+      "size": 19561,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/static_PCA_increment_summary.csv",
+      "SHA256": "4d2da7468f86e0c35fcb546a2db042dab11dd65b12e890da19bbcdd4bb32080b",
+      "size": 949,
+      "role": "aggregate result",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/results/static_PCA_performance_summary.csv",
+      "SHA256": "e8fcb5d7fe39ee4a044b3fbb4e8e912420f86c14099af4d120cd4d34dea46347",
+      "size": 859,
+      "role": "aggregate result",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/RESULTS.md",
+      "SHA256": "545eb61f599affb282cd4511aa0a28eafc9354cdbaef37b8ab24ab8572acc46f",
+      "size": 9608,
+      "role": "documentation/provenance",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/pregnancy_prediction/VALIDATION_PROTOCOL.md",
+      "SHA256": "c76b4f962fa9aa72b0d7fa552d2418d70f8daf18d854e18d04439d68620d6f1a",
+      "size": 3470,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/PRIVACY_AUDIT.json",
+      "SHA256": "5e5299968619141c3ebb824d87989aa9762fdec2179f5d7fb30980247eb0f4d7",
+      "size": 763,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/PUBLISH_VALIDATION.md",
+      "SHA256": "131197c2fe0e2d39ec4789280af8b31f847a1907056195787f68c97fecc89064",
+      "size": 2966,
+      "role": "documentation/provenance",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/README.md",
+      "SHA256": "b1744af6add496210d0ff4d2fc2015200383dc55f7cb7145b9536097cf518ae7",
+      "size": 3608,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/requirements.txt",
+      "SHA256": "b1dd3ff477c9c5e8594ceb694988306d788b4a49f6f1ff251bb99051ebfa7ed1",
+      "size": 290,
+      "role": "documentation/provenance",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/RESULT_SOURCE_MAP.json",
+      "SHA256": "947325cb6f3b687a42e5f7d179571ac1d1bf3b70612903beded2fd5255d2757b",
+      "size": 17892,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/REVIEW_CORE_PROVENANCE.json",
+      "role": "review source/documentation",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "81429b2566d7c161c72f722aa9676afaa5bc84bccf5487516190da2065301525",
+      "size": 1312
+    },
+    {
+      "relative_path": "analysis/REVIEW_RESPONSE.md",
+      "role": "review source/documentation",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "1683bb623e69744cf012d049e6214a45afbd1664fc915204a3f96e619ed2f619",
+      "size": 3734
+    },
+    {
+      "relative_path": "analysis/SANDBOX_CODE_INVENTORY.md",
+      "SHA256": "9806b67aab9cb4d17d39b8908d606f4c85ca6a393cbde47aa80caff6b130f047",
+      "size": 807089,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/SANDBOX_CONTENT_INVENTORY_REDACTED.csv",
+      "SHA256": "7874848186f66d4ec0a06dbcf36cf2edf178aedb4ed3fccb8be9496986d17809",
+      "size": 723844,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/SOURCE_RELOCATION_MAP.json",
+      "SHA256": "0851ec0b08909865e7f4b1647e3935fb89643f7cc0616348c747b6c748eba46a",
+      "size": 34931,
+      "role": "documentation/provenance",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/TEST_RESULTS.json",
+      "SHA256": "52960466c0318002f93eeb943d5379330523f5442a4b5b2b75fb7469cc981ef7",
+      "size": 377,
+      "role": "documentation/provenance",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/tests/__init__.py",
+      "SHA256": "67ad7d62a79c1fe15c3ee6aafb227a5d1e10ccb084e0b30bfcecff6012850b8a",
+      "size": 70,
+      "role": "synthetic test",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/tests/fixtures.py",
+      "SHA256": "66e8a6c90c04bb8f1a9940021d8c2abb7296fe3c8b22e86be38e81ca244d3289",
+      "size": 1193,
+      "role": "synthetic test",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/tests/test_auc_aggregation.py",
+      "SHA256": "e632797ecb8bd93789f54bec7e1d35e09417cc51723262f8ac92385d835b5b8a",
+      "size": 1132,
+      "role": "synthetic test",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/tests/test_mse_decomposition.py",
+      "SHA256": "5a5a98ce15f7dd4a1d148dce0fd37845f7fe37b7fc36b9504249e0763eb4fb8d",
+      "size": 1143,
+      "role": "synthetic test",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/tests/test_mse_formula.py",
+      "SHA256": "ee811d1b1ceb4f179e5c829cf0a57e7882a3cec59d581b9fda851740380905ca",
+      "size": 940,
+      "role": "synthetic test",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/tests/test_no_cross_segment.py",
+      "SHA256": "85c538531a5c48d0a7268e779f5a6c75319128cccf2892414229e64a53210f48",
+      "size": 1416,
+      "role": "synthetic test",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/tests/test_paired_model_comparison.py",
+      "SHA256": "abc7a7e3e1d38163ee2b4fdd046c7eaf8fdf0f291038d8d3df4fdb34d47af3cc",
+      "size": 1015,
+      "role": "synthetic test",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/tests/test_patient_aggregation.py",
+      "SHA256": "c6cd1dbbd4e6bb1e90b2c9e6011385bc8475cf313a013f6509fb531745c50cef",
+      "size": 1103,
+      "role": "synthetic test",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/tests/test_patient_group_split.py",
+      "SHA256": "6c745d66e8d77a4c9def71a0003ea3b27a371b07ae8b5f9dca50552c76c32358",
+      "size": 1140,
+      "role": "synthetic test",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/tests/test_record_mse_boundary.py",
+      "role": "synthetic test",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true,
+      "SHA256": "032d50054110d1022984b701469bc826c821799c3eb09ef0893f09c85780636e",
+      "size": 7746
+    },
+    {
+      "relative_path": "analysis/tests/test_saved_tracks_chain.py",
+      "SHA256": "03a2427e577dd00cdab4756dd5781cda6a9aaaf7048bd11891a316d45b330647",
+      "size": 1278,
+      "role": "synthetic test",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/tests/test_train_only_preprocessing.py",
+      "SHA256": "e4568a3f6eee31b3d5b1311e5d017ee8c45860ed7cf6ef6f29de24767762043f",
+      "size": 2405,
+      "role": "synthetic test",
+      "reads_outcome": true,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "analysis/TINY_MLP_SYNTHETIC_CHECK.json",
+      "SHA256": "e3aa5fcf76a8bcf1e104c0ad911c49d450b9021a12e0e72c96628e87d0cc3de0",
+      "size": 548,
+      "role": "documentation/provenance",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    },
+    {
+      "relative_path": "README.md",
+      "SHA256": "c128f03aec9ec62dfb402578947a8e23b5a461c63623cf01c931d358ed938aa4",
+      "size": 18046,
+      "role": "existing repository README with analysis index appended",
+      "reads_outcome": false,
+      "contains_patient_level_data": false,
+      "uploaded_to_git": true
+    }
+  ],
+  "review_parent_commit": "06e83169d8c3ba726dc70e8b3d215b7e186866fc"
+}
