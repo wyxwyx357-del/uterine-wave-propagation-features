@@ -1,0 +1,9 @@
+{
+  "status": "pass",
+  "published_analysis_files_checked": 139,
+  "source_name_or_identifier_columns_checked": 6,
+  "private_name_or_exam_token_matches": 0,
+  "phone_or_national_id_string_literals": 0,
+  "method": "Exact private source name/identifier token search plus Python literal checks; no names/IDs exported.",
+  "limitation": "Pinyin/other source identifiers not present in this source cannot be enumerated; all input/output paths are independently screened and private artifact types excluded."
+}

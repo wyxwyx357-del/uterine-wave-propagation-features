@@ -1,0 +1,3 @@
+augmented,baseline,n_exams,n_unique_patients,Delta_AUC,CI_low,CI_high,crosses_zero,Delta_Brier,Delta_logloss,interpretation
+Clinical_Static_EN,Clinical,180,174,-0.0037577483752764,-0.009158536082588,0.0008953884601458,True,0.001205354632954,0.0030768520356385,exploratory marginal95% fixed OOF; no full training-refit or independent validation claim
+Clinical_Dynamic_Static_EN,Clinical_Dynamic,180,174,-0.0028686094324368,-0.0089740470062594,0.0027507933825133,True,0.0004188083214217,0.0018260470505995,exploratory marginal95% fixed OOF; no full training-refit or independent validation claim

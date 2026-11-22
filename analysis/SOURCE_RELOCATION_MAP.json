@@ -1,0 +1,632 @@
+[
+  {
+    "source_relative_path": "experiments/activity_counting.py",
+    "source_SHA256": "36125b26479c8fba70c93f27b6d8bc5bf31aa679c71adfaea058c13b696709a2",
+    "relative_path": "analysis/mse_pregnancy_association/code/activity_counting.py",
+    "SHA256": "91d4c43a7ca630275395b9852e075fba27cab74230667d50d47fcbe503f7e95c",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/activity_strength.py",
+    "source_SHA256": "70d5e23105e44caf5842b15bc474b30a491c1b8556f0d4655670a09b6c21d06a",
+    "relative_path": "analysis/mse_pregnancy_association/code/activity_strength.py",
+    "SHA256": "622491c8b948f3f2aa95a5ec6437411b2bb5440eac2bfc60892041a71bcde2c7",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/all_features_auc.py",
+    "source_SHA256": "e5e6226c884a16aed821d03a23d5350f67aa683823377a0b1a960c0eb153fbad",
+    "relative_path": "analysis/mse_pregnancy_association/code/all_features_auc.py",
+    "SHA256": "f1fe28b74ccf55f804922aa51842e778f38dcc99c958b3e104e4792a8752fd59",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/batch_wave_counts.py",
+    "source_SHA256": "964c9fe5722764151c541a65397e837222fca54ebac4ec467a8981bd0515576e",
+    "relative_path": "analysis/mse_pregnancy_association/code/batch_wave_counts.py",
+    "SHA256": "0c815ae48dc19c5ca865e2f5daeabda0a30b39d61b09f030d6741d15d44bec43",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/block_elasticnet.py",
+    "source_SHA256": "4709c31eafbcd97394a783bad8497139317759cccfb9ddabb457a03ad1cd47ed",
+    "relative_path": "analysis/pregnancy_prediction/code/block_elasticnet.py",
+    "SHA256": "4709c31eafbcd97394a783bad8497139317759cccfb9ddabb457a03ad1cd47ed",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/candidate_split_verifier.py",
+    "source_SHA256": "46743cfe07d172e10cea2db307d57bf735e30bd4d2ed18c77c2104c83f2feb40",
+    "relative_path": "analysis/mse_pregnancy_association/code/candidate_split_verifier.py",
+    "SHA256": "5e964abc7ae2753e78767b4d116036a5d0f0b546b6a31dd9b01c4fdef2eb5713",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/clinical11_blood_audit.py",
+    "source_SHA256": "65286d7337b811b31452ed6eef2d9acd1ae09f36e6cf00fb4a2ab6bbb85ed1f1",
+    "relative_path": "analysis/pregnancy_prediction/code/clinical11_blood_audit.py",
+    "SHA256": "0d16bb46e38055f211512fe0433293033c2b409d52adf5af1de46f1cd6032100",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/clinical11_blood_sensitivity.py",
+    "source_SHA256": "1e29c7b8ce3e253dceada48d96666e20fc5bd68301a646c861ea091ce614103a",
+    "relative_path": "analysis/pregnancy_prediction/code/clinical11_blood_sensitivity.py",
+    "SHA256": "bde16c221a89c9fcf41712f11b24f0efda80561323d58c74d877f3189319d74f",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/clinical11_models.py",
+    "source_SHA256": "1ce0886cd25d655d53acbff37ba70362516cd52ce22b4585026fec39a59eda0a",
+    "relative_path": "analysis/pregnancy_prediction/code/clinical11_models.py",
+    "SHA256": "80b8c8c8c42bdc192c767bbd3bde36eed2c2ec96dd23715e819738d0596d373d",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/clinical9_data_audit.py",
+    "source_SHA256": "bb86412a2775e9a71420272d1ed4752ee11607b3bc23091a7f3778c00e57b028",
+    "relative_path": "analysis/pregnancy_prediction/code/clinical9_data_audit.py",
+    "SHA256": "112fa02812f412a03ae5150842c8e349364af6ba02719620f9c2fa92ae2dbeac",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/clinical9_frozen_mse.py",
+    "source_SHA256": "3ea0fb57a302a95d5779851db98127e25b5f894770600f4b40d61bf9728626ff",
+    "relative_path": "analysis/pregnancy_prediction/code/clinical9_frozen_mse.py",
+    "SHA256": "49c8e269e340174bbc47a84d4ed3d7a8a5dc452786dc8fd4ac6a45af28e79cf0",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/clinical9_models.py",
+    "source_SHA256": "46f35834e28c61a851f5629e0c7292a0c96a9edd703133ce36816fbd0c1e3e15",
+    "relative_path": "analysis/pregnancy_prediction/code/clinical9_models.py",
+    "SHA256": "4482e0fb726463c2b8cc2c4ce99ab91bf71bb2f8323a98ff76511f216ea6d0cc",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/clinical_v2_models.py",
+    "source_SHA256": "8eedb6a1a5c0d169e9b5153585ff3937da27ed8354ce166eb443c6aaee5951f7",
+    "relative_path": "analysis/pregnancy_prediction/code/clinical_v2_models.py",
+    "SHA256": "b054fed7f11002e037c36f43a9e28a241e6064315b6c495f59a462c1e1f2bd43",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/clinical_v2_treatment.py",
+    "source_SHA256": "a889f7be9076697d410325b0c8286016c401aae5d82443a23815a00895acbfca",
+    "relative_path": "analysis/pregnancy_prediction/code/clinical_v2_treatment.py",
+    "SHA256": "635b0819bb59ec81b6d6110fc37787cd4c75e0320cf2d299d93f28e48a38cefe",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/clinical_variable_screen.py",
+    "source_SHA256": "2e30840b872eaab1937bd14547136bd90f2b5bc01cebd60f1fdfc82719796713",
+    "relative_path": "analysis/mse_pregnancy_association/code/clinical_variable_screen.py",
+    "SHA256": "70e16ac84bf76a145f140945ca081fb274ed28b928a90100b4d5981b652bb578",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/complete_record_coordination.py",
+    "source_SHA256": "e640bbd2b654ddcd8f655a06168213c715fd553359c6216d85d788eeae04c6b1",
+    "relative_path": "analysis/mse_pregnancy_association/code/complete_record_coordination.py",
+    "SHA256": "112acf2292d775ea94c844d95ed3d8890762f351d9bf4402d5616d1927796f75",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/direction_identity_trial.py",
+    "source_SHA256": "01c2713d9f0220c9390cc9a2cb8bb11d7ced699d0d5fa15371b09580b873dc93",
+    "relative_path": "analysis/mse_pregnancy_association/code/direction_identity_trial.py",
+    "SHA256": "0e9187c3643ff2d06e882ca762d2040a0d1ab7cf823b258b8f437e4ad43b4a3f",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/enhanced_clinical_audit.py",
+    "source_SHA256": "1b58096c18e2f92ec2794506352165f95038d590f23349f2a7f26b202b4faf34",
+    "relative_path": "analysis/pregnancy_prediction/code/enhanced_clinical_audit.py",
+    "SHA256": "d39a3f5b8bafcd5c16b9368e9c8591370c57d9a8425efa8b5e86675d73e363ad",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/enhanced_clinical_models.py",
+    "source_SHA256": "b43bd1fb5f87f5a838ffa17bac2b0cc899b162d6400c183e1d99f3912715fffa",
+    "relative_path": "analysis/pregnancy_prediction/code/enhanced_clinical_models.py",
+    "SHA256": "fe70b0fb5d515ed1b6bfceb20452f196be9cdee91d1e4b8cc0731a16cdf4f485",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/enhanced_clinical_v1.py",
+    "source_SHA256": "7b52e272925513c538785935824495fead2d2d97097bbaa820b44d084e348b9e",
+    "relative_path": "analysis/pregnancy_prediction/code/enhanced_clinical_v1.py",
+    "SHA256": "89b7e4b489e881e91558d6535305530f3f34244c5956de3c9dc799d94166cabb",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/er_directional_support_audit.py",
+    "source_SHA256": "3169b7920d7f5015ebf27aadf07dfb80bc2998504b7086f4ac8b2276e9911609",
+    "relative_path": "analysis/mse_pregnancy_association/code/er_directional_support_audit.py",
+    "SHA256": "ea518ebc4923045721afb621e39c5d3d5c29724f5a16f1be2454cc6e4c7fd1cb",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/er_mean_offset_batch_audit.py",
+    "source_SHA256": "ae73a95efbc1a6b661c13c7345bf4acc998ea5f0368c29b78c0a90afc4cf954e",
+    "relative_path": "analysis/mse_pregnancy_association/code/er_mean_offset_batch_audit.py",
+    "SHA256": "e882357823990a3de94494d7d3fecaacc9d8498d52ad93f9ee51d0ee85377a2b",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/er_mse_credibility_audit.py",
+    "source_SHA256": "13809c86ebdd0a1523a226d454ea87649369be5509b66bd465d64eed8cf68e89",
+    "relative_path": "analysis/mse_pregnancy_association/code/er_mse_credibility_audit.py",
+    "SHA256": "fbc24ba039d25a1dcf5e29cfb5c2d2008bbd5afe111d0722d3ec43ca569d950b",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/event_input_smoothing.py",
+    "source_SHA256": "56de4b65996f154e7b7b81431e34b0e76cedde18e8c858affc0ef8d0daedc8bf",
+    "relative_path": "analysis/mse_pregnancy_association/code/event_input_smoothing.py",
+    "SHA256": "56de4b65996f154e7b7b81431e34b0e76cedde18e8c858affc0ef8d0daedc8bf",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/exploratory_activity_rate_increment.py",
+    "source_SHA256": "1e931e2b522b3619b5782015d58e80575e156ac23d418c940dbdf64dbc6a88ef",
+    "relative_path": "analysis/mse_pregnancy_association/code/exploratory_activity_rate_increment.py",
+    "SHA256": "c7d49f459c4cfbe2a67805de529d33c3ed4718adf471cd6f5b9a77c5c58e10eb",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/feature_association.py",
+    "source_SHA256": "6930fc37efdf7d905fd70fb9b269b1c7ec528d04d88c329227fdfd9572e37791",
+    "relative_path": "analysis/mse_pregnancy_association/code/feature_association.py",
+    "SHA256": "4f63b90bc7abd85db5ae592afce0dbb73a428f66fd8217f83815af5505dab72b",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/feature_inventory_audit.py",
+    "source_SHA256": "f26fa7650391bcd87a8cfa706e921ccacff070d4e3cb64102530e743ed97127b",
+    "relative_path": "analysis/pregnancy_prediction/code/feature_inventory_audit.py",
+    "SHA256": "75d33ce74ced332eb8b0c1a60447deb5e1bdf710d7582cd8b9ab9dcf383bee65",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/first_pass_extended6.py",
+    "source_SHA256": "783eed33a1e245a32e0c80ed4a2cc31c33687e3dee7c6b8bfe81998389a2e645",
+    "relative_path": "analysis/pregnancy_prediction/code/first_pass_extended6.py",
+    "SHA256": "ad35eb6e54d4b1976fb148221e8c343d64e684cf494e008e267f35a4464650e5",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/first_pass_metrics.py",
+    "source_SHA256": "894be8ee83a12ead2d55fa0e89743db2ad21f3656986cd7f4ef45fc9a21ca9b3",
+    "relative_path": "analysis/mse_pregnancy_association/code/first_pass_metrics.py",
+    "SHA256": "894be8ee83a12ead2d55fa0e89743db2ad21f3656986cd7f4ef45fc9a21ca9b3",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/frozen_feature_auc.py",
+    "source_SHA256": "b415931eeb41127e479a0401d750cdeedd709c14203c06dc42e9e66cc489bd02",
+    "relative_path": "analysis/mse_pregnancy_association/code/frozen_feature_auc.py",
+    "SHA256": "b415931eeb41127e479a0401d750cdeedd709c14203c06dc42e9e66cc489bd02",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/frozen_foldwise_auc.py",
+    "source_SHA256": "8f0bb37e3f632b9d769618f4eecc9cdc498936c92c31b23100e66606aeaecf4c",
+    "relative_path": "analysis/pregnancy_prediction/code/frozen_foldwise_auc.py",
+    "SHA256": "8f0bb37e3f632b9d769618f4eecc9cdc498936c92c31b23100e66606aeaecf4c",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/global_event_ownership.py",
+    "source_SHA256": "74c47aeb2444571bd930efaaf8ca84fb25829fea53dfc7738556c70c0b5c2dfb",
+    "relative_path": "analysis/mse_pregnancy_association/code/global_event_ownership.py",
+    "SHA256": "74c47aeb2444571bd930efaaf8ca84fb25829fea53dfc7738556c70c0b5c2dfb",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/huang_bridge_phase_a.py",
+    "source_SHA256": "e5fb580d9198dca03ce53a71e8746d947c38a1a59b980c3cbc51c56d096e574e",
+    "relative_path": "analysis/mse_pregnancy_association/code/huang_bridge_phase_a.py",
+    "SHA256": "e6fe5040948120ec3978813e0aaed59abf1ae21bb2bc47c87739621a00e33007",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/huang_bridge_phase_b.py",
+    "source_SHA256": "ebda64e4497922c165798a156d82a799bac7be07b77c60bbf568f06d99a539e3",
+    "relative_path": "analysis/mse_pregnancy_association/code/huang_bridge_phase_b.py",
+    "SHA256": "64a66f157793a1eabe7cb175023db7da80d24398b8bd4d61c5fb97eaa9c05449",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/normalized_activity.py",
+    "source_SHA256": "0d4928c97a6263292d3a7b649c5891e1c1f392b1901947d10c05cee0bb018709",
+    "relative_path": "analysis/mse_pregnancy_association/code/normalized_activity.py",
+    "SHA256": "0d4928c97a6263292d3a7b649c5891e1c1f392b1901947d10c05cee0bb018709",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/partial_phase_events.py",
+    "source_SHA256": "4380102e22a43ded718faace8588a72345b2fa2d67cdccaf7ea873367acf9a5c",
+    "relative_path": "analysis/mse_pregnancy_association/code/partial_phase_events.py",
+    "SHA256": "4380102e22a43ded718faace8588a72345b2fa2d67cdccaf7ea873367acf9a5c",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/patient_activity_aggregation.py",
+    "source_SHA256": "68a3debf8b8a7a60502485ab3ca78850553d2d5f11083c99b53af325bd13f92f",
+    "relative_path": "analysis/mse_pregnancy_association/code/patient_activity_aggregation.py",
+    "SHA256": "9ac2058d978aac3335a3f44b762c67dc0df2f5b0dfa476c12680f8bdc408bd04",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/short_activity_auc.py",
+    "source_SHA256": "07d900c860c61e8ff8517698a82f46d52d0857f2031829b7d050799b4506c68d",
+    "relative_path": "analysis/pregnancy_prediction/code/short_activity_auc.py",
+    "SHA256": "d477aa8bee81f1e03a09d71fa52acd0350dc4986f3ffb293bd62ae13d8fee700",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/short_holdout_outcome_validation.py",
+    "source_SHA256": "b981317294bc35ab9113ed4776ea64d5c7c36324fc2211cde358916d78ffa6bd",
+    "relative_path": "analysis/mse_pregnancy_association/code/short_holdout_outcome_validation.py",
+    "SHA256": "075b08bc9abe8c633d9e141eb2f3b129bcb33f393d7f447e5cf1cd0088056dbd",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/static_dynamic_pca_models.py",
+    "source_SHA256": "8b105ba1baba396533cc8247577f16635fb67cbb4c4db2c924838d4df2dc2953",
+    "relative_path": "analysis/pregnancy_prediction/code/static_dynamic_pca_models.py",
+    "SHA256": "8b105ba1baba396533cc8247577f16635fb67cbb4c4db2c924838d4df2dc2953",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/static_dynamic_pca_test.py",
+    "source_SHA256": "ffffa8a80b83631d25f15e248a453bca44dca41d990aed11d2459a09b9b1063c",
+    "relative_path": "analysis/mse_pregnancy_association/code/static_dynamic_pca_test.py",
+    "SHA256": "1e5781bd3e45e3a16cf3e2774110851fc7d5f45e832ed40a71ddc1826f3a7e9c",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/static_elasticnet_final.py",
+    "source_SHA256": "dda459e68d82f19940ff476519f4cb6f7a5820344f53e9c8af0da94c01e9a945",
+    "relative_path": "analysis/pregnancy_prediction/code/static_elasticnet_final.py",
+    "SHA256": "72f181d1bcd60316947f46b5b6818e7b3028881f95665c9709839aaf4203222c",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/tiny_mlp_models.py",
+    "source_SHA256": "fe577284f4d36b54c880b6fb433dc8a9382c02bd9055b6f439cba0e1ea05f926",
+    "relative_path": "analysis/pregnancy_prediction/code/tiny_mlp_models.py",
+    "SHA256": "fe577284f4d36b54c880b6fb433dc8a9382c02bd9055b6f439cba0e1ea05f926",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "experiments/tiny_mlp_sensitivity.py",
+    "source_SHA256": "4845216594ed9494e4f9d86d85921ee113191776ecfc199213d4d05cc579f7fb",
+    "relative_path": "analysis/pregnancy_prediction/code/tiny_mlp_sensitivity.py",
+    "SHA256": "65fa0a825cb0ac6fca8d61b5330e3e8d80d658d1bd8d8aafc30519a8b614779a",
+    "relocation": "import namespace and input/resource paths only; numeric literals unchanged",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/__init__.py",
+    "source_SHA256": "85594a5c560af76ae5ccbcf485bc505a37598cf20bda4b4ef7fcac5dc7a5d2f4",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/__init__.py",
+    "SHA256": "85594a5c560af76ae5ccbcf485bc505a37598cf20bda4b4ef7fcac5dc7a5d2f4",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/__main__.py",
+    "source_SHA256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/__main__.py",
+    "SHA256": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/_lk.py",
+    "source_SHA256": "3ada5c8f440e48a56a3e960b01a2918d999cd6c8bad88ff8657920e041cabbb5",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/_lk.py",
+    "SHA256": "3ada5c8f440e48a56a3e960b01a2918d999cd6c8bad88ff8657920e041cabbb5",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/amplitude.py",
+    "source_SHA256": "946a67a6958e8f784f000e5638e3b3db3ff9a527828b58821fce58aece3a3a39",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/amplitude.py",
+    "SHA256": "946a67a6958e8f784f000e5638e3b3db3ff9a527828b58821fce58aece3a3a39",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/candidate_evidence.py",
+    "source_SHA256": "e069ac14c0969fa04798f641871bc14b12a2ee7a6a4b0d74b9488500863dd896",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/candidate_evidence.py",
+    "SHA256": "e069ac14c0969fa04798f641871bc14b12a2ee7a6a4b0d74b9488500863dd896",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/cli.py",
+    "source_SHA256": "b9fb33aac1570b5c4475af7c30c88cde6025941d229c8ca1dd299498126e7b00",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/cli.py",
+    "SHA256": "b9fb33aac1570b5c4475af7c30c88cde6025941d229c8ca1dd299498126e7b00",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/controls.py",
+    "source_SHA256": "7795fdf47709225a2434f61efa98fb505db54d030a938dfcbcc397db3315737e",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/controls.py",
+    "SHA256": "7795fdf47709225a2434f61efa98fb505db54d030a938dfcbcc397db3315737e",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/deformation.py",
+    "source_SHA256": "2c821f91bfd03e2668af52b77d0a717b86984e3db9eeb3fe7d2a6fc52cce991e",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/deformation.py",
+    "SHA256": "2c821f91bfd03e2668af52b77d0a717b86984e3db9eeb3fe7d2a6fc52cce991e",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/events.py",
+    "source_SHA256": "bd3ea4ae50ed1bbfea688565b84726184a58a17a31832110ebc58298831e5854",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/events.py",
+    "SHA256": "bd3ea4ae50ed1bbfea688565b84726184a58a17a31832110ebc58298831e5854",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/frozen_pipeline.py",
+    "source_SHA256": "30af12464031ede53365f7d51538c4249125f0301a58c8c2146f9db710574fc6",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/frozen_pipeline.py",
+    "SHA256": "30af12464031ede53365f7d51538c4249125f0301a58c8c2146f9db710574fc6",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/geometry.py",
+    "source_SHA256": "5bd135e789bacc74ba7b62025d55c69e27ca0a3e2f886914c99b29a03c1c85ed",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/geometry.py",
+    "SHA256": "5bd135e789bacc74ba7b62025d55c69e27ca0a3e2f886914c99b29a03c1c85ed",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/input_inventory.py",
+    "source_SHA256": "3b3b88bc998c4c13e20351c74fb47c6019a54f7d4a74abd07ea5b8eb8b842fdc",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/input_inventory.py",
+    "SHA256": "3b3b88bc998c4c13e20351c74fb47c6019a54f7d4a74abd07ea5b8eb8b842fdc",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/io.py",
+    "source_SHA256": "93a5f6e97ec1d42eb002c02ba82b2e37db613d7604e88bb6b2345676c8551157",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/io.py",
+    "SHA256": "93a5f6e97ec1d42eb002c02ba82b2e37db613d7604e88bb6b2345676c8551157",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/modes.py",
+    "source_SHA256": "59c55a58c1f40906623334114517b726a5f109f0134d579ef69c94fc1939935b",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/modes.py",
+    "SHA256": "59c55a58c1f40906623334114517b726a5f109f0134d579ef69c94fc1939935b",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/motion_consensus.py",
+    "source_SHA256": "f075df82bfe6cb5a71a5e33fa8dac4f7b1ea827b465577b71ed6b804280f86b8",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/motion_consensus.py",
+    "SHA256": "f075df82bfe6cb5a71a5e33fa8dac4f7b1ea827b465577b71ed6b804280f86b8",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/p3_outer.py",
+    "source_SHA256": "6389d95f32c7cf944912b4b517719c6560f01cf31f17fd13dcc8f5b2911d4da9",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/p3_outer.py",
+    "SHA256": "6389d95f32c7cf944912b4b517719c6560f01cf31f17fd13dcc8f5b2911d4da9",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/patient.py",
+    "source_SHA256": "d0445459b372662164003e3aa4f2879a8531f435931ea2557dc24648d4bf81ec",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/patient.py",
+    "SHA256": "d0445459b372662164003e3aa4f2879a8531f435931ea2557dc24648d4bf81ec",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/quality.py",
+    "source_SHA256": "44951676d8652bc951ce5821bbe0c3ad08dc312b7276ead36deaf0a44035c305",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/quality.py",
+    "SHA256": "44951676d8652bc951ce5821bbe0c3ad08dc312b7276ead36deaf0a44035c305",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/radial_events.py",
+    "source_SHA256": "8b7ae5408a7ec01832786a13ca3e662b2c663fae115819c8c60ad7be369f3133",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/radial_events.py",
+    "SHA256": "8b7ae5408a7ec01832786a13ca3e662b2c663fae115819c8c60ad7be369f3133",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/spectrum.py",
+    "source_SHA256": "0511fc1e565c00a6975a9db08fa7ceba72f13fe146a2f63fe2cfd35bc6d464d3",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/spectrum.py",
+    "SHA256": "0511fc1e565c00a6975a9db08fa7ceba72f13fe146a2f63fe2cfd35bc6d464d3",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/tracking.py",
+    "source_SHA256": "1d2df6a610723f4da100bdb519a0485840315de7d561ee4ec4230fc41d3c6823",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/tracking.py",
+    "SHA256": "1d2df6a610723f4da100bdb519a0485840315de7d561ee4ec4230fc41d3c6823",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "uterine_wave/wavefit.py",
+    "source_SHA256": "57ca53a3b4f272d933aa4f1bd44c3024188521c5c9d2bc290064e7186c1bfefa",
+    "relative_path": "analysis/mse_pregnancy_association/code/measurement/wavefit.py",
+    "SHA256": "57ca53a3b4f272d933aa4f1bd44c3024188521c5c9d2bc290064e7186c1bfefa",
+    "relocation": "byte-identical measurement snapshot; original repository package untouched",
+    "reads_outcome": false,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "outputs/reconcile_feature_inventory.py",
+    "source_SHA256": "cf27f2e86697483e1d6e584eeebda841c5439295770d29f17f813d75539ec5c2",
+    "relative_path": "analysis/pregnancy_prediction/code/provenance/reconcile_feature_inventory.py",
+    "SHA256": "889c6c6c4830a83097df945da10dcc63e781e79429e463442142c18a82f5b24a",
+    "relocation": "private resource paths/imports only; historical script, do not import for side effects",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "outputs/build_expanded_sample_registry.py",
+    "source_SHA256": "ea67c7f5452d3d6f91ea3adfdb5974fbed56985f7e4bea8e816a95a05feed0c7",
+    "relative_path": "analysis/pregnancy_prediction/code/provenance/build_expanded_sample_registry.py",
+    "SHA256": "08f9f9058ee344c0d918996fd3c9afc718906b62c6aa9d87860028d5a57116bd",
+    "relocation": "private resource paths/imports only; historical script, do not import for side effects",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "outputs/build_clinical_baseline_design.py",
+    "source_SHA256": "34f8512cb9dced4bc88377ecbe5496af48860bf0c42728eccfbb6eb178974b3c",
+    "relative_path": "analysis/pregnancy_prediction/code/provenance/build_clinical_baseline_design.py",
+    "SHA256": "5578935c1d34235388e4b2ebc314bfe9b8f81ff9697c878026a70b8c77b4ecca",
+    "relocation": "private resource paths/imports only; historical script, do not import for side effects",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  },
+  {
+    "source_relative_path": "outputs/freeze_extended6_increment_plan.py",
+    "source_SHA256": "b4b309aed8f650939e5a7811c632b42cd7f146fa7b758d3da837be355d0c4766",
+    "relative_path": "analysis/pregnancy_prediction/code/provenance/freeze_extended6_increment_plan.py",
+    "SHA256": "eb7d22e032d042b0585ddcb4b6425c8f3c3debf9c55e70754f2b821e00678179",
+    "relocation": "private resource paths/imports only; historical script, do not import for side effects",
+    "reads_outcome": true,
+    "contains_patient_level_data": false
+  }
+]

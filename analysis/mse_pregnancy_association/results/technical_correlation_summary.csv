@@ -1,0 +1,5 @@
+feature,covariate,Pearson_r,abs_Pearson_r,n
+abs_delta_ER,month_index,-0.0316095379774415,0.0316095379774415,157
+delta_ER,posterior_valid_fraction,0.0343850194130334,0.0343850194130334,157
+record_MSE_time_equal,posterior_valid_fraction,0.1205595889233239,0.1205595889233239,157
+record_mean_bias_sq,video_duration_s,-0.0676268194849184,0.0676268194849184,157

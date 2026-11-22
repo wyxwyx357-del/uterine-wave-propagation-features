@@ -168,3 +168,8 @@ python experiments/match_clinical_wave_reference.py --workbook data/clinical.xls
 
 [Retained-direction and identity-first integration](docs/DIRECTION_IDENTITY_TRIAL.md): refit each contiguous salience-retained block after cross-wall identity reconciliation; preserves 12/12 necessary strong-wave controls and leaves one known 10-second complementary-wall duplication unresolved.
 
+
+
+## ER-MSE evidence and frozen pregnancy prediction
+
+[Analysis archive](analysis/README.md): measurement/aggregation provenance, Clinical9 Ridge primary comparison, Tiny MLP sensitivity, all aggregate sensitivity and negative results, synthetic tests, privacy audit and freeze manifest. Patient-level data remain private.

@@ -1,0 +1,24 @@
+{
+  "status": "pass",
+  "published_files_checked": 140,
+  "absolute_local_paths": 0,
+  "real_like_identifier_literals": 0,
+  "patient_level_result_columns": 0,
+  "private_arrays_workbooks_or_images": 0,
+  "source_hashes_unchanged": true,
+  "inspection": "Full UTF8 content and CSV schemas, plus source relocation hashes. Synthetic fixtures explicitly use artificial IDs.",
+  "excluded": [
+    "clinical workbooks",
+    "patient master tables",
+    "patient outcome/feature rows",
+    "patient OOF probabilities",
+    "identity mappings",
+    "raw videos",
+    "ROI annotations/images",
+    "tracking NPZ",
+    "network weights/model pickles",
+    "private folder names",
+    "raw protocols with absolute paths and patient timing IDs",
+    "bootstrap draws"
+  ]
+}

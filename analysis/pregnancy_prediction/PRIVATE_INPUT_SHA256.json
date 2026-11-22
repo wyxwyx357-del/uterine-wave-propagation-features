@@ -1,0 +1,8 @@
+{
+  "canonical_master_SHA256": "efc54a434c16c844db7fb19f6f22075386e579d035926fc258b368d8f5e9c61a",
+  "original_jobs_SHA256": "58f806dd8b3648db4ee566f7b461ad8b4f924b574f688048a3d42b4533210ce9",
+  "canonical_master_rows": 311,
+  "primary_exams": 185,
+  "primary_unique_patients": 179,
+  "purpose": "Verify private canonical row order and exact jobs without uploading their contents."
+}

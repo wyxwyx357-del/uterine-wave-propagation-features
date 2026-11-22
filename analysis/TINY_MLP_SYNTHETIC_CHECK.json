@@ -1,0 +1,14 @@
+{
+  "status": "pass",
+  "scope": "Archived verification() on synthetic inputs only; no patient training or model search",
+  "same_seed_training_reproducible": true,
+  "eval_logits_independently_reconstructed": true,
+  "best_epoch_uses_validation_BCE_only": true,
+  "final_refit_has_no_validation_or_test_selection": true,
+  "patience20_and_eval_dropout_off_verified": true,
+  "train_only_missing_and_scale": true,
+  "net_parameters_Clinical9": 89,
+  "net_parameters_Clinical9_MSE": 97,
+  "fixed_CPU_float32": true,
+  "torch_version": "2.6.0+cpu"
+}

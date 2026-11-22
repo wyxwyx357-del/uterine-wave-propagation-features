@@ -1,0 +1,6 @@
+augmented,baseline,n_exams,n_unique_patients,Delta_AUC,CI_low,CI_high,crosses_zero,interval_scope
+Clinical_Static,Clinical,180,174,-0.0141050384426584,-0.0541638687878111,0.0235628226665977,True,"exploratory marginal95%, no multiplicity correction; fixed OOF"
+Clinical_Static_Dynamic,Clinical_Dynamic,180,174,-0.0153749280788605,-0.040092636486554,0.0082511975862355,True,"exploratory marginal95%, no multiplicity correction; fixed OOF"
+Clinical_Dynamic,Clinical,180,174,0.0420933615108826,-0.0396345557200056,0.1205650647808412,True,"exploratory marginal95%, no multiplicity correction; fixed OOF"
+Clinical_Static_Dynamic,Clinical_Static,180,174,0.0408234718746805,-0.0315064615705946,0.1114713019327924,True,"exploratory marginal95%, no multiplicity correction; fixed OOF"
+Clinical_Static_Dynamic,Clinical,180,174,0.026718433432022,-0.0585258395667691,0.1083446954389162,True,"exploratory marginal95%, no multiplicity correction; fixed OOF"
