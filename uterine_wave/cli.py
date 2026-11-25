@@ -26,6 +26,8 @@ def main(argv=None):
     track_cmd.add_argument('--poses', required=True, help='NPZ with time_s, poses, pose_epoch, matching decoded frames')
     track_cmd.add_argument('--time-factor', type=float, required=True)
     track_cmd.add_argument('--scale', type=float, default=.5)
+    track_cmd.add_argument('--experimental-pose-reset', action='store_true',
+                           help='Allow pose-only reseeding of radial inner points after a failed template match')
     track_cmd.add_argument('--output', required=True)
     maps_cmd = commands.add_parser('features', help='Compute physical-interval radial maps; explicit --hop keeps legacy A/B output')
     maps_cmd.add_argument('--tracks', required=True)
@@ -82,8 +84,9 @@ def main(argv=None):
             raise ValueError('Pose timestamps differ from the decoded acquisition timeline')
         if epoch.shape != t.shape:
             raise ValueError('pose_epoch must match acquisition timestamps')
+        reset_ids = grid['A_pair_ids'][:, :, 0].ravel() if args.experimental_pose_reset else ()
         tracks = track_segments(frames, np.vstack((grid['A_points'], grid['B_points'])), t, poses,
-                                pose_epoch=epoch, pose_valid=pose_valid)
+                                pose_epoch=epoch, pose_valid=pose_valid, pose_reset_ids=reset_ids)
         np.savez_compressed(output, **tracks)
         np.savez_compressed(output.with_name(output.stem+'_layout.npz'), **grid)
     elif args.command == 'features':
