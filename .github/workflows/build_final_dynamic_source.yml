@@ -1,0 +1,19 @@
+name: build-final-dynamic-source-artifact
+on:
+  push:
+    branches:
+      - final-dynamic-batch-20261126
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove git metadata
+        run: rm -rf .git
+      - name: Upload source tree
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-dynamic-source-tree
+          path: .
+          include-hidden-files: true
+          retention-days: 7
