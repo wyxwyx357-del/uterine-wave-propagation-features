@@ -1,0 +1,66 @@
+{
+  "stage": "activity_count_v2 Step 1",
+  "status": "passed pre-freeze read-only audit; implementation freeze only",
+  "date": "2026-11-25",
+  "base_commit": "3b6e0541766849a13ff6e0de37cdf011695e04e8",
+  "tag": "activity-count-v2-step1-freeze",
+  "statement": "activity_count_v2 Step 1 已通过冻结前只读审计。Step 1 仅修正有效观察时间支持域与跨壁身份歧义计数，不改变 A(s,t)、0.6显著性、事件检测、传播判定或其他冻结动力学特征定义。",
+  "frequency_terminology": {
+    "legacy_significant_propagation_activity_count": "旧v1严格1:1与未合并单壁传播活动计数逻辑。",
+    "legacy_count_with_v2_denominator_frequency_cpm": {
+      "meaning": "旧v1计数 × 60 / 新filtered observation denominator（秒）",
+      "existing_output_fields": [
+        "significant_propagation_activity_frequency_cpm",
+        "significant_propagation_activity_frequency_cpm_v1_legacy"
+      ],
+      "historical_v1_frequency_reproduction": false,
+      "note": "这是冻结记录中的准确术语映射；本轮不修改已审计的输出接口。"
+    },
+    "v2_count_min/max/exact": "对应 significant_propagation_activity_count_min/max/exact。",
+    "v2_frequency_min/max/exact": "对应 significant_propagation_activity_frequency_cpm_min/max/exact；均使用新filtered observation denominator。"
+  },
+  "support_rule": "per-wall/per-section max(3, ceil(12 / median(diff(interval_center_s)))) samples; >=3 adjacent native sections; union of measurement intervals across walls",
+  "count_rule": {
+    "min": "C_prop + U_prop - M_prop",
+    "max": "C_prop + U_prop",
+    "matching_nodes": "only unmerged propagation-supported nodes",
+    "range_semantics": "identity ambiguity range, not statistical confidence interval"
+  },
+  "validation": {
+    "passed": 228,
+    "skipped": 2,
+    "failed": 0,
+    "subtests_passed": 32,
+    "new_tests_passed": 26,
+    "skip_reason": "Both tests/test_cuda.py tests require explicit UTERINE_WAVE_CUDA_TESTS=1",
+    "manual_graphs_no_mock": [
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        1,
+        2
+      ]
+    ]
+  },
+  "audit_limitations": [
+    "observation_union standalone accepts some nonuniform time axes rejected by FFT; count_map filters first, so invalid inputs do not produce a frequency",
+    "Freeze covers Step 1 logic, not physiological event-count validation; reviewed=False and frozen_count_algorithm=False remain unchanged"
+  ],
+  "prohibited_work_not_performed": [
+    "formal patient cohort batch",
+    "pregnancy outcome access",
+    "pregnancy AUC",
+    "Step 2 threshold/normalization changes"
+  ],
+  "next_stage": "Step 4a: zero-true-deformation noise calibration under 21 px radial baseline + frozen A0 tracking + 2 s A(s,t); no new detector thresholds"
+}
