@@ -1,0 +1,2 @@
+case_id,video,annotation,pose,time_factor,a0_spacetime_cache,r2_tracking,r2_nodes,mm_per_processed_pixel
+CASE001,D:/study/videos/CASE001.mp4,D:/study/annotations/CASE001.json,D:/study/poses/CASE001.npz,1.0,,D:/study/p3_tracks/CASE001.npz,D:/study/nodes/CASE001.json,
