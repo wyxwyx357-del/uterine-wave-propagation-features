@@ -8,7 +8,8 @@ import cv2
 from ._lk import match, local_contrast
 
 def track_segments(gray,initial,time_s,poses,*,recover=True,retry_frames=4,
-                   window=21,max_fb_px=.75,contrast_sigma=5.,qc_downsample=1,qc_window=None,pose_epoch=None,pose_valid=None):
+                   window=21,max_fb_px=.75,contrast_sigma=5.,qc_downsample=1,qc_window=None,pose_epoch=None,pose_valid=None,
+                   pose_reset_ids=()):
     t=np.asarray(time_s,float);ini=np.asarray(initial,np.float32);poses=np.asarray(poses,float)
     if t.ndim!=1 or len(t)<2 or not np.isfinite(t).all():raise ValueError('Expected at least two finite timestamps')
     if ini.ndim!=2 or ini.shape[1]!=2 or len(ini)==0 or not np.isfinite(ini).all():raise ValueError('Expected finite nonempty Nx2 seeds')
@@ -26,6 +27,19 @@ def track_segments(gray,initial,time_s,poses,*,recover=True,retry_frames=4,
     if qc_window is not None and (qc_window<3 or qc_window%2!=1):raise ValueError('QC window must be odd and at least 3')
     qc=gray if qc_downsample==1 else [cv2.resize(frame,None,fx=1/qc_downsample,fy=1/qc_downsample,interpolation=cv2.INTER_AREA) for frame in gray]
     n,k=len(t),len(ini)
+    reset_ids = np.asarray(pose_reset_ids)
+    if reset_ids.ndim != 1 or (reset_ids.size and
+            (reset_ids.dtype.kind not in 'iu' or np.any(reset_ids < 0) or np.any(reset_ids >= k))):
+        raise ValueError('pose_reset_ids must be a list of valid point indices')
+    reset_enabled = bool(reset_ids.size)
+    if reset_enabled and (not recover or pose_epoch is None or pose_valid is None):
+        raise ValueError('Pose reset requires recovery, pose_epoch and pose_valid')
+    reset_allowed = np.zeros(k, bool)
+    reset_pending = np.zeros(k, bool)
+    if reset_enabled:
+        reset_allowed[reset_ids] = True
+        reset_attempted = np.zeros((n,k), bool)
+        reset_seed = np.zeros((n,k), bool)
     p=np.full((n,k,2),np.nan,np.float32);v=np.zeros((n,k),bool);step=np.zeros((n,k),bool)
     segment=np.full((n,k),-1,int);reanchor=np.zeros((n,k),bool);attempt=np.zeros((n,k),bool)
     score=np.full((n,k),np.nan);fb=np.full_like(score,np.nan);reason=np.full((n,k),'waiting',dtype='U28')
@@ -42,14 +56,22 @@ def track_segments(gray,initial,time_s,poses,*,recover=True,retry_frames=4,
             q,g,s,f,r=match(enhanced[i-1],enhanced[i],qc[i-1],qc[i],pending_point[pending],window,max_fb_px=max_fb_px,qc_scale=qc_downsample,qc_window=qc_window)
             for j,col in enumerate(pending):
                 score[i,col]=s[j];fb[i,col]=f[j]
-                if g[j]:
+                from_pose = reset_pending[col]
+                pose_support = not from_pose or (pose_valid[i] and epoch[i] == epoch[i-1])
+                if g[j] and pose_support:
                     seed=int(pending_index[col]);sid[col]+=1
                     p[seed,col]=pending_point[col];v[seed,col]=True;segment[seed,col]=sid[col];reanchor[seed,col]=True
                     reason[seed,col]='reanchor_confirmed';step[seed,col]=False
                     p[i,col]=q[j];v[i,col]=True;segment[i,col]=sid[col];step[i,col]=True;reason[i,col]='accepted_after_reanchor'
+                    if from_pose:
+                        reset_seed[seed,col] = True
+                        reason[seed,col] = 'pose_reset_confirmed'
+                        reason[i,col] = 'accepted_after_pose_reset'
                     last_index[col]=i;last_point[col]=q[j]
-                else:reason[i,col]='confirmation_failed'
+                else:
+                    reason[i,col] = 'pose_reset_confirm_failed' if from_pose else 'confirmation_failed'
                 pending_index[col]=-1
+                reset_pending[col] = False
         # Existing tracks keep the exact original localization/QC behavior.
         active=np.flatnonzero(v[i-1]&~reanchor[i-1])
         # Confirmed seeds were handled above, so do not process them twice.
@@ -69,15 +91,26 @@ def track_segments(gray,initial,time_s,poses,*,recover=True,retry_frames=4,
                 guess=last_point[cols]@m[:2,:2].T+m[:2,2]
                 q,g,s,f,r=match(enhanced[int(ref)],enhanced[i],qc[int(ref)],qc[i],last_point[cols],window,guess,max_fb_px=max_fb_px,qc_scale=qc_downsample,qc_window=qc_window)
                 attempt[i,cols]=True;next_retry[cols]=i+retry_frames
+                can_reset = reset_enabled and i+1<n and pose_valid[ref] and pose_valid[i] and epoch[ref] == epoch[i]
+                if can_reset:
+                    height,width = gray[i].shape
+                    inside = np.all((guess >= 0) & (guess < [width,height]), axis=1)
                 for j,col in enumerate(cols):
                     if g[j]:
                         pending_index[col]=i;pending_point[col]=q[j]
                         reason[i,col]='awaiting_confirmation';score[i,col]=s[j];fb[i,col]=f[j]
+                    elif can_reset and reset_allowed[col] and inside[j]:
+                        pending_index[col]=i;pending_point[col]=guess[j]
+                        reset_pending[col] = True
+                        reset_attempted[i,col] = True
+                        reason[i,col] = 'pose_reset_pending'
     corrected=np.einsum('tni,tji->tnj',p.astype(float),poses[:,:2,:2])+poses[:,None,:2,2]
     result=dict(positions=p,corrected=corrected,target_valid=v,step_valid=step,segment_id=segment,reanchor=reanchor,
         recovery_attempted=attempt,time_s=t,frame_indices=np.arange(n),initial_points=ini,poses=poses,
         target_ncc=score,target_fb=fb,reject_reason=reason,pose_epoch=epoch)
     if pose_valid is not None:result['pose_valid']=pose_valid.copy()
+    if reset_enabled:
+        result.update(pose_reset_attempted=reset_attempted, pose_reset_seed=reset_seed)
     return result
 
 
